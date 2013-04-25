@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="BMO.tsx"/>
+ <layer name="Ground" width="32" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYmBgYBrFo3gQYUYoJqSGWmaRYz4x8uTaTYy7CcmRay+x5uATp4bdlMbPqP3Us4ccPFz8P2r/wNpPSvlD7bQ3kOUfpXUHpfZSwwx6pI/B7IahgAHLHgXF
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="32" height="24">
+  <object name="PlayerStart" x="224" y="192" width="32" height="32"/>
+  <object name="PlayerStart" x="736" y="160" width="32" height="32"/>
+  <object name="PlayerStart" x="704" y="608" width="32" height="32"/>
+  <object name="PlayerStart" x="160" y="608" width="32" height="32"/>
+ </objectgroup>
+</map>

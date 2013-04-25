@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{79C304C7-4297-4AEC-8A2A-8D30AB3765E4}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AndroidPuzzleGame</RootNamespace>
+    <AssemblyName>AndroidPuzzleGame</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidApplication>true</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidSupportedAbis>armeabi-v7a%3bx86</AndroidSupportedAbis>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <TargetFrameworkVersion>v2.3</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;ANDROID</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;ANDROID</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="OpenTK" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity1.cs" />
+    <Compile Include="Camera2D.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\Player.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenManager\GameScreen.cs" />
+    <Compile Include="ScreenManager\InputState.cs" />
+    <Compile Include="ScreenManager\ScreenManager.cs" />
+    <Compile Include="Screens\LevelScreen.cs" />
+    <Compile Include="Screens\TitleScreen.cs" />
+    <Compile Include="Utilities\GameTimer.cs" />
+    <Compile Include="Utilities\Tiled\Layer.cs" />
+    <Compile Include="Utilities\Tiled\Map.cs" />
+    <Compile Include="Utilities\Tiled\ObjectGroup.cs" />
+    <Compile Include="Utilities\Tiled\TiledCore.cs" />
+    <Compile Include="Utilities\Tiled\Tileset.cs" />
+    <Compile Include="Utilities\Tiled\zlib\CRC32.cs" />
+    <Compile Include="Utilities\Tiled\zlib\Deflate.cs" />
+    <Compile Include="Utilities\Tiled\zlib\DeflateStream.cs" />
+    <Compile Include="Utilities\Tiled\zlib\GZipStream.cs" />
+    <Compile Include="Utilities\Tiled\zlib\Inflate.cs" />
+    <Compile Include="Utilities\Tiled\zlib\InfTree.cs" />
+    <Compile Include="Utilities\Tiled\zlib\ParallelDeflateOutputStream.cs" />
+    <Compile Include="Utilities\Tiled\zlib\Tree.cs" />
+    <Compile Include="Utilities\Tiled\zlib\Zlib.cs" />
+    <Compile Include="Utilities\Tiled\zlib\ZlibBaseStream.cs" />
+    <Compile Include="Utilities\Tiled\zlib\ZlibCodec.cs" />
+    <Compile Include="Utilities\Tiled\zlib\ZlibConstants.cs" />
+    <Compile Include="Utilities\Tiled\zlib\ZlibStream.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\PuzzleGam\Content\gamefont.xnb">
+      <Link>Assets\Content\gamefont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\Levels\1.tmx">
+      <Link>Assets\Content\Levels\1.tmx</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\Levels\2.tmx">
+      <Link>Assets\Content\Levels\2.tmx</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\Levels\3.tmx">
+      <Link>Assets\Content\Levels\3.tmx</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\Levels\GameTileset.tsx">
+      <Link>Assets\Content\Levels\GameTileset.tsx</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\menufont.xnb">
+      <Link>Assets\Content\menufont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Values\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Layout\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\Splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MonoGame-develop\MonoGame.Framework\MonoGame.Framework.Android.csproj">
+      <Project>{ba9476cf-99ba-4d03-92f2-73d2c5e58883}</Project>
+      <Name>MonoGame.Framework.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MonoGame-develop\ThirdParty\Lidgren.Network\Lidgren.Network.Android.csproj">
+      <Project>{565129e0-4ee5-4f6f-b403-c3484c9740be}</Project>
+      <Name>Lidgren.Network.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\PuzzleGam\Content\background.png">
+      <Link>Assets\Content\background.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\blank.png">
+      <Link>Assets\Content\blank.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\gradient.png">
+      <Link>Assets\Content\gradient.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\Hit.wav">
+      <Link>Assets\Content\Hit.wav</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\Levels\TextureAtlas.png">
+      <Link>Assets\Content\Levels\TextureAtlas.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\Screens\Title\bg.png">
+      <Link>Assets\Content\Screens\Title\bg.png</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="..\PuzzleGam\Content\success.wav">
+      <Link>Assets\Content\success.wav</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <Content Include="Properties\AndroidManifest.xml" />
+    <Content Include="Utilities\Tiled\zlib\License.txt" />
+    <Content Include="Utilities\Tiled\zlib\License.zlib.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+     Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
