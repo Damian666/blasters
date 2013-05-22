@@ -24,6 +24,11 @@ namespace BlastersShared.GameSession
             get { return Configuration.MaxPlayers == Users.Count; }
         }
 
+        /// <summary>
+        /// Determines whether or not the session is in progress or not
+        /// </summary>
+        public bool InProgress { get; set; }
+
 
         /// <summary>
         /// A list of users wanting to participate in this session
@@ -47,7 +52,7 @@ namespace BlastersShared.GameSession
         {
             var rUID = new Random().Next(45345435);
             var session = new GameSession(null);
-            session.Configuration = new GameSessionConfig("Blasters Game - ID: " + session.SessionID, 4, GameSessionType.Normal);
+            session.Configuration = new GameSessionConfig("Deathmatch Game" + session.SessionID, 4, GameSessionType.Normal);
             return session;
         }
 
@@ -63,6 +68,7 @@ namespace BlastersShared.GameSession
             }
 
             Users = new List<User>();
+            InProgress = false;
         }
 
         public GameSession()

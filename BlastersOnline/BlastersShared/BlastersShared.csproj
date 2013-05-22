@@ -34,6 +34,9 @@
     <Reference Include="AltSerialize">
       <HintPath>..\..\..\..\..\Dropbox\Silverdale\Client\AltSerialize.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\Insidia\Source\Dream\bin\x86\DebugRelease\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +49,13 @@
     <Compile Include="GameSession\GameSession.cs" />
     <Compile Include="GameSession\GameSessionConfig.cs" />
     <Compile Include="GameSession\GameSessionType.cs" />
+    <Compile Include="GameSession\SessionEndStatistics.cs" />
+    <Compile Include="Game\Entities\Character.cs" />
+    <Compile Include="Game\Entities\Entity.cs" />
+    <Compile Include="Game\Entities\Player.cs" />
+    <Compile Include="Game\EntityInterpolator.cs" />
+    <Compile Include="Game\SimulationState.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomExtensions.cs" />
     <Compile Include="SerializationHelper.cs" />
@@ -54,10 +64,19 @@
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MonoGame-develop\MonoGame.Framework\MonoGame.Framework.WindowsGL.csproj">
+      <Project>{7de47032-a904-4c29-bd22-2d235e8d91ba}</Project>
+      <Name>MonoGame.Framework.WindowsGL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MonoGame-develop\ThirdParty\Lidgren.Network\Lidgren.Network.Windows.csproj">
       <Project>{ae483c29-042e-4226-ba52-d247ce7676da}</Project>
       <Name>Lidgren.Network.Windows</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

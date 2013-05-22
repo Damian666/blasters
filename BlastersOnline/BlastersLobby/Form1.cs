@@ -39,7 +39,7 @@ namespace BlastersLobby
         private void ProcessSessionBegin(SessionBeginNotificationPacket obj)
         {
             // This form should not be enabled whilst a game is running
-            Enabled = false;
+            //Enabled = false;
 
             var args = obj.SecureToken + " " + obj.RemoteEndpoint + " " + obj.SessionID;
             Process.Start("BlastersGame.exe", args);
@@ -151,6 +151,12 @@ namespace BlastersLobby
                 textBox1.Text = string.Empty;
             }
 
+        }
+
+        private void newMatchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormNewMatch();
+            form.ShowDialog();
         }
     }
 }

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using BlastersShared.Network.Packets.Client;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PuzzleGame.Network;
 using PuzzleGame.Utilities;
+using XNATweener;
 
 namespace PuzzleGame.Screens
 {
@@ -15,7 +19,11 @@ namespace PuzzleGame.Screens
     {
         private Texture2D _bg;
         private Texture2D _logo;
-        private GameTimer _timer = new GameTimer(1);
+        private GameTimer _timer = new GameTimer(5);
+        private float i_y = 50;
+        private float logoY = 50;
+
+        private float targetY = 250;
 
         public override void Draw(GameTime gameTime)
         {
@@ -25,42 +33,75 @@ namespace PuzzleGame.Screens
 
             ScreenManager.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied,
                                             SamplerState.LinearWrap, null, null);
-            ScreenManager.SpriteBatch.Draw(_bg, new Vector2(0, 0), 
+            ScreenManager.SpriteBatch.Draw(_bg, new Vector2(0, 0),
                                            new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width,
-                                                         ScreenManager.GraphicsDevice.Viewport.Height),  Color.White);
+                                                         ScreenManager.GraphicsDevice.Viewport.Height), Color.White);
             ScreenManager.SpriteBatch.End();
-            
-            
+
+
             ScreenManager.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            var positionRectangle = new Rectangle(1024/2 - _logo.Width / 2, 50, _logo.Width, _logo.Height);
+            var positionRectangle = new Rectangle(1024 / 2 - _logo.Width / 2, (int) logoY, _logo.Width, _logo.Height);
             ScreenManager.SpriteBatch.Draw(_logo, positionRectangle, Color.White);
             ScreenManager.SpriteBatch.End();
 
             base.Draw(gameTime);
         }
 
+        private double time = 0;
+
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
-           _timer.Update(gameTime);
+            _timer.Update(gameTime);
+
+            time += gameTime.ElapsedGameTime.TotalSeconds / 1.5;
+
+            if (time > 1)
+                time = 1;
+
+            logoY = MathHelper.SmoothStep(i_y, targetY, (float) time);
+
+
+
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
+        private Tweener tweener;
+
         public override void LoadContent()
         {
-            TransitionOffTime = new TimeSpan(0, 0, 0, 1);
-            _timer.Completed += DoStuff;
-            
 
+            TransitionOffTime = new TimeSpan(0, 0, 0, 3);
+            _timer.Completed += DoStuff;
+    
+
+         
             _bg = ScreenManager.Game.Content.Load<Texture2D>(@"Screens\Title\bg");
             _logo = ScreenManager.Game.Content.Load<Texture2D>(@"bmo_logo");
+
+            // Send off a packet :)
+
+            var list = Environment.GetCommandLineArgs().ToList();
+
+
+            _myToken = Guid.Parse(list[1]);
+            string[] info = list[2].Split(Convert.ToChar(":"));
+            NetworkManager.Instance.ConnectTo(info[0], int.Parse(info[1]));
+
+
+
 
             base.LoadContent();
         }
 
+        private Guid _myToken;
+
         private void DoStuff(object sender, EventArgs e)
         {
-            ScreenManager.RemoveScreen(this);         
+            ScreenManager.RemoveScreen(this);
             ScreenManager.AddScreen(new GameplayScreen(), null);
+
+            var packet = new NotifyLoadedGamePacket(_myToken);
+            NetworkManager.Instance.SendPacket(packet);
         }
 
         public override void HandleInput(InputState input)

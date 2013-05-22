@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlastersShared;
 using BlastersShared.GameSession;
 using BlastersShared.Network.Packets;
+using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.ClientLobby;
 using BlastersShared.Network.Packets.Lobby;
 using BlastersShared.Services;
@@ -54,20 +55,24 @@ namespace LobbyServer
             if (user.CurrentSession != null)
                 return false;
 
+            if (gameSession.InProgress)
+                return false;
+
             // Add the user if it appears safe
             gameSession.Users.Add(user);
             user.CurrentSession = gameSession;
 
 
             //TODO; Don't auto start the game; check for wait flags. This will suffice for now, though
-            if (gameSession.IsFull)
+            if (gameSession.IsFull || true)
             {
                 Sessions.Remove(gameSession);
 
+                gameSession.InProgress = true;
 
                 // We generate a secure token for each user
                 foreach (var cUser in gameSession.Users)
-                    cUser.SecureToken = Guid.NewGuid();                    
+                    cUser.SecureToken = Guid.NewGuid();
 
                 var appServerService = (AppServerService) ServiceContainer.GetService(typeof (AppServerService));
                 var server = appServerService.GetAvailableServer();
@@ -76,24 +81,31 @@ namespace LobbyServer
                 var appServerNotifyPacket = new NotifySessionBeginAppServerPacket(gameSession);
                 ClientNetworkManager.Instance.SendPacket(appServerNotifyPacket, server.Connection);
 
+                var endpointInfo = server.Connection.RemoteEndpoint.ToString();
+
                 // We generate a secure token for each user
                 foreach (var cUser in gameSession.Users)
                 {
-                    var packet = new SessionBeginNotificationPacket(cUser.SecureToken, server.Connection.ToString(),
+                    var packet = new SessionBeginNotificationPacket(cUser.SecureToken, endpointInfo,
                                                                     gameSession.SessionID);
                     ClientNetworkManager.Instance.SendPacket(packet, cUser.Connection);
                 }
 
 
+                Logger.Instance.Log(Level.Info, "The match " + gameSession + " is now underway.");
+                Logger.Instance.Log(Level.Info, "The simulation is being completed on: " + server.Name);
+
             }
 
+            else
+            {
 
-            // Send information about the session list again to everyone connected
-            //TODO: Only send deltas, but it's not a huge deal right now. Just do it this way
-            foreach (var x in ServiceContainer.Users.Values)            
-                SendUserSessions(x);   
-            
+                // Send information about the session list again to everyone connected
+                //TODO: Only send deltas, but it's not a huge deal right now. Just do it this way
+                foreach (var x in ServiceContainer.Users.Values)
+                    SendUserSessions(x);
 
+            }
 
 
             return true;
@@ -106,6 +118,29 @@ namespace LobbyServer
         
             // Register network callbacks
             PacketService.RegisterPacket<SessionJoinRequestPacket>(ProcessSessionJoinRequest);
+            PacketService.RegisterPacket<SessionEndedLobbyPacket>(ProcessSessionEnded);
+
+        }
+
+        private void ProcessSessionEnded(SessionEndedLobbyPacket obj)
+        {
+            var gameSession = new GameSession();
+
+            // Find the item 
+            for (int index = 0; index < Sessions.Count; index++)
+            {
+                gameSession = Sessions[index];
+                if (gameSession.SessionID == obj.SessionID)
+                {
+                    gameSession.InProgress = false;
+                    break;
+                }
+            }
+
+            Logger.Instance.Log(Level.Info, "The match " + gameSession + " has completed a round. ");
+            Logger.Instance.Log(Level.Info,
+                                "The winner was " + obj.SessionStatistics.Winner.Name + "; lasting " +
+                                obj.SessionStatistics.MatchDuration + "s.");
 
         }
 
@@ -141,7 +176,8 @@ namespace LobbyServer
             Sessions.Add(session);
 
             //TODO: Sync up network states, send connected players a listing of new session stuff
-            Lobby.PrintLine(ConsoleColor.Yellow, "A game session has been created.");
+
+            Logger.Instance.Log(Level.Info, "A match was succesfully created with the name " + session.Name + ", ID: " + session.SessionID);
 
         }
 

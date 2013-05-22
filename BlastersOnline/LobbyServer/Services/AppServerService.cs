@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlastersShared;
 using BlastersShared.GameSession;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Services;
@@ -51,7 +52,8 @@ namespace LobbyServer
             {
                 var appServer = new AppServer.AppServer(obj.Sender, "Ares", 0);            
                 ApplicationServers.Add(appServer);
-                Lobby.PrintLine(ConsoleColor.Green, string.Format("The application server {0} has joined the cluster.", appServer.Name));
+                Logger.Instance.Log(Level.Info,
+                                    string.Format("The application server {0} has joined the cluster.", appServer.Name));              ;
             }
             else
             {
@@ -71,8 +73,14 @@ namespace LobbyServer
         }
 
 
+        /// <summary>
+        /// Gets an available app server from the list
+        /// </summary>
+        /// <returns></returns>
         public AppServer.AppServer GetAvailableServer()
         {
+            //TODO: Do some scaling that will allow the application to load balance correctly
+            // For now, just return the first server
             return ApplicationServers[0];
         }
 

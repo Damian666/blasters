@@ -28,7 +28,7 @@ namespace AppServer.Services
 
 
             // Wait about a second init
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
 
 
 
@@ -41,7 +41,7 @@ namespace AppServer.Services
                 });
 
             
-            Thread.Sleep(2500);
+            Thread.Sleep(1500);
 
             callback.Invoke();
            

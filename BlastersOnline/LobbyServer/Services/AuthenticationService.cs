@@ -41,7 +41,7 @@ namespace LobbyServer.Services
                 var user = new User(obj.Sender, username);
                 ServiceContainer.Users.Add(user.Connection, user);          
                
-                Lobby.PrintLine(ConsoleColor.Yellow, user.Name + " has joined the lobby.");
+                Logger.Instance.Log(Level.Info, user.Name + " has joined the lobby.");
 
                 // Send the user a list of sessions going on 
                 var sessionService = (GameSessionService) ServiceContainer.GetService(typeof (GameSessionService));

@@ -97,8 +97,9 @@
             // newMatchToolStripMenuItem
             // 
             this.newMatchToolStripMenuItem.Name = "newMatchToolStripMenuItem";
-            this.newMatchToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.newMatchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newMatchToolStripMenuItem.Text = "New Match...";
+            this.newMatchToolStripMenuItem.Click += new System.EventHandler(this.newMatchToolStripMenuItem_Click);
             // 
             // groupBox2
             // 

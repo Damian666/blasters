@@ -43,10 +43,15 @@
     <Compile Include="GlobalPacketMap.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="Packets\AppServer\ClusterAddPacket.cs" />
+    <Compile Include="Packets\AppServer\SessionEndedClientPacket.cs" />
+    <Compile Include="Packets\AppServer\SessionEndedLobbyPacket.cs" />
+    <Compile Include="Packets\AppServer\SessionSendSimulationStatePacket.cs" />
     <Compile Include="Packets\ChatPacket.cs" />
+    <Compile Include="Packets\ClientLobby\SessionCreateRequestPacket.cs" />
     <Compile Include="Packets\ClientLobby\SessionJoinRequestPacket.cs" />
     <Compile Include="Packets\ClientLobby\SessionListRequestPacket.cs" />
     <Compile Include="Packets\ClientLobby\LoginRequestPacket.cs" />
+    <Compile Include="Packets\Client\NotifyLoadedGamePacket.cs" />
     <Compile Include="Packets\Lobby\NotifySessionBeginAppServerPacket.cs" />
     <Compile Include="Packets\Lobby\SessionBeginNotificationPacket.cs" />
     <Compile Include="Packets\Lobby\SessionJoinResultPacket.cs" />
@@ -64,9 +69,7 @@
       <Name>Lidgren.Network.Windows</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Packets\Client\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

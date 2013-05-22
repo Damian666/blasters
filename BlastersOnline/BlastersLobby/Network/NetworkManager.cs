@@ -185,7 +185,6 @@ namespace AppServer.Network
                         //Read the packet ID
                         int packetID = incomingMessage.ReadInt32();
 
-                        Console.WriteLine(packetID + "[Packet] arrived");
 
                         //Packet is sent to the processor to fire off events
                         _processor.ProcessPacket(packetID, incomingMessage);

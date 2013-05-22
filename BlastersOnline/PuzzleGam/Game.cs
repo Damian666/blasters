@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using BlastersShared.Network.Packets.AppServer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using PuzzleGame.Network;
 using PuzzleGame.Screens;
 
 #endregion
@@ -32,15 +34,23 @@ namespace PuzzleGame
             graphics.PreferredBackBufferHeight = 768;
             Window.Title = "Blasters Online";
 
-   
+
+            PacketService.RegisterPacket<SessionEndedLobbyPacket>(Instance_ClientDisconnected);
 
             foreach (var launchParameter in Environment.GetCommandLineArgs())
             {
-                //TODO: Strip out first one
                 Console.Write(launchParameter);   
             }
 
         }
+
+        private void Instance_ClientDisconnected(SessionEndedLobbyPacket obj)
+        {
+            Process.GetCurrentProcess().Kill();
+            
+        }
+
+
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -91,6 +101,9 @@ namespace PuzzleGame
 
             screenManager.Update(gameTime);            
 
+
+            NetworkManager.Instance.Update();
+            
             // TODO: Add your update logic here
 
             base.Update(gameTime);
