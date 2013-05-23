@@ -25,6 +25,7 @@ namespace BlastersShared.Game
 
 
 
+
         /// <summary>
         /// This blank constructor is used for AltSerializer to create the object
         /// Most of these objects should be created from the SimulationStateFactory.

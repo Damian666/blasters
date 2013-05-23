@@ -11,8 +11,14 @@ namespace BlastersShared.Game.Entities
     /// </summary>
     public class Player : Character
     {
-        public Player(Vector2 position, Vector2 size, string name) : base(position, size, name)
+        public Player(Vector2 position, Vector2 size, string name, UserSessionConfig sessionConfig) : base(position, size, name, sessionConfig)
         {
         }
+
+        public Player()
+        {
+            
+        }
+
     }
 }

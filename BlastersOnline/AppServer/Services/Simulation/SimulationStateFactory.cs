@@ -50,7 +50,7 @@ namespace AppServer.Services.Simulation
             foreach (var user in gameSession.Users)
             {
                 // Create a player from each user and shove them down the container
-                var player = new Player(new Vector2(0, 0 ), new Vector2(0, 0), user.Name);
+                var player = new Player(new Vector2(0, 0 ), new Vector2(0, 0), user.Name, user.SessionConfig);
                 simulationState.Entities.Add(player);
             }
 

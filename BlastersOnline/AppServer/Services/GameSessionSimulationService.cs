@@ -42,7 +42,10 @@ namespace AppServer.Services
             if (result != null)
             {
                 // Tell the game simulator they're good to go
-                result.VerifyGameLoad(obj);
+                var need = result.VerifyGameLoad(obj);
+
+                if (!need)
+                    return;
 
                 // Add the user to the routing table
                 _routingTable.Add(obj.Sender, result);

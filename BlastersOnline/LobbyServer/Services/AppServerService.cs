@@ -20,7 +20,7 @@ namespace LobbyServer
         /// <summary>
         /// A list of application servers currently connected to this service.
         /// </summary>
-        private List<AppServer.AppServer> ApplicationServers { get; set; }
+        public List<AppServer.AppServer> ApplicationServers { get; set; }
 
         public AppServerService()
         {
@@ -37,9 +37,6 @@ namespace LobbyServer
 
         private void RegisterNetworkCallbacks()
         {
-
-
-
             PacketService.RegisterPacket<ClusterAddPacket>(ProcessClusterAddRequest);
         }
 
@@ -50,7 +47,7 @@ namespace LobbyServer
             // If the keys match
             if (key == Global.PrivateKey)
             {
-                var appServer = new AppServer.AppServer(obj.Sender, "Ares", 0);            
+                var appServer = new AppServer.AppServer(obj.Sender, "Ikaros", 0);            
                 ApplicationServers.Add(appServer);
                 Logger.Instance.Log(Level.Info,
                                     string.Format("The application server {0} has joined the cluster.", appServer.Name));              ;

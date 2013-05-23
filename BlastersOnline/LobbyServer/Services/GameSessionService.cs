@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlastersShared;
+using BlastersShared.Game;
 using BlastersShared.GameSession;
 using BlastersShared.Network.Packets;
 using BlastersShared.Network.Packets.AppServer;
@@ -72,7 +73,17 @@ namespace LobbyServer
 
                 // We generate a secure token for each user
                 foreach (var cUser in gameSession.Users)
+                {
                     cUser.SecureToken = Guid.NewGuid();
+                    //TODO: Take this parameter from the client
+                    // We should also validate it's even legal as it comes from the client
+                    cUser.SessionConfig = new UserSessionConfig("FemaleSheet1");
+                }
+
+#if DEBUG_MOCK
+                foreach (var cUser in gameSession.Users)
+                    cUser.SecureToken = Guid.Empty;                                    
+#endif
 
                 var appServerService = (AppServerService) ServiceContainer.GetService(typeof (AppServerService));
                 var server = appServerService.GetAvailableServer();
@@ -169,7 +180,7 @@ namespace LobbyServer
         /// <summary>
         /// Creates a game session and adds it to the list of pending game sessions to begin.
         /// </summary>
-        public void CreateSession()
+        public GameSession CreateSession()
         {
             // Create a default deathpatch session
             var session = GameSession.CreateDefaultDeathmatch();
@@ -179,6 +190,7 @@ namespace LobbyServer
 
             Logger.Instance.Log(Level.Info, "A match was succesfully created with the name " + session.Name + ", ID: " + session.SessionID);
 
+            return session;
         }
 
 

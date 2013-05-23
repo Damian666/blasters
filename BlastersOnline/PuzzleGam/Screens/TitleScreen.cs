@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using BlastersShared.Game;
+using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.Client;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -74,6 +77,7 @@ namespace PuzzleGame.Screens
             _timer.Completed += DoStuff;
     
 
+            PacketService.RegisterPacket<SessionSendSimulationStatePacket>(Handler);
          
             _bg = ScreenManager.Game.Content.Load<Texture2D>(@"Screens\Title\bg");
             _logo = ScreenManager.Game.Content.Load<Texture2D>(@"bmo_logo");
@@ -82,9 +86,18 @@ namespace PuzzleGame.Screens
 
             var list = Environment.GetCommandLineArgs().ToList();
 
-
+            
             _myToken = Guid.Parse(list[1]);
             string[] info = list[2].Split(Convert.ToChar(":"));
+
+#if DEBUG_MOCK
+            info[0] = "localhost";
+            info[1] = "7798";
+            _myToken = Guid.Empty;
+
+            Thread.Sleep(6000);
+#endif
+
             NetworkManager.Instance.ConnectTo(info[0], int.Parse(info[1]));
 
 
@@ -93,15 +106,33 @@ namespace PuzzleGame.Screens
             base.LoadContent();
         }
 
+
+        private void Handler(SessionSendSimulationStatePacket sessionSendSimulationStatePacket)
+        {
+            var state = sessionSendSimulationStatePacket.SimulationState;
+
+
+            ScreenManager.RemoveScreen(this);
+            ScreenManager.AddScreen(new GameplayScreen(state), null);
+        }
+
         private Guid _myToken;
+        private bool _done = false;
 
         private void DoStuff(object sender, EventArgs e)
         {
-            ScreenManager.RemoveScreen(this);
-            ScreenManager.AddScreen(new GameplayScreen(), null);
+
+            if (_done)
+                return;
+          
 
             var packet = new NotifyLoadedGamePacket(_myToken);
             NetworkManager.Instance.SendPacket(packet);
+            _done = true;
+
+            return;
+
+
         }
 
         public override void HandleInput(InputState input)

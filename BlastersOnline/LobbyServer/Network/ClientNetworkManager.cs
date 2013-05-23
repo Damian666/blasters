@@ -23,6 +23,7 @@ namespace LobbyServer.Network
         public readonly PacketService PacketService = new PacketService();
         private readonly PacketProcessor _packetProcessor = new PacketProcessor();
 
+
         public ClientNetworkManager()
         {
             var config = new NetPeerConfiguration("Inspire") { Port = 8787, ConnectionTimeout = 30 };

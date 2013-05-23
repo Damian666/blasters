@@ -53,5 +53,11 @@ namespace BlastersShared.Game.Entities
             Size = size;
         }
 
+
+        public Entity()
+        {
+            
+        }
+
     }
 }

@@ -12,10 +12,22 @@ namespace BlastersShared.Game.Entities
     /// </summary>
     public class Character : Entity
     {
-        public Character(Vector2 position, Vector2 size, string name) : base(position, size)
+        public Character(Vector2 position, Vector2 size, string name, UserSessionConfig sessionConfig) : base(position, size)
         {
             Name = name;
+            SessionConfig = sessionConfig;
         }
+
+        public Character()
+        {
+      
+        }
+
+
+        /// <summary>
+        /// The session config this for character; contains information like team, skin etc
+        /// </summary>
+        public UserSessionConfig SessionConfig { get; set; }
 
         /// <summary>
         /// The name of the given entity.

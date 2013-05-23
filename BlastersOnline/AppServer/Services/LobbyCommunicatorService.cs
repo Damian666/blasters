@@ -24,26 +24,21 @@ namespace AppServer.Services
             // Get a random server name
             string serverName = new Random().NextString(18).ToUpper();
         
-            LobbyServerNetworkManager.Instance.Connect();
+            LobbyServerNetworkManager.Instance.Update();
 
 
             // Wait about a second init
-            Thread.Sleep(2000);
+            Thread.Sleep(3500);
 
 
 
-            var callback = new Action(delegate
-                {
-
+  
                     // Send the 'add me to the cluster, please' packet
                     var packet = new ClusterAddPacket(Global.PrivateKey);
                     LobbyServerNetworkManager.Instance.SendPacket(packet);
-                });
-
+     
             
-            Thread.Sleep(1500);
-
-            callback.Invoke();
+  
            
 
         }
@@ -65,7 +60,6 @@ namespace AppServer.Services
         {
             // Update the network and the like, perform event updates, too
             LobbyServerNetworkManager.Instance.Update();
-
         }
     }
 }

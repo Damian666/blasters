@@ -55,14 +55,23 @@ namespace AppServer.Services.Simulation
         /// Verifies a user is okay to enter the game and loading has been complete.
         /// </summary>
         /// <returns></returns>
-        public void VerifyGameLoad(NotifyLoadedGamePacket obj)
+        public bool VerifyGameLoad(NotifyLoadedGamePacket obj)
         {
-            // Verify this player has loaded the game
-            _secureTokensWaiting.Remove(obj.SecureToken);
 
-            // Once a player has loaded, it's okay to send them them the game state
-            var packet = new SessionSendSimulationStatePacket(_simulationState);
-            ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
+            if (_secureTokensWaiting.Contains(obj.SecureToken))
+            {
+                // Verify this player has loaded the game
+                _secureTokensWaiting.Remove(obj.SecureToken);
+
+                // Once a player has loaded, it's okay to send them them the game state
+                var packet = new SessionSendSimulationStatePacket(_simulationState);
+                ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
+
+                return true;
+            }
+
+            return false;
+
         }
 
 
@@ -94,7 +103,7 @@ namespace AppServer.Services.Simulation
         {
             // Check to see if the timer is expired
 
-            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers*2)
+            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers*5)
                 TerminateSession();
 
         }

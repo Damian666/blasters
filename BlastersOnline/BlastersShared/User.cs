@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlastersShared.Game;
 using Lidgren.Network;
 
 namespace BlastersShared
@@ -24,6 +25,10 @@ namespace BlastersShared
         /// </summary>
         public Guid SecureToken { get; set; }
 
+        /// <summary>
+        /// A session config is a set of properties used for a specific session
+        /// </summary>
+        public UserSessionConfig SessionConfig { get; set; }
 
         /// <summary>
         /// The current session this user is in, null if the user is not in a session.

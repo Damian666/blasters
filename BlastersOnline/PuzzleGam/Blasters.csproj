@@ -34,6 +34,15 @@
   <PropertyGroup>
     <ApplicationIcon>BOMB ICON.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_MockGame|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug_MockGame\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DEBUG_MOCK</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera2D.cs" />
     <Compile Include="Game.cs" />
@@ -51,7 +60,9 @@
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LevelScreen.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
+    <Compile Include="Services\SpriteService.cs" />
     <Compile Include="Utilities\GameTimer.cs" />
+    <Compile Include="Utilities\PathUtility.cs" />
     <Compile Include="Utilities\Tiled\Layer.cs" />
     <Compile Include="Utilities\Tiled\Map.cs" />
     <Compile Include="Utilities\Tiled\ObjectGroup.cs" />
@@ -100,9 +111,6 @@
     <Content Include="Content\bmo_logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\gradient.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Hit.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -112,8 +120,11 @@
     <Content Include="Content\Screens\Title\bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Characters\FemaleSheet.png">
+    <Content Include="Content\Sprites\Characters\FemaleSheet1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Descriptors\FemaleSheet1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\success.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -154,6 +165,7 @@
       <Name>Lidgren.Network.Windows</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

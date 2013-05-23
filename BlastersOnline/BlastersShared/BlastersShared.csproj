@@ -30,6 +30,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_MockGame|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug_MockGame\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AltSerialize">
       <HintPath>..\..\..\..\..\Dropbox\Silverdale\Client\AltSerialize.dll</HintPath>
@@ -55,12 +64,14 @@
     <Compile Include="Game\Entities\Player.cs" />
     <Compile Include="Game\EntityInterpolator.cs" />
     <Compile Include="Game\SimulationState.cs" />
+    <Compile Include="Game\UserSessionConfig.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomExtensions.cs" />
     <Compile Include="SerializationHelper.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\ServiceContainer.cs" />
+    <Compile Include="Services\Sprites\SpriteDescriptor.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

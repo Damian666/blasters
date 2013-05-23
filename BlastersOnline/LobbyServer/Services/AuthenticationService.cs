@@ -38,9 +38,8 @@ namespace LobbyServer.Services
 
             if (password == validPassword)
             {
-                var user = new User(obj.Sender, username);
-                ServiceContainer.Users.Add(user.Connection, user);          
-               
+                var user = AddUser(obj, username);
+
                 Logger.Instance.Log(Level.Info, user.Name + " has joined the lobby.");
 
                 // Send the user a list of sessions going on 
@@ -51,6 +50,18 @@ namespace LobbyServer.Services
 
 
 
+        }
+
+        public User AddUser(LoginRequestPacket obj, string username)
+        {
+            var user = new User(obj.Sender, username);
+            ServiceContainer.Users.Add(user.Connection, user);
+            return user;
+        }
+
+        public void AddUser(User user)
+        {
+            ServiceContainer.Users.Add(user.Connection, user);
         }
 
         /// <summary>

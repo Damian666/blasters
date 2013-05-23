@@ -36,6 +36,7 @@ namespace AppServer
             _serviceContainer.RegisterService(_lobbyCommunicator);
             _serviceContainer.RegisterService(_gameSessionService);
 
+
             while (true)
             {
                 ClientNetworkManager.Instance.Update();
