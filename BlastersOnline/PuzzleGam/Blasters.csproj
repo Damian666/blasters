@@ -45,6 +45,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera2D.cs" />
+    <Compile Include="Components\SpriteComponent.cs" />
+    <Compile Include="EntityNetworkProcessor.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Levels\Map.cs" />
     <Compile Include="Levels\Level.cs" />
@@ -60,6 +62,9 @@
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LevelScreen.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
+    <Compile Include="Services\NetworkInputService.cs" />
+    <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\ServiceContainer.cs" />
     <Compile Include="Services\SpriteService.cs" />
     <Compile Include="Utilities\GameTimer.cs" />
     <Compile Include="Utilities\PathUtility.cs" />
@@ -134,6 +139,9 @@
     <Content Include="Utilities\Tiled\zlib\License.zlib.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Fonts\Kootenay.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\gamefont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

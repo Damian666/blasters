@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlastersGame.Components;
 using BlastersGame.Services;
 using BlastersShared.Game;
 using Microsoft.Xna.Framework;
@@ -16,12 +17,14 @@ namespace PuzzleGame.Screens
         private Texture2D _tileset; 
         private Map _map = new Map("SomeMap");
         private SimulationState _simulationState;
+        private ServiceContainer _serviceContainer;
 
 
         public GameplayScreen(SimulationState simulationState)
         {
             _simulationState = simulationState;
 
+           
         }
 
 
@@ -29,7 +32,12 @@ namespace PuzzleGame.Screens
         {
             _tileset = ScreenManager.Game.Content.Load<Texture2D>(@"Levels\BMOTiles");
 
-            SpriteService service = new SpriteService();
+            _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content);
+
+
+
+            var service = new SpriteService();
+            _serviceContainer.AddService(service);
 
 
 
@@ -65,6 +73,8 @@ namespace PuzzleGame.Screens
             }
 
             spriteBatch.End();
+
+            _serviceContainer.Draw(spriteBatch);
 
 
             base.Draw(gameTime);
