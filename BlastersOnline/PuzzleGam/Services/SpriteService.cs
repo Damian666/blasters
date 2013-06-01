@@ -29,11 +29,21 @@ namespace BlastersGame.Services
         public override void Initialize()
         {
             LoadDescriptors();
-            
+
             // Load fonts
             _entityFont = ContentManager.Load<SpriteFont>(@"Fonts\Kootenay");
 
+            // Listen for when an entity might hav ebeen added on
+            ServiceManager.EntityAdded += ServiceManagerOnEntityAdded;
+
         }
+
+        private void ServiceManagerOnEntityAdded(Entity entity)
+        {
+            // Attempt to add the sprite component
+            AddSpriteComponent(entity);
+        }
+
 
         private void LoadDescriptors()
         {
@@ -50,16 +60,24 @@ namespace BlastersGame.Services
 
             foreach (var entity in ServiceManager.Entities)
             {
+                AddSpriteComponent(entity);
+            }
+        }
+
+        private void AddSpriteComponent(Entity entity)
+        {
+            var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
+
+            if (skinComponent != null)
+            {
                 var spriteComponent = new SpriteComponent
                     {
-                        Texture = ContentManager.GetTexture(@"Sprites\Characters\FemaleSheet1", ServiceManager.GraphicsDevice)
+                        Texture =
+                            ContentManager.GetTexture(_spriteDescriptorsLookup[skinComponent.SpriteDescriptorName].SpritePath,
+                                                      ServiceManager.GraphicsDevice)
                     };
                 entity.AddComponent(spriteComponent);
             }
-
-
-
-
         }
 
 
@@ -70,52 +88,56 @@ namespace BlastersGame.Services
             foreach (var entity in ServiceManager.Entities)
             {
                 var spriteComponent = (SpriteComponent)entity.GetComponent(typeof(SpriteComponent));
-                var nameComponent = (NameComponent) entity.GetComponent(typeof (NameComponent));
-                var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+                var nameComponent = (NameComponent)entity.GetComponent(typeof(NameComponent));
+                var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
 
                 if (spriteComponent != null)
                 {
 
-                   int  animation = (int) transformComponent.DirectionalCache;
+                    int animation = (int)transformComponent.DirectionalCache;
+
+                    if (entity.GetComponent(typeof (PlayerComponent)) == null)
+                        animation = 0;
+
 
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
                     var sourceRectangle = new Rectangle(0, (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White);
 
-                   // If this sprite has a name
-                   if (nameComponent != null)
-                   {
-                       var font = _entityFont;
-                       var size = font.MeasureString(nameComponent.Name);
-                       var namePos = transformComponent.LocalPosition;
+                    // If this sprite has a name
+                    if (nameComponent != null)
+                    {
+                        var font = _entityFont;
+                        var size = font.MeasureString(nameComponent.Name);
+                        var namePos = transformComponent.LocalPosition;
 
 
-                       Vector2 pos = namePos - new Vector2(0, 0);
+                        Vector2 pos = namePos - new Vector2(0, 0);
 
-                       pos = pos + new Vector2((int)(transformComponent.Size.X / 2), -20);
-                       pos = pos - new Vector2((int)(size.X / 2), 0);
+                        pos = pos + new Vector2((int)(transformComponent.Size.X / 2), -20);
+                        pos = pos - new Vector2((int)(size.X / 2), 0);
 
-                       pos = new Vector2((float)Math.Round(pos.X), (float)Math.Round(pos.Y));
-
-
-
-                       //Draw stroke
-                       spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(1, 0), Color.DarkRed);
-
-
-                       spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(-1, 0), Color.DarkRed);
-
-
-                       spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(0, 1), Color.DarkRed);
-                       spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(0, -1), Color.DarkRed);
-
-
-                       spriteBatch.DrawString(font, nameComponent.Name, pos, Color.DarkBlue);
+                        pos = new Vector2((float)Math.Round(pos.X), (float)Math.Round(pos.Y));
 
 
 
-                   }
+                        //Draw stroke
+                        spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(1, 0), Color.DarkRed);
+
+
+                        spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(-1, 0), Color.DarkRed);
+
+
+                        spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(0, 1), Color.DarkRed);
+                        spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(0, -1), Color.DarkRed);
+
+
+                        spriteBatch.DrawString(font, nameComponent.Name, pos, Color.DarkBlue);
+
+
+
+                    }
 
                 }
 

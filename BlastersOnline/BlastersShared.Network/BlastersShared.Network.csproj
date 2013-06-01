@@ -56,6 +56,7 @@
     <Compile Include="GlobalPacketMap.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="Packets\AppServer\ClusterAddPacket.cs" />
+    <Compile Include="Packets\AppServer\EntityAddPacket.cs" />
     <Compile Include="Packets\AppServer\MovementRecievedPacket.cs" />
     <Compile Include="Packets\AppServer\SessionEndedClientPacket.cs" />
     <Compile Include="Packets\AppServer\SessionEndedLobbyPacket.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Packets\ClientLobby\LoginRequestPacket.cs" />
     <Compile Include="Packets\Client\NotifyLoadedGamePacket.cs" />
     <Compile Include="Packets\Client\NotifyMovementPacket.cs" />
+    <Compile Include="Packets\Client\RequestPlaceBombPacket.cs" />
     <Compile Include="Packets\Lobby\NotifySessionBeginAppServerPacket.cs" />
     <Compile Include="Packets\Lobby\SessionBeginNotificationPacket.cs" />
     <Compile Include="Packets\Lobby\SessionJoinResultPacket.cs" />

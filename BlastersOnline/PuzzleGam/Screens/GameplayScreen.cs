@@ -65,9 +65,12 @@ namespace PuzzleGame.Screens
             var service = new SpriteService();
             var networkService = new NetworkInputService(_playerID);
             var movementService = new MovementService(_playerID);
+            var entitySyncService = new EntitySyncService();
+
             _serviceContainer.AddService(service);
             _serviceContainer.AddService(networkService);
             _serviceContainer.AddService(movementService);
+            _serviceContainer.AddService(entitySyncService);
 
             base.LoadContent();
         }

@@ -174,6 +174,12 @@ namespace PuzzleGame
             return Gestures.Any(gesture => gesture.GestureType == GestureType.VerticalDrag && gesture.Delta.X < 0);
         }
 
+        public bool PlaceBomb()
+        {
+            PlayerIndex index = PlayerIndex.Four;
+            return IsNewKeyPress(Keys.Space, null, out index);
+        }
+
         public bool MoveRightIssued()
         {
 

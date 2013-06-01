@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using BlastersShared.Game.Components;
 using BlastersShared.Game.Entities;
+using BlastersShared.Network.Packets.Client;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PuzzleGame;
+using PuzzleGame.Network;
 
 namespace BlastersGame.Services
 {
@@ -60,6 +62,11 @@ namespace BlastersGame.Services
             if (inputState.NotMoving())
                 transformComponent.Velocity = Vector2.Zero;
 
+            if (inputState.PlaceBomb())
+            {
+                var packet = new RequestPlaceBombPacket();
+                NetworkManager.Instance.SendPacket(packet);
+            }
 
             // We can also plant bombs here, etc over the network
 

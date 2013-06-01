@@ -68,6 +68,7 @@
     <Compile Include="GameSession\GameSessionType.cs" />
     <Compile Include="GameSession\SessionEndStatistics.cs" />
     <Compile Include="Game\Component.cs" />
+    <Compile Include="Game\Components\ExplosiveComponent.cs" />
     <Compile Include="Game\Components\NameComponent.cs" />
     <Compile Include="Game\Components\PlayerComponent.cs" />
     <Compile Include="Game\Components\SkinComponent.cs" />

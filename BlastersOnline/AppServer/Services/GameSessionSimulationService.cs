@@ -32,8 +32,22 @@ namespace AppServer.Services
             PacketService.RegisterPacket<NotifySessionBeginAppServerPacket>(ProccessIncomingSession);
             PacketService.RegisterPacket<NotifyLoadedGamePacket>(ProcessGameLoaded);
             PacketService.RegisterPacket<NotifyMovementPacket>(HandleMovementRequest);
+            PacketService.RegisterPacket<RequestPlaceBombPacket>(HandleBombRequest);
 
             ActiveGameSessions = new List<SimulatedGameSession>();
+        }
+
+        private void HandleBombRequest(RequestPlaceBombPacket requestPlaceBombPacket)
+        {
+            // Find the session
+            var session = GetUserSession(requestPlaceBombPacket.Sender);
+
+            // If the session is valid
+            if (session != null)
+            {
+                session.HandleBombRequest(requestPlaceBombPacket);
+            }
+
         }
 
         private void HandleMovementRequest(NotifyMovementPacket notifyMovementPacket)

@@ -63,6 +63,7 @@
     <Compile Include="ScreenManager\ScreenManager.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
+    <Compile Include="Services\EntitySyncService.cs" />
     <Compile Include="Services\MovementService.cs" />
     <Compile Include="Services\Movement\EntityInterpolator.cs" />
     <Compile Include="Services\NetworkInputService.cs" />
@@ -129,8 +130,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Sprites\Bomb.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Descriptors\BombSprite.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\UI\global.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -7,6 +7,7 @@ using BlastersShared.Game;
 using BlastersShared.Game.Components;
 using BlastersShared.Game.Entities;
 using BlastersShared.GameSession;
+using BlastersShared.Network.Packets;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.Client;
 
@@ -53,27 +54,56 @@ namespace AppServer.Services.Simulation
 
         }
 
+        public void HandleBombRequest(RequestPlaceBombPacket request)
+        {
+
+            var sender = RetrieveSender(request);
+            var transformComponent = (TransformComponent) sender.GetComponent(typeof (TransformComponent));
+            var bomb = EntityFactory.CreateBomb(transformComponent.LocalPosition);
+
+            AddEntity(bomb);
+        }
+
+        private void AddEntity(Entity entity)
+        {
+            // Add entity to the list
+            _simulationState.Entities.Add(entity);
+            var packet = new EntityAddPacket(entity);
+
+
+            foreach (var player in _simulationState.Entities)
+            {
+                // Grab the connection
+                var playerComponent = (PlayerComponent) player.GetComponent(typeof (PlayerComponent));
+
+                if(playerComponent == null)
+                  continue;
+
+                var connection = playerComponent.Connection;
+
+
+                ClientNetworkManager.Instance.SendPacket(packet, connection);
+            }
+        }
+
         /// <summary>
         /// Handles movement for a particular instance
         /// </summary>
         public void HandleMovement(NotifyMovementPacket notifyMovementPacket)
         {
-
-            Entity sender = null;
-            foreach (var entity in _simulationState.Entities)
-            {
-                var playerComponent = (PlayerComponent)entity.GetComponent(typeof(PlayerComponent));
-                var connection = playerComponent.Connection;
-
-                if (connection == notifyMovementPacket.Sender)
-                    sender = entity;
-            }
+            var sender = RetrieveSender(notifyMovementPacket);
+            var transformComponent = (TransformComponent)sender.GetComponent(typeof(TransformComponent));
 
             foreach (var player in _simulationState.Entities)
             {
 
                 // Grab the connection
                 var playerComponent = (PlayerComponent)player.GetComponent(typeof(PlayerComponent));
+
+                if(playerComponent == null)
+                    continue;
+                
+
                 var connection = playerComponent.Connection;
 
                 if (connection != notifyMovementPacket.Sender)
@@ -88,6 +118,30 @@ namespace AppServer.Services.Simulation
 
             }
 
+            transformComponent.LastLocalPosition = transformComponent.LocalPosition;
+            transformComponent.LocalPosition = notifyMovementPacket.Location;
+            transformComponent.ServerPosition = notifyMovementPacket.Location;
+
+        }
+
+        private Entity RetrieveSender(Packet packet)
+        {
+            Entity sender = null;
+            foreach (var entity in _simulationState.Entities)
+            {
+                var playerComponent = (PlayerComponent) entity.GetComponent(typeof (PlayerComponent));
+
+                if (playerComponent == null)
+                    continue;
+                
+                var connection = playerComponent.Connection;
+
+            
+
+                if (connection == packet.Sender)
+                    sender = entity;
+            }
+            return sender;
         }
 
 

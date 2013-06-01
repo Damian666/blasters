@@ -42,6 +42,21 @@ namespace AppServer.Services.Simulation
             return entity;
         }
 
+        public static Entity CreateBomb(Vector2 location) 
+        {
+            var entity = new Entity();
+
+            var transformComponent = new TransformComponent(location, new Vector2(32, 32));
+            var skinComponent = new SkinComponent("BombSprite");
+            var explosiveComponent = new ExplosiveComponent(3f, 100);
+
+            entity.AddComponent(transformComponent);
+            entity.AddComponent(skinComponent);
+            entity.AddComponent(explosiveComponent);
+
+            return entity;
+        }
+
 
     }
 }

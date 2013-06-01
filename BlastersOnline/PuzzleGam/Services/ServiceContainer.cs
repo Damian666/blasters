@@ -42,6 +42,26 @@ namespace BlastersGame.Services
             _services.Add(service);
         }
 
+        public delegate void EntityAddedDelegate(Entity entity);
+        public event EntityAddedDelegate EntityAdded;
+
+        protected virtual void OnEntityAdded(Entity entity)
+        {
+            EntityAddedDelegate handler = EntityAdded;
+            if (handler != null) handler(entity);
+        }
+
+
+        /// <summary>
+        /// Adds an entity to the server container, also fires off events for notifications.
+        /// </summary>
+        /// <param name="entity"></param>
+        public void AddEntity(Entity entity)
+        {
+            Entities.Add(entity);
+            OnEntityAdded(entity);
+        }
+
         /// <summary>
         /// A list of entities contained in this service system.
         /// </summary>
@@ -54,14 +74,14 @@ namespace BlastersGame.Services
         {
             // Draw everything
             foreach (var service in _services)
-                service.Draw(spriteBatch);                
-            
+                service.Draw(spriteBatch);
+
         }
 
         public void UpdateService(GameTime gameTime)
         {
             foreach (var service in _services)
-                service.Update(gameTime);  
+                service.Update(gameTime);
         }
 
         public void UpdateInput(InputState inputState)

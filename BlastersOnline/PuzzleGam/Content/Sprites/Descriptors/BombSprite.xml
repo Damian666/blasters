@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<SpriteDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>BombSprite</Name>
+  <SpritePath>Sprites\Bomb</SpritePath>
+  <FrameSize>
+    <X>50</X>
+    <Y>70</Y>
+  </FrameSize>
+  <Animations>
+    <SpriteDescriptorAnimation>
+      <Name>Default</Name>
+      <Speed>0.25</Speed>
+      <FrameCount>1</FrameCount>
+      <Row>0</Row>
+    </SpriteDescriptorAnimation>
+  </Animations>
+</SpriteDescriptor>
