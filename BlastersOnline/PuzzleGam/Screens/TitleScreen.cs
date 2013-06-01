@@ -27,7 +27,7 @@ namespace PuzzleGame.Screens
         private float i_y = 50;
         private float logoY = 50;
 
-        private float targetY = 250;
+        private float targetY = 203.5f;
 
         public override void Draw(GameTime gameTime)
         {
@@ -44,7 +44,7 @@ namespace PuzzleGame.Screens
 
 
             ScreenManager.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            var positionRectangle = new Rectangle(1024 / 2 - _logo.Width / 2, (int) logoY, _logo.Width, _logo.Height);
+            var positionRectangle = new Rectangle((800 - _logo.Width) / 2, (int) logoY, _logo.Width, _logo.Height);
             ScreenManager.SpriteBatch.Draw(_logo, positionRectangle, Color.White);
             ScreenManager.SpriteBatch.End();
 

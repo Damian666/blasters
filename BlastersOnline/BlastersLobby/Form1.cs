@@ -158,5 +158,10 @@ namespace BlastersLobby
             var form = new FormNewMatch();
             form.ShowDialog();
         }
+
+        private void lstSessions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

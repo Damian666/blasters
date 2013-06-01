@@ -47,6 +47,11 @@ namespace LobbyServer
 
             // Check for reasons joing would be unsuccessful
 
+            // This case was added to accomodate for the change from session.First()
+            //   to session.FirstOrDefault() (Default being null)
+            if (gameSession == null)
+                return false;
+
             if (gameSession.IsFull)
                 return false;
 
@@ -160,7 +165,7 @@ namespace LobbyServer
             // Try and add the user
             var user = ServiceContainer.Users[obj.Sender];
             var session = (from x in Sessions where x.SessionID == obj.SessionID select x);
-            var result = AddToSession(user, session.First());
+            var result = AddToSession(user, session.FirstOrDefault());
 
             if (result)
             {

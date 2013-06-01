@@ -74,6 +74,7 @@
             this.lstSessions.Name = "lstSessions";
             this.lstSessions.Size = new System.Drawing.Size(194, 366);
             this.lstSessions.TabIndex = 1;
+            this.lstSessions.SelectedIndexChanged += new System.EventHandler(this.lstSessions_SelectedIndexChanged);
             this.lstSessions.DoubleClick += new System.EventHandler(this.lstSessions_DoubleClick);
             // 
             // menuStrip1
@@ -97,7 +98,7 @@
             // newMatchToolStripMenuItem
             // 
             this.newMatchToolStripMenuItem.Name = "newMatchToolStripMenuItem";
-            this.newMatchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newMatchToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.newMatchToolStripMenuItem.Text = "New Match...";
             this.newMatchToolStripMenuItem.Click += new System.EventHandler(this.newMatchToolStripMenuItem_Click);
             // 
