@@ -30,10 +30,11 @@ namespace PuzzleGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
             Window.Title = "Blasters Online";
-
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            
 
             PacketService.RegisterPacket<SessionEndedLobbyPacket>(Instance_ClientDisconnected);
 

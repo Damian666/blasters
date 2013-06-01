@@ -127,11 +127,16 @@ namespace PuzzleGame
             }
         }
 
+        public bool NotMoving()
+        {
+            return !MoveDownIssued() && !MoveUpIssued() && !MoveLeftIssued() && !MoveRightIssued();
+        }
+
         public bool MoveDownIssued ()
         {
 
             PlayerIndex index;
-            if (IsNewKeyPress(Keys.Down, null, out index))
+            if (IsKeyDown(Keys.Down))
                 return true;
 
             return Gestures.Any(gesture => gesture.GestureType == GestureType.VerticalDrag && gesture.Delta.Y < 0);
@@ -141,7 +146,7 @@ namespace PuzzleGame
         {
 
             PlayerIndex index;
-            if (IsNewKeyPress(Keys.Up, null, out index))
+            if (IsKeyDown(Keys.Up))
                 return true;
 
             return Gestures.Any(gesture => gesture.GestureType == GestureType.VerticalDrag && gesture.Delta.Y > 0);
@@ -151,7 +156,7 @@ namespace PuzzleGame
         {
 
             PlayerIndex index;
-            if (IsNewKeyPress(Keys.Left, null, out index))
+            if (IsKeyDown(Keys.Left))
                 return true;
 
             return Gestures.Any(gesture => gesture.GestureType == GestureType.VerticalDrag && gesture.Delta.X < 0);
@@ -161,11 +166,18 @@ namespace PuzzleGame
         {
 
             PlayerIndex index;
-            if (IsNewKeyPress(Keys.Right, null, out index))
+            if (IsKeyDown(Keys.Right))
                 return true;
 
             return Gestures.Any(gesture => gesture.GestureType == GestureType.VerticalDrag && gesture.Delta.X > 0);
         }
+
+      
+        public bool IsKeyDown(Keys key)
+        {
+            return CurrentKeyboardStates[0].IsKeyDown(key);
+        }
+
 
         /// <summary>
         /// Helper for checking if a button was newly pressed during this update.

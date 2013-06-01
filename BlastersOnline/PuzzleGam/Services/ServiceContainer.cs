@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using BlastersShared.Game;
 using BlastersShared.Game.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PuzzleGame;
 
 namespace BlastersGame.Services
 {
@@ -19,11 +21,15 @@ namespace BlastersGame.Services
         /// </summary>
         private SimulationState _simulationState;
 
-        public ServiceContainer(SimulationState simulationState, ContentManager contentManager)
+        public ServiceContainer(SimulationState simulationState, ContentManager contentManager, GraphicsDevice device)
         {
             _contentManager = contentManager;
             _simulationState = simulationState;
+            GraphicsDevice = device;
         }
+
+
+        public GraphicsDevice GraphicsDevice { get; set; }
 
         private List<Service> _services = new List<Service>();
         private ContentManager _contentManager;
@@ -50,6 +56,18 @@ namespace BlastersGame.Services
             foreach (var service in _services)
                 service.Draw(spriteBatch);                
             
+        }
+
+        public void UpdateService(GameTime gameTime)
+        {
+            foreach (var service in _services)
+                service.Update(gameTime);  
+        }
+
+        public void UpdateInput(InputState inputState)
+        {
+            foreach (var service in _services)
+                service.HandleInput(inputState);
         }
 
 

@@ -12,6 +12,7 @@ using BlastersShared.Services.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BlastersShared.Game;
+using PuzzleGame;
 
 namespace BlastersGame.Services
 {
@@ -51,7 +52,7 @@ namespace BlastersGame.Services
             {
                 var spriteComponent = new SpriteComponent
                     {
-                        Texture = ContentManager.Load<Texture2D>(@"Sprites\Characters\FemaleSheet1")
+                        Texture = ContentManager.GetTexture(@"Sprites\Characters\FemaleSheet1", ServiceManager.GraphicsDevice)
                     };
                 entity.AddComponent(spriteComponent);
             }
@@ -125,9 +126,12 @@ namespace BlastersGame.Services
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
-
+        public override void HandleInput(InputState inputState)
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

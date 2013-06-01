@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -11,7 +12,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PuzzleGame.Network;
 using PuzzleGame.Utilities;
-using XNATweener;
+using BlastersGame;
 
 namespace PuzzleGame.Screens
 {
@@ -68,7 +69,6 @@ namespace PuzzleGame.Screens
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
-        private Tweener tweener;
 
         public override void LoadContent()
         {
@@ -78,9 +78,11 @@ namespace PuzzleGame.Screens
     
 
             PacketService.RegisterPacket<SessionSendSimulationStatePacket>(Handler);
-         
-            _bg = ScreenManager.Game.Content.Load<Texture2D>(@"Screens\Title\bg");
-            _logo = ScreenManager.Game.Content.Load<Texture2D>(@"bmo_logo");
+
+            _bg = ScreenManager.Game.Content.GetTexture(@"Screens\Title\bg", ScreenManager.Game.GraphicsDevice);
+            _logo = ScreenManager.Game.Content.GetTexture(@"bmo_logo", ScreenManager.Game.GraphicsDevice);
+            
+       
 
             // Send off a packet :)
 
@@ -113,7 +115,7 @@ namespace PuzzleGame.Screens
 
 
             ScreenManager.RemoveScreen(this);
-            ScreenManager.AddScreen(new GameplayScreen(state), null);
+            ScreenManager.AddScreen(new GameplayScreen(state, sessionSendSimulationStatePacket.PlayerUID), null);
         }
 
         private Guid _myToken;

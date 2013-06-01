@@ -46,6 +46,14 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\..\Insidia\Source\Dream\bin\x86\DebugRelease\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Graphics.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -65,7 +73,6 @@
     <Compile Include="Game\Components\SkinComponent.cs" />
     <Compile Include="Game\Components\TransformComponent.cs" />
     <Compile Include="Game\Entity.cs" />
-    <Compile Include="Game\EntityInterpolator.cs" />
     <Compile Include="Game\SimulationState.cs" />
     <Compile Include="Game\SpritebatchExtensions.cs" />
     <Compile Include="Game\UserSessionConfig.cs" />
@@ -79,10 +86,6 @@
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MonoGame-develop\MonoGame.Framework\MonoGame.Framework.WindowsGL.csproj">
-      <Project>{7de47032-a904-4c29-bd22-2d235e8d91ba}</Project>
-      <Name>MonoGame.Framework.WindowsGL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MonoGame-develop\ThirdParty\Lidgren.Network\Lidgren.Network.Windows.csproj">
       <Project>{ae483c29-042e-4226-ba52-d247ce7676da}</Project>
       <Name>Lidgren.Network.Windows</Name>

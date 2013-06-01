@@ -11,6 +11,9 @@ namespace BlastersShared.Game.Components
     /// </summary>
     public class TransformComponent : Component
     {
+        private Vector2 _lastVelocity;
+        private Vector2 _velocity;
+
         public TransformComponent(Vector2 localPosition, Vector2 size)
         {
             LocalPosition = localPosition;
@@ -22,6 +25,27 @@ namespace BlastersShared.Game.Components
         public TransformComponent()
         {
             
+        }
+
+        /// <summary>
+        /// The current velocity of this component
+        /// </summary>
+        public Vector2 Velocity
+        {
+            get { return _velocity; }
+            set
+            {
+                _lastVelocity = _velocity;
+                _velocity = value;
+            }
+        }
+
+        /// <summary>
+        /// The previous velocity, set automatically from when Velocity is set.
+        /// </summary>
+        public Vector2 LastVelocity
+        {
+            get { return _lastVelocity; }
         }
 
         /// <summary>

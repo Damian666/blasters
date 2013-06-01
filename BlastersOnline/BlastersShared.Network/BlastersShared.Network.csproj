@@ -40,6 +40,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +56,7 @@
     <Compile Include="GlobalPacketMap.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="Packets\AppServer\ClusterAddPacket.cs" />
+    <Compile Include="Packets\AppServer\MovementRecievedPacket.cs" />
     <Compile Include="Packets\AppServer\SessionEndedClientPacket.cs" />
     <Compile Include="Packets\AppServer\SessionEndedLobbyPacket.cs" />
     <Compile Include="Packets\AppServer\SessionSendSimulationStatePacket.cs" />
@@ -61,6 +66,7 @@
     <Compile Include="Packets\ClientLobby\SessionListRequestPacket.cs" />
     <Compile Include="Packets\ClientLobby\LoginRequestPacket.cs" />
     <Compile Include="Packets\Client\NotifyLoadedGamePacket.cs" />
+    <Compile Include="Packets\Client\NotifyMovementPacket.cs" />
     <Compile Include="Packets\Lobby\NotifySessionBeginAppServerPacket.cs" />
     <Compile Include="Packets\Lobby\SessionBeginNotificationPacket.cs" />
     <Compile Include="Packets\Lobby\SessionJoinResultPacket.cs" />

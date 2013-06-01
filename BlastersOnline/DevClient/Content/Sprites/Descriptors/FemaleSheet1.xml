@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<SpriteDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>FemaleSheet1</Name>
+  <SpritePath>Content\Sprites\Characters\FemaleSheet1.png</SpritePath>
+  <FrameSize>
+    <X>50</X>
+    <Y>70</Y>
+  </FrameSize>
+  <Animations>
+    <SpriteDescriptorAnimation>
+      <Name>WalkUp</Name>
+      <Speed>0.25</Speed>
+      <FrameCount>3</FrameCount>
+      <Row>0</Row>
+    </SpriteDescriptorAnimation>
+    <SpriteDescriptorAnimation>
+      <Name>WalkDown</Name>
+      <Speed>0.25</Speed>
+      <FrameCount>3</FrameCount>
+      <Row>1</Row>
+    </SpriteDescriptorAnimation>
+    <SpriteDescriptorAnimation>
+      <Name>WalkLeft</Name>
+      <Speed>0.25</Speed>
+      <FrameCount>3</FrameCount>
+      <Row>2</Row>
+    </SpriteDescriptorAnimation>
+    <SpriteDescriptorAnimation>
+      <Name>WalkRight</Name>
+      <Speed>0.25</Speed>
+      <FrameCount>3</FrameCount>
+      <Row>3</Row>
+    </SpriteDescriptorAnimation>
+  </Animations>
+</SpriteDescriptor>

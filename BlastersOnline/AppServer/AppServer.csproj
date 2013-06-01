@@ -42,6 +42,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,6 +68,7 @@
     <Compile Include="Services\Simulation\EntityFactory.cs" />
     <Compile Include="Services\Simulation\SimulatedGameSession.cs" />
     <Compile Include="Services\Simulation\SimulationStateFactory.cs" />
+    <Compile Include="Services\Simulation\UserRoutingTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -76,10 +81,6 @@
     <ProjectReference Include="..\BlastersShared\BlastersShared.csproj">
       <Project>{A1C2A894-89C2-4DE8-8C5F-717E29399DC4}</Project>
       <Name>BlastersShared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MonoGame-develop\MonoGame.Framework\MonoGame.Framework.WindowsGL.csproj">
-      <Project>{7de47032-a904-4c29-bd22-2d235e8d91ba}</Project>
-      <Name>MonoGame.Framework.WindowsGL</Name>
     </ProjectReference>
     <ProjectReference Include="..\MonoGame-develop\ThirdParty\Lidgren.Network\Lidgren.Network.Windows.csproj">
       <Project>{ae483c29-042e-4226-ba52-d247ce7676da}</Project>

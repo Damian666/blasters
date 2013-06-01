@@ -25,14 +25,29 @@ namespace AppServer.Services
         /// The routing table provides a quick lookup of where users are in the simulation.
         /// This way, players can simply send packets to the gateway and have them routed accordingly.
         /// </summary>
-        private Dictionary<NetConnection, SimulatedGameSession> _routingTable = new Dictionary<NetConnection, SimulatedGameSession>(); 
+        private Dictionary<NetConnection, SimulatedGameSession> _routingTable = new Dictionary<NetConnection, SimulatedGameSession>();
 
         public GameSessionSimulationService()
         {
             PacketService.RegisterPacket<NotifySessionBeginAppServerPacket>(ProccessIncomingSession);
             PacketService.RegisterPacket<NotifyLoadedGamePacket>(ProcessGameLoaded);
+            PacketService.RegisterPacket<NotifyMovementPacket>(HandleMovementRequest);
 
             ActiveGameSessions = new List<SimulatedGameSession>();
+        }
+
+        private void HandleMovementRequest(NotifyMovementPacket notifyMovementPacket)
+        {
+            // Find the session
+            var session = GetUserSession(notifyMovementPacket.Sender);
+
+            // If the session is valid
+            if (session != null)
+            {
+                session.HandleMovement(notifyMovementPacket);
+            }
+
+
         }
 
         private void ProcessGameLoaded(NotifyLoadedGamePacket obj)
@@ -41,6 +56,10 @@ namespace AppServer.Services
 
             if (result != null)
             {
+
+
+
+
                 // Tell the game simulator they're good to go
                 var need = result.VerifyGameLoad(obj);
 
@@ -60,8 +79,8 @@ namespace AppServer.Services
                         user.Connection = obj.Sender;
                     }
                 }
-                    
-                
+
+
 
             }
         }
@@ -73,7 +92,7 @@ namespace AppServer.Services
             _routingTable.Remove(obj.Sender);
 
             // Log the event that this session begun
-            Logger.Instance.Log(Level.Info,  "Session " + simulatedGame.Session.SessionID + ":" + " Started a simulation job on this application server.");
+            Logger.Instance.Log(Level.Info, "Session " + simulatedGame.Session.SessionID + ":" + " Started a simulation job on this application server.");
             simulatedGame.SessionEnded += SimulatedGame_SessionEnded;
 
 
@@ -91,7 +110,7 @@ namespace AppServer.Services
             session.SessionEnded -= SimulatedGame_SessionEnded;
 
             // Alert the lobby server the match has ended
-            var packet = new SessionEndedLobbyPacket(session.Session.SessionID ,e);
+            var packet = new SessionEndedLobbyPacket(session.Session.SessionID, e);
             LobbyServerNetworkManager.Instance.SendPacket(packet);
 
             Logger.Instance.Log(Level.Info, "Session " + session.Session.SessionID + ":" + " Completed a simulation job on this application server.");
@@ -106,9 +125,9 @@ namespace AppServer.Services
                 ClientNetworkManager.Instance.SendPacket(userPacket, user.Connection);
 
             }
-            
-                
-            
+
+
+
 
         }
 
@@ -134,12 +153,15 @@ namespace AppServer.Services
 
         private SimulatedGameSession GetUserSession(NetConnection connection)
         {
-            return _routingTable[connection];
+            if (_routingTable.ContainsKey(connection))
+                return _routingTable[connection];
+            else
+                return null;
         }
 
         private SimulatedGameSession GetUserSession(Guid secureToken)
         {
-           
+
             // This is a much slower, brute find
             // Use only if the identity of the user is unknown
 
@@ -149,7 +171,7 @@ namespace AppServer.Services
                 {
                     if (user.SecureToken == secureToken)
                         return simulatedGameSession;
-                }   
+                }
             }
 
             return null;

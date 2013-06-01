@@ -10,12 +10,23 @@ namespace BlastersShared.Network.Packets.AppServer
 {
     public class SessionSendSimulationStatePacket : Packet
     {
-        public SessionSendSimulationStatePacket(SimulationState simulationState)
+        public SessionSendSimulationStatePacket(SimulationState simulationState, ulong playerUID)
         {
             SimulationState = simulationState;
+            PlayerUID = playerUID;
+        }
+
+        public SessionSendSimulationStatePacket()
+        {
+            
         }
 
         public SimulationState SimulationState { get; set; }
+
+        /// <summary>
+        /// The unique ID of the player this state package is being sent to.
+        /// </summary>
+        public ulong PlayerUID { get; set; }
 
         public override NetOutgoingMessage ToNetBuffer(ref NetOutgoingMessage netOutgoingMessage)
         {
@@ -23,6 +34,7 @@ namespace BlastersShared.Network.Packets.AppServer
 
             // Get byte data
             var buffer = SerializationHelper.ObjectToByteArray(SimulationState);
+            netOutgoingMessage.Write(PlayerUID);
             netOutgoingMessage.Write(buffer.Length);
             netOutgoingMessage.Write(buffer);
 
@@ -32,8 +44,9 @@ namespace BlastersShared.Network.Packets.AppServer
 
         public new static Packet FromNetBuffer(NetIncomingMessage incomingMessage)
         {
+            var uid = incomingMessage.ReadUInt64();
             var o = (SimulationState) SerializationHelper.ByteArrayToObject(incomingMessage.ReadBytes(incomingMessage.ReadInt32()));
-            var packet = new SessionSendSimulationStatePacket(o);
+            var packet = new SessionSendSimulationStatePacket(o, uid);
             return packet;
         }
 

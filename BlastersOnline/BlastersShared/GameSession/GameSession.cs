@@ -52,7 +52,7 @@ namespace BlastersShared.GameSession
         {
             var rUID = new Random().Next(45345435);
             var session = new GameSession(null);
-            session.Configuration = new GameSessionConfig("Deathmatch Game" + session.SessionID, 4, GameSessionType.Normal);
+            session.Configuration = new GameSessionConfig("Deathmatch Game" + session.SessionID, 2, GameSessionType.Normal);
             return session;
         }
 

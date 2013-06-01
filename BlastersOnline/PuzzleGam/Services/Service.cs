@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PuzzleGame;
 
 namespace BlastersGame.Services
 {
@@ -25,6 +26,12 @@ namespace BlastersGame.Services
         /// </summary>
         /// <param name="gameTime"></param>
         public abstract void Update(GameTime gameTime);
+
+        /// <summary>
+        /// Used to process user input for a particular sub system
+        /// </summary>
+        /// <param name="inputState"></param>
+        public abstract void HandleInput(InputState inputState);
 
         /// <summary>
         /// The parent container

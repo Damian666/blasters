@@ -46,8 +46,11 @@
   <ItemGroup>
     <Compile Include="Camera2D.cs" />
     <Compile Include="Components\SpriteComponent.cs" />
+    <Compile Include="ContentManagerOverride.cs" />
     <Compile Include="EntityNetworkProcessor.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GUI\HTMLElement.cs" />
+    <Compile Include="GUI\UIManager.cs" />
     <Compile Include="Levels\Map.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\Player.cs" />
@@ -62,6 +65,8 @@
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LevelScreen.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
+    <Compile Include="Services\MovementService.cs" />
+    <Compile Include="Services\Movement\EntityInterpolator.cs" />
     <Compile Include="Services\NetworkInputService.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\ServiceContainer.cs" />
@@ -88,8 +93,31 @@
     <Compile Include="Utilities\Tiled\zlib\ZlibStream.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OpenTK">
-      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\OpenTK.dll</HintPath>
+    <Reference Include="AwesomiumSharpXna">
+      <HintPath>I:\DrHeinous-step2studiospublic-5e9fac12c504\AwesomiumTest\AwesomiumTest\AwesomiumTest\bin\x86\Debug\AwesomiumSharpXna.dll</HintPath>
+    </Reference>
+    <Reference Include="AwesomiumUiLib">
+      <HintPath>I:\DrHeinous-step2studiospublic-5e9fac12c504\AwesomiumTest\AwesomiumTest\AwesomiumTest\bin\x86\Debug\AwesomiumUiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Input.Touch, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Input.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Storage.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Tao.Sdl">
@@ -134,6 +162,60 @@
     <Content Include="Content\success.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\UI\images\exitgame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\gamemapbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\itembox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\items.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\mainbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\myitemsbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\pblefticonbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\pbmidiconbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\playerboxbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\rankbadgesbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\roombg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\sidebarbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\smiley.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\time.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\timerbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\images\topbarbg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\style.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
     <Content Include="Utilities\Tiled\zlib\License.txt" />
     <Content Include="Utilities\Tiled\zlib\License.zlib.txt" />
@@ -164,16 +246,14 @@
       <Project>{a1c2a894-89c2-4de8-8c5f-717e29399dc4}</Project>
       <Name>BlastersShared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MonoGame-develop\MonoGame.Framework\MonoGame.Framework.WindowsGL.csproj">
-      <Project>{7de47032-a904-4c29-bd22-2d235e8d91ba}</Project>
-      <Name>MonoGame.Framework.WindowsGL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MonoGame-develop\ThirdParty\Lidgren.Network\Lidgren.Network.Windows.csproj">
       <Project>{ae483c29-042e-4226-ba52-d247ce7676da}</Project>
       <Name>Lidgren.Network.Windows</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="GUI\HTML\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

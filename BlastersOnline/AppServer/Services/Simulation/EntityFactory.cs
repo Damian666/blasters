@@ -26,12 +26,13 @@ namespace AppServer.Services.Simulation
         public static Entity CreatePlayer(User user, Vector2 location)
         {
             var entity = new Entity();
-           
-            
+
             var transformComponent = new TransformComponent(location, new Vector2(50, 70));
             var nameComponent = new NameComponent(user.Name);
             var skinComponent = new SkinComponent(user.SessionConfig.Skin);
             var playerComponent = new PlayerComponent();
+            playerComponent.Connection = user.Connection;
+            playerComponent.SecureToken = user.SecureToken;
 
             entity.AddComponent(transformComponent);
             entity.AddComponent(nameComponent);
