@@ -69,6 +69,7 @@ namespace PuzzleGame.Screens
         private void OnLoadCompleted()
         {
             UI.CallJavascript("document.getElementById(\"room\").innerHTML = 'PARTY ROOM WOOOOOOOOOOOOO 666'");
+            UI.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + _map.LevelID + "'");
         }
 
         public override void HandleInput(InputState input)

@@ -79,6 +79,7 @@ A:hover {text-decoration: none; color: #FFF;}
 	color: #FFFFFF;
 	font-weight: bold;
 	text-align: center;
+    vertical-align: middle;
 	padding: 6px 0 0 0;
 }
 
