@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Awesomium.Core;
 using AwesomiumUiLib;
 using BlastersGame;
 using BlastersGame.Components;
@@ -18,8 +19,9 @@ namespace PuzzleGame.Screens
 {
     public class GameplayScreen : GameScreen
     {
-        private Texture2D _tileset; 
-        private Map _map = new Map("SomeMap");
+        private Texture2D _tileset;
+        private Texture2D _curTexture;
+        private Map _map = new Map("Battle_Royale");
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
@@ -37,6 +39,9 @@ namespace PuzzleGame.Screens
         public override void LoadContent()
         {
             _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\BMOTiles", ScreenManager.Game.GraphicsDevice);
+            _curTexture = ScreenManager.Game.Content.GetTexture(@"Sprites\cursor", ScreenManager.Game.GraphicsDevice);
+            
+            
 
             _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content, ScreenManager.Game.GraphicsDevice);
 
@@ -51,6 +56,7 @@ namespace PuzzleGame.Screens
 
             UI.Load(@"Content\UI\index.html");
             UI.OnLoadCompleted = OnLoadCompleted;
+            UI.OnDocumentCompleted = OnDocumentCompleted;
             
 
 
@@ -66,22 +72,52 @@ namespace PuzzleGame.Screens
             base.LoadContent();
         }
 
+        private void OnDocumentCompleted()
+        {
+            UI.CallJavascript("document.getElementById(\"room\").innerHTML = 'The Elite'");
+            UI.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + _map.LevelID + "'");
+
+            string[] names = { "", "", "", "Robbie", "Seth", "Vaughan", "Justin", "N00b Slayer 42" };
+            SetSidebarInfo(names);
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="names"></param>
+        private void SetSidebarInfo(string[] names)
+        {
+            JSObject window = UI.webView.ExecuteJavascriptWithResult("window");
+            names.Reverse();
+            string paramSet = String.Join("|", names);
+
+            using (window)
+            {
+                window.Invoke("setPlayerNames", paramSet);
+            }
+        }
+
+
         private void OnLoadCompleted()
         {
-            UI.CallJavascript("document.getElementById(\"room\").innerHTML = 'PARTY ROOM WOOOOOOOOOOOOO 666'");
-            UI.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + _map.LevelID + "'");
+  
+
         }
 
         public override void HandleInput(InputState input)
         {
             _serviceContainer.UpdateInput(input);
+            curPosition = input.MousePosition;
             base.HandleInput(input);
         }
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
 
-   
+
+
 
             // Lets try drawing our level on screen
             var spriteBatch = ScreenManager.SpriteBatch;
@@ -124,19 +160,32 @@ namespace PuzzleGame.Screens
             var height = ScreenManager.Game.GraphicsDevice.PresentationParameters.BackBufferHeight;
 
             spriteBatch.Begin();
+
+     
+
             if (UI.webTexture != null)
                 spriteBatch.Draw(UI.webTexture, new Rectangle(0, 0, width, height), Color.White);
             spriteBatch.End();
 
 
+            
+
+
             UI.RenderWebView();
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+            spriteBatch.Draw(_curTexture, curPosition, Color.White);
+            spriteBatch.End();
 
 
             base.Draw(gameTime);
         }
 
+        private Vector2 curPosition = Vector2.Zero;
+
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
+            UI.Update();
             _serviceContainer.UpdateService(gameTime);
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }

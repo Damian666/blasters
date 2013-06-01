@@ -91,6 +91,10 @@
     <Compile Include="Utilities\Tiled\zlib\ZlibStream.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Awesomium.Core, Version=1.7.1.0, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Awesomium\Awesomium.Core.dll</HintPath>
+    </Reference>
     <Reference Include="AwesomiumSharpXna">
       <HintPath>..\..\References\AwesomiumSharpXna.dll</HintPath>
     </Reference>
@@ -125,6 +129,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Sprites\cursor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\global.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ReferenceDependencies\avcodec-53.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -257,7 +267,7 @@
     <None Include="Content\Levels\BMO.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Levels\SomeMap.tmx">
+    <None Include="Content\Levels\Battle_Royale.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\menufont.xnb">

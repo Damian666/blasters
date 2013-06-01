@@ -75,18 +75,8 @@ namespace BlastersGame.Services
 
                 if (spriteComponent != null)
                 {
-                    int animation = 0;
-                    Vector2 velocity = transformComponent.Velocity;
 
-                    if (transformComponent.Velocity.LengthSquared() == 0)
-                        velocity = transformComponent.LastVelocity;
-
-                    if (velocity.Y > 0)
-                        animation = 1;
-                    else if (velocity.X < 0)
-                        animation = 2;
-                    else if (velocity.X > 0)
-                        animation = 3;
+                   int  animation = (int) transformComponent.DirectionalCache;
 
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];

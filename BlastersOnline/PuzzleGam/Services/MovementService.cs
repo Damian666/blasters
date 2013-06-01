@@ -60,6 +60,30 @@ namespace BlastersGame.Services
 
         private void MovementRecieved(MovementRecievedPacket obj)
         {
+            Entity player = null;
+
+            foreach (var entity in ServiceManager.Entities)
+            {
+                if (entity.ID == obj.EntityID)
+                {
+                    player = entity;
+                    continue;
+                }
+            }
+
+            var transformComponent = (TransformComponent)player.GetComponent(typeof(TransformComponent));
+
+            if(obj.Velocity.X < 0)
+                transformComponent.DirectionalCache = DirectionalCache.Left;
+            else if(obj.Velocity.X > 0)
+                transformComponent.DirectionalCache = DirectionalCache.Right;
+            else if(obj.Velocity.Y > 0)
+                transformComponent.DirectionalCache = DirectionalCache.Down;
+            else if(obj.Velocity.Y < 0)
+                transformComponent.DirectionalCache = DirectionalCache.Up;
+            
+
+
             // Retreieve an interpolator
             var interpolator = _entityInterpolators[obj.EntityID];
             interpolator.ResetProgress(obj.Location);
@@ -97,6 +121,16 @@ namespace BlastersGame.Services
             // Local players can be moved automatically, then report their status if needed
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             transformComponent.LocalPosition += transformComponent.Velocity;
+
+
+            if (transformComponent.Velocity.X < 0)
+                transformComponent.DirectionalCache = DirectionalCache.Left;
+            else if (transformComponent.Velocity.X > 0)
+                transformComponent.DirectionalCache = DirectionalCache.Right;
+            else if (transformComponent.Velocity.Y > 0)
+                transformComponent.DirectionalCache = DirectionalCache.Down;
+            else if (transformComponent.Velocity.Y < 0)
+                transformComponent.DirectionalCache = DirectionalCache.Up;
 
 
             if ((_lastReaction > MOVEMENT_RATE && transformComponent.Velocity != Vector2.Zero) || transformComponent.Velocity != transformComponent.LastVelocity)

@@ -36,6 +36,8 @@ namespace PuzzleGame
         public readonly KeyboardState[] LastKeyboardStates;
         public readonly GamePadState[] LastGamePadStates;
 
+        private MouseState _mouseState;
+
         public readonly bool[] GamePadWasConnected;
 
         public TouchCollection TouchState;
@@ -72,6 +74,8 @@ namespace PuzzleGame
         /// </summary>
         public void Update()
         {
+            _mouseState = Mouse.GetState();
+
             for (int i = 0; i < MaxInputs; i++)
             {
                 LastKeyboardStates[i] = CurrentKeyboardStates[i];
@@ -97,6 +101,14 @@ namespace PuzzleGame
             }
         }
 
+
+        public Vector2 MousePosition
+        {
+            get
+            {
+                return new Vector2(_mouseState.X, _mouseState.Y);
+            }
+        }
 
         /// <summary>
         /// Helper for checking if a key was newly pressed during this update. The

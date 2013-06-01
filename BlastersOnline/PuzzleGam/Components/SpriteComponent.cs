@@ -13,5 +13,10 @@ namespace BlastersGame.Components
         /// The texture assosciated with this particular component
         /// </summary>
         public Texture2D Texture { get; set; }
+
+
     }
+
+
+
 }
