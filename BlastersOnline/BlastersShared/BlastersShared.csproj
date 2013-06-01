@@ -41,10 +41,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AltSerialize">
-      <HintPath>..\..\..\..\..\Dropbox\Silverdale\Client\AltSerialize.dll</HintPath>
+      <HintPath>..\..\References\AltSerialize.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\Insidia\Source\Dream\bin\x86\DebugRelease\log4net.dll</HintPath>
+      <HintPath>..\..\References\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
