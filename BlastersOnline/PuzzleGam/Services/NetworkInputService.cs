@@ -57,7 +57,7 @@ namespace BlastersGame.Services
             if (inputState.MoveRightIssued())
                 transformComponent.Velocity = new Vector2(ABSOLUTE_SPEED * 1, 0);
 
-            if (inputState.NotMoving())
+            if (inputState.NotMoving() && (transformComponent.Velocity.LengthSquared() != 0))
                 transformComponent.Velocity = Vector2.Zero;
 
 

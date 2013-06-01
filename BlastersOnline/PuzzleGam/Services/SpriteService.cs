@@ -75,9 +75,22 @@ namespace BlastersGame.Services
 
                 if (spriteComponent != null)
                 {
+                    int animation = 0;
+                    Vector2 velocity = transformComponent.Velocity;
+
+                    if (transformComponent.Velocity.LengthSquared() == 0)
+                        velocity = transformComponent.LastVelocity;
+
+                    if (velocity.Y > 0)
+                        animation = 1;
+                    else if (velocity.X < 0)
+                        animation = 2;
+                    else if (velocity.X > 0)
+                        animation = 3;
+
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
-                    var sourceRectangle = new Rectangle(0, descriptor.Animations[0].Row, (int) descriptor.FrameSize.X, (int) descriptor.FrameSize.Y);
+                    var sourceRectangle = new Rectangle(0, (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White);
 
                    // If this sprite has a name
@@ -90,8 +103,8 @@ namespace BlastersGame.Services
 
                        Vector2 pos = namePos - new Vector2(0, 0);
 
-                       pos = pos + new Vector2((int)transformComponent.Size.X / 2, -20);
-                       pos = pos - new Vector2((int)size.X / 2, 0);
+                       pos = pos + new Vector2((int)(transformComponent.Size.X / 2), -20);
+                       pos = pos - new Vector2((int)(size.X / 2), 0);
 
                        pos = new Vector2((float)Math.Round(pos.X), (float)Math.Round(pos.Y));
 
