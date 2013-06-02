@@ -144,11 +144,11 @@ namespace PuzzleGame.Screens
 
                 foreach (var tile in layer.Tiles)
                 {
-                    var texX = (tile.GID - 1) % 16;
+                    var texX = (int)((tile.GID - 1) % 16);
                     var texY = (int)((tile.GID - 1) / 16);
 
                     spriteBatch.Draw(_tileset, new Vector2(tile.X * 32, tile.Y * 32),
-                                     new Rectangle((int)(texX * 32), texY * 32, 32, 32), Color.White);
+                                     new Rectangle(texX * 32, texY * 32, 32, 32), Color.White);
                 }
 
             }

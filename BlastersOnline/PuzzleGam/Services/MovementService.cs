@@ -106,13 +106,19 @@ namespace BlastersGame.Services
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
+            // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
             if (movementModifierComponent != null)
                 movementBonus = movementModifierComponent.Bonus;
 
+            // Apply the multiplier to the velocity and move the position
             transformComponent.LocalPosition += transformComponent.Velocity * movementBonus;
+
+            // Clamp the x and y so the player won't keep walking offscreen
             float x = MathHelper.Clamp(transformComponent.LocalPosition.X, 0, 640 - transformComponent.Size.X);
             float y = MathHelper.Clamp(transformComponent.LocalPosition.Y, 35, 600 - transformComponent.Size.Y);
+
+            // Assign the clamped position to the LocalPosition
             transformComponent.LocalPosition = new Vector2(x, y);
             
             if (transformComponent.Velocity.X < 0)

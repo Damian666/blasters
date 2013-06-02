@@ -93,12 +93,9 @@ namespace BlastersGame.Services
 
                 if (spriteComponent != null)
                 {
-
                     int animation = (int)transformComponent.DirectionalCache;
-
                     if (entity.GetComponent(typeof (PlayerComponent)) == null)
                         animation = 0;
-
 
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
