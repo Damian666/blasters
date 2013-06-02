@@ -10,6 +10,7 @@ using BlastersShared.Game.Entities;
 using BlastersShared.GameSession;
 using BlastersShared.Network.Packets;
 using BlastersShared.Network.Packets.AppServer;
+using BlastersShared.Network.Packets.AppServer.BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.Client;
 
 namespace AppServer.Services.Simulation
@@ -55,9 +56,6 @@ namespace AppServer.Services.Simulation
         public SimulatedGameSession(GameSession session)
         {
             Session = session;
-
-            
-
             SetupSimulation();
 
         }
@@ -93,6 +91,8 @@ namespace AppServer.Services.Simulation
                 ClientNetworkManager.Instance.SendPacket(packet, connection);
             }
         }
+
+       
 
         /// <summary>
         /// Handles movement for a particular instance
@@ -218,9 +218,32 @@ namespace AppServer.Services.Simulation
             // Add services we might need
             _serviceContainer.AddService(detonationService);
 
+            _serviceContainer.EntityRemoved += _serviceContainer_EntityRemoved;
+
             // Start the game timer immediately
             //TODO: Don't start the timer until everyone is loaded
             _timer.Start();
+
+        }
+
+        void _serviceContainer_EntityRemoved(Entity entity)
+        {
+            var packet = new EntityRemovePacket(entity.ID);
+
+
+            foreach (var player in _simulationState.Entities)
+            {
+                // Grab the connection
+                var playerComponent = (PlayerComponent)player.GetComponent(typeof(PlayerComponent));
+
+                if (playerComponent == null)
+                    continue;
+
+                var connection = playerComponent.Connection;
+
+
+                ClientNetworkManager.Instance.SendPacket(packet, connection);
+            }
 
         }
 

@@ -89,6 +89,7 @@
     <Compile Include="Services\ServiceContainer.cs" />
     <Compile Include="Services\Sprites\SpriteDescriptor.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Utilities\DetonationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonoGame-develop\ThirdParty\Lidgren.Network\Lidgren.Network.Windows.csproj">

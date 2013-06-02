@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AppServer.Network;
 using BlastersShared.Game;
 using BlastersShared.Game.Entities;
+using BlastersShared.Network.Packets.AppServer.BlastersShared.Network.Packets.AppServer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

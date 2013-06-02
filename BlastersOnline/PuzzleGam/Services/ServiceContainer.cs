@@ -69,16 +69,17 @@ namespace BlastersGame.Services
         public void RemoveEntity(Entity entity)
         {
             _toRemove.Add(entity);
-            OnEntityRemoved(entity);
         }
 
         public void RemoveEntityByID(ulong entityID)
         {
             foreach (var entity in Entities)
             {
-                if(entity.ID == entityID) 
+                if (entity.ID == entityID)
+                {
                     _toRemove.Add(entity);
-                return;
+                    return;
+                }
             }
 
             throw new KeyNotFoundException("The given entity was not found on the client. Double request sent? ");
@@ -120,7 +121,10 @@ namespace BlastersGame.Services
         {
 
             foreach (var toRemove in _toRemove)
+            {
                 Entities.Remove(toRemove);
+                OnEntityRemoved(toRemove);
+            }
             _toRemove.Clear();
 
             foreach (var service in _services)
