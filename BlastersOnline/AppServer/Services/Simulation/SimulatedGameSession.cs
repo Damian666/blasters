@@ -12,6 +12,7 @@ using BlastersShared.Network.Packets;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.AppServer.BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.Client;
+using Microsoft.Xna.Framework;
 
 namespace AppServer.Services.Simulation
 {
@@ -64,8 +65,14 @@ namespace AppServer.Services.Simulation
         {
 
             var sender = RetrieveSender(request);
-            var transformComponent = (TransformComponent) sender.GetComponent(typeof (TransformComponent));
-            var bomb = EntityFactory.CreateBomb(transformComponent.LocalPosition);
+            var transformComponent = (TransformComponent)sender.GetComponent(typeof(TransformComponent));
+
+            Vector2 location = transformComponent.LastLocalPosition;
+            location += new Vector2(transformComponent.Size.X / 2, transformComponent.Size.Y);
+            location -= new Vector2(16, 16);
+
+            var bomb = EntityFactory.CreateBomb(location);
+
 
             AddEntity(bomb);
         }
@@ -80,10 +87,10 @@ namespace AppServer.Services.Simulation
             foreach (var player in _simulationState.Entities)
             {
                 // Grab the connection
-                var playerComponent = (PlayerComponent) player.GetComponent(typeof (PlayerComponent));
+                var playerComponent = (PlayerComponent)player.GetComponent(typeof(PlayerComponent));
 
-                if(playerComponent == null)
-                  continue;
+                if (playerComponent == null)
+                    continue;
 
                 var connection = playerComponent.Connection;
 
@@ -92,7 +99,7 @@ namespace AppServer.Services.Simulation
             }
         }
 
-       
+
 
         /// <summary>
         /// Handles movement for a particular instance
@@ -108,9 +115,9 @@ namespace AppServer.Services.Simulation
                 // Grab the connection
                 var playerComponent = (PlayerComponent)player.GetComponent(typeof(PlayerComponent));
 
-                if(playerComponent == null)
+                if (playerComponent == null)
                     continue;
-                
+
 
                 var connection = playerComponent.Connection;
 
@@ -119,7 +126,7 @@ namespace AppServer.Services.Simulation
                     var broadcastPacket = new MovementRecievedPacket(notifyMovementPacket.Velocity,
                                                                      notifyMovementPacket.Location, sender.ID);
 
-                    ClientNetworkManager.Instance.SendPacket(broadcastPacket, connection); 
+                    ClientNetworkManager.Instance.SendPacket(broadcastPacket, connection);
 
                 }
 
@@ -137,14 +144,14 @@ namespace AppServer.Services.Simulation
             Entity sender = null;
             foreach (var entity in _simulationState.Entities)
             {
-                var playerComponent = (PlayerComponent) entity.GetComponent(typeof (PlayerComponent));
+                var playerComponent = (PlayerComponent)entity.GetComponent(typeof(PlayerComponent));
 
                 if (playerComponent == null)
                     continue;
-                
+
                 var connection = playerComponent.Connection;
 
-            
+
 
                 if (connection == packet.Sender)
                     sender = entity;
@@ -186,7 +193,7 @@ namespace AppServer.Services.Simulation
 
             foreach (var user in _simulationState.Entities)
             {
-                var comp = ((PlayerComponent) user.GetComponent(typeof (PlayerComponent)));
+                var comp = ((PlayerComponent)user.GetComponent(typeof(PlayerComponent)));
 
                 if (comp.SecureToken == obj.SecureToken)
                 {
@@ -257,11 +264,11 @@ namespace AppServer.Services.Simulation
             _totalThen = _timer.Elapsed.TotalSeconds;
 
             // Check to see if the timer is expired
-            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers*125)
+            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 125)
                 TerminateSession();
 
             // If the game has started, run the simulation
-            if(_timer.IsRunning)
+            if (_timer.IsRunning)
                 _serviceContainer.UpdateService(deltaTime);
 
         }
