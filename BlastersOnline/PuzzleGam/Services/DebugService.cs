@@ -45,7 +45,7 @@ namespace BlastersGame.Services
 
                     foreach (var explosiveRectangle in explosiveRectangles)
                     {
-                        spriteBatch.DrawRectangle(explosiveRectangle, Color.Red, 2f);
+                        spriteBatch.DrawRectangle(explosiveRectangle, Color.Red, 4f);
                     }
 
                     spriteBatch.End();
