@@ -8,7 +8,7 @@ namespace BlastersShared.Game.Components
     /// <summary>
     /// The MovementModifier component contains information about how the movement speed is modified.
     /// </summary>
-    class MovementModifierComponent
+    public class MovementModifierComponent : PowerUpComponent
     {
         public MovementModifierComponent(byte multiplier)
         {
@@ -21,7 +21,7 @@ namespace BlastersShared.Game.Components
         }
 
         /// <summary>
-        /// How much the movement speed is multiplied by.
+        /// How much movement speed is modified.
         /// </summary>
         public byte Multiplier { get; set; }
     }

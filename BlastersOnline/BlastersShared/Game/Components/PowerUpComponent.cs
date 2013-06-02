@@ -8,7 +8,7 @@ namespace BlastersShared.Game.Components
     /// <summary>
     /// The PowerUp component contains information about world power ups for an entity.
     /// </summary>
-    class PowerUpComponent
+    public class PowerUpComponent : Component
     {
         public PowerUpComponent(double time, byte multiplier)
         {

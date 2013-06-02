@@ -8,7 +8,7 @@ namespace BlastersShared.Game.Components
     /// <summary>
     /// The RangeModifier component contains information about how much range an object has.
     /// </summary>
-    class RangeModifier
+    public class RangeModifier : PowerUpComponent
     {
         public RangeModifier(byte amount)
         {

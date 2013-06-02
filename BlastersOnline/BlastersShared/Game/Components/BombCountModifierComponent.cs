@@ -8,7 +8,7 @@ namespace BlastersShared.Game.Components
     /// <summary>
     /// The BombModifier component contains information about how many bombs an entity can possess.
     /// </summary>
-    class BombCountModifierComponent
+    public class BombCountModifierComponent : PowerUpComponent
     {
         public BombCountModifierComponent(byte amount)
         {
