@@ -42,15 +42,47 @@ namespace BlastersGame.Services
             _services.Add(service);
         }
 
-        public delegate void EntityAddedDelegate(Entity entity);
-        public event EntityAddedDelegate EntityAdded;
+        public delegate void EntityEvent(Entity entity);
 
-        protected virtual void OnEntityAdded(Entity entity)
+        public event EntityEvent EntityAdded;
+        public event EntityEvent EntityRemoved;
+
+        protected virtual void OnEntityRemoved(Entity entity)
         {
-            EntityAddedDelegate handler = EntityAdded;
+            EntityEvent handler = EntityRemoved;
             if (handler != null) handler(entity);
         }
 
+        protected virtual void OnEntityAdded(Entity entity)
+        {
+            EntityEvent handler = EntityAdded;
+            if (handler != null) handler(entity);
+        }
+
+
+        private List<Entity> _toRemove = new List<Entity>();
+
+        /// <summary>
+        /// Removes an entity from the server container, also fires off an event to notify.
+        /// </summary>
+        /// <param name="entity"></param>
+        public void RemoveEntity(Entity entity)
+        {
+            _toRemove.Add(entity);
+            OnEntityRemoved(entity);
+        }
+
+        public void RemoveEntityByID(ulong entityID)
+        {
+            foreach (var entity in Entities)
+            {
+                if(entity.ID == entityID) 
+                    _toRemove.Add(entity);
+                return;
+            }
+
+            throw new KeyNotFoundException("The given entity was not found on the client. Double request sent? ");
+        }
 
         /// <summary>
         /// Adds an entity to the server container, also fires off events for notifications.
@@ -86,6 +118,11 @@ namespace BlastersGame.Services
 
         public void UpdateInput(InputState inputState)
         {
+
+            foreach (var toRemove in _toRemove)
+                Entities.Remove(toRemove);
+            _toRemove.Clear();
+
             foreach (var service in _services)
                 service.HandleInput(inputState);
         }

@@ -26,21 +26,29 @@ namespace AppServer.Services.Simulation
         }
 
 
-        private List<Service> _services = new List<Service>();
+        private List<SimulationService> _services = new List<SimulationService>();
 
-        public void AddService(Service service)
+        public void AddService(SimulationService service)
         {
             service.ServiceManager = this;
             service.Initialize();
             _services.Add(service);
         }
 
-        public delegate void EntityAddedDelegate(Entity entity);
-        public event EntityAddedDelegate EntityAdded;
+        public delegate void EntityEvent(Entity entity);
+
+        public event EntityEvent EntityAdded;
+        public event EntityEvent EntityRemoved;
+
+        protected virtual void OnEntityRemoved(Entity entity)
+        {
+            EntityEvent handler = EntityRemoved;
+            if (handler != null) handler(entity);
+        }
 
         protected virtual void OnEntityAdded(Entity entity)
         {
-            EntityAddedDelegate handler = EntityAdded;
+            EntityEvent handler = EntityAdded;
             if (handler != null) handler(entity);
         }
 
@@ -55,6 +63,18 @@ namespace AppServer.Services.Simulation
             OnEntityAdded(entity);
         }
 
+        private List<Entity> _toRemove = new List<Entity>(); 
+
+        /// <summary>
+        /// Removes an entity from the server container, also fires off an event to notify.
+        /// </summary>
+        /// <param name="entity"></param>
+        public void RemoveEntity(Entity entity)
+        {
+            _toRemove.Add(entity);
+            OnEntityRemoved(entity);
+        }
+
         /// <summary>
         /// A list of entities contained in this service system.
         /// </summary>
@@ -66,8 +86,16 @@ namespace AppServer.Services.Simulation
 
 
 
-        public void UpdateService(float deltaTime)
+        public void UpdateService(double deltaTime)
         {
+
+            foreach (var toRemove in _toRemove)
+            {
+                Entities.Remove(toRemove);
+            }
+            _toRemove.Clear();
+           
+
             foreach (var service in _services)
                 service.Update(deltaTime);
         }

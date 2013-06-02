@@ -43,7 +43,7 @@ namespace BlastersShared.Network.Packets.AppServer
             public new static Packet FromNetBuffer(NetIncomingMessage incomingMessage)
             {
                 var entityID = incomingMessage.ReadUInt64();
-                var packet = new EntityAddPacket(entityID);
+                var packet = new EntityRemovePacket(entityID);
                 return packet;
             }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using AppServer.Network;
+using AppServer.Services.Simulation.Services;
 using BlastersShared;
 using BlastersShared.Game;
 using BlastersShared.Game.Components;
@@ -31,9 +32,16 @@ namespace AppServer.Services.Simulation
         Stopwatch _timer = new Stopwatch();
 
         /// <summary>
+        /// The total amount of time that had happened then
+        /// </summary>
+        private double _totalThen = 0f;
+
+        /// <summary>
         /// The simulation state is the state of the game currently being played.
         /// </summary>
         private SimulationState _simulationState;
+
+        private ServiceContainer _serviceContainer;
 
         // Events
         public delegate void SessionEndedHandler(SimulatedGameSession session, SessionEndStatistics e);
@@ -203,6 +211,12 @@ namespace AppServer.Services.Simulation
             // The state can be generated based on the session information passed down
             _simulationState = SimulationStateFactory.CreateSimulationState(Session);
 
+            _serviceContainer = new ServiceContainer(_simulationState);
+
+            var detonationService = new DetonationService();
+
+            // Add services we might need
+            _serviceContainer.AddService(detonationService);
 
             // Start the game timer immediately
             //TODO: Don't start the timer until everyone is loaded
@@ -210,16 +224,22 @@ namespace AppServer.Services.Simulation
 
         }
 
-
         /// <summary>
         /// Performs updates on the simulation state
         /// </summary>
         public void PerformUpdate()
         {
-            // Check to see if the timer is expired
 
-            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 125)
+            double deltaTime = (_timer.Elapsed.TotalSeconds - _totalThen);
+            _totalThen = _timer.Elapsed.TotalSeconds;
+
+            // Check to see if the timer is expired
+            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers*125)
                 TerminateSession();
+
+            // If the game has started, run the simulation
+            if(_timer.IsRunning)
+                _serviceContainer.UpdateService(deltaTime);
 
         }
 

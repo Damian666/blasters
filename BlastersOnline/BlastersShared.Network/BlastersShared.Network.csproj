@@ -57,6 +57,7 @@
     <Compile Include="Packet.cs" />
     <Compile Include="Packets\AppServer\ClusterAddPacket.cs" />
     <Compile Include="Packets\AppServer\EntityAddPacket.cs" />
+    <Compile Include="Packets\AppServer\EntityRemovePacket.cs" />
     <Compile Include="Packets\AppServer\MovementRecievedPacket.cs" />
     <Compile Include="Packets\AppServer\SessionEndedClientPacket.cs" />
     <Compile Include="Packets\AppServer\SessionEndedLobbyPacket.cs" />

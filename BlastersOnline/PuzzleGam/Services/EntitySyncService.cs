@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BlastersShared.Network.Packets.AppServer;
+using BlastersShared.Network.Packets.AppServer.BlastersShared.Network.Packets.AppServer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PuzzleGame;
@@ -33,8 +34,13 @@ namespace BlastersGame.Services
         public override void Initialize()
         {
             PacketService.RegisterPacket<EntityAddPacket>(HandleEntityAdd);
+            PacketService.RegisterPacket<EntityRemovePacket>(HandleEntityRemove);
         }
 
+        private void HandleEntityRemove(EntityRemovePacket entityRemovePacket)
+        {
+            ServiceManager.RemoveEntityByID(entityRemovePacket.EntityID);
+        }
 
 
         /// <summary>

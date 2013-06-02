@@ -11,14 +11,14 @@ namespace AppServer.Services.Simulation
     /// <summary>
     /// A service that is used to manipulate and manage entities within a world
     /// </summary>
-    public abstract class Service
+    public abstract class SimulationService
     {
 
         /// <summary>
         /// Updates this particular service
         /// </summary>
         /// <param name="gameTime"></param>
-        public abstract void Update(float deltaTime);
+        public abstract void Update(double deltaTime);
 
         /// <summary>
         /// The parent container

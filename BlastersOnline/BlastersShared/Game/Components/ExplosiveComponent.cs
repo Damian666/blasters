@@ -25,7 +25,7 @@ namespace BlastersShared.Game.Components
         /// <summary>
         /// The amount of time until entity will detonate; used to keep track
         /// </summary>
-        public float DetonationTime { get; set; }
+        public double DetonationTime { get; set; }
 
         /// <summary>
         /// The given range of of this <see cref="ExplosiveEntity"/>. 

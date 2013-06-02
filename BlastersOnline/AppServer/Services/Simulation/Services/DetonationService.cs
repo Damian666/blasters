@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlastersShared.Game.Components;
 using BlastersShared.Game.Entities;
 using Microsoft.Xna.Framework;
+using BlastersShared;
 
 namespace AppServer.Services.Simulation.Services
 {
@@ -13,14 +14,14 @@ namespace AppServer.Services.Simulation.Services
     /// The detonation service is used to monitor entities that are going to explode.
     /// This service manages them and count's down their destruction timer.
     /// </summary>
-    public class DetonationService : Service
+    public class DetonationService : SimulationService
     {
         /// <summary>
         /// The blast width is the amount of space the explosive entity will consume.
         /// </summary>
         private const int BLAST_WIDTH = 32;
 
-        public override void Update(float deltaTime)
+        public override void Update(double deltaTime)
         {
 
             foreach (var entity in ServiceManager.Entities)
@@ -57,12 +58,48 @@ namespace AppServer.Services.Simulation.Services
             Rectangle blastLeftRectangle = new Rectangle((int)transformComponent.LocalPosition.X, (int)transformComponent.LocalPosition.Y, BLAST_WIDTH, 32);
             Rectangle blastRightRectangle = new Rectangle((int)transformComponent.LocalPosition.X, (int)transformComponent.LocalPosition.Y, BLAST_WIDTH, 32);
 
+            List<Rectangle> blastBoxes = new List<Rectangle>();
+            blastBoxes.Add(blastUpRectangle);
+            blastBoxes.Add(blastDownRectangle);
+            blastBoxes.Add(blastLeftRectangle);
+            blastBoxes.Add(blastRightRectangle);
+
             // Construct the range on the blasts
             blastUpRectangle.Height += -explosiveComponent.Range;
             blastDownRectangle.Height += explosiveComponent.Range;
             blastRightRectangle.Width += explosiveComponent.Range;
             blastLeftRectangle.Width += -explosiveComponent.Range;
 
+            // Detonate and hurt players
+            foreach (var player in ServiceManager.Entities)
+            {
+                var playerTransformComponent = (TransformComponent)player.GetComponent(typeof(TransformComponent));
+                var playerComponent = (PlayerComponent)player.GetComponent(typeof(PlayerComponent));
+
+                // If is a player, attempt to detonate
+                if (playerComponent != null)
+                {
+                    var x = playerTransformComponent.LocalPosition.X;
+                    var y = playerTransformComponent.LocalPosition.Y;
+                    var width = playerTransformComponent.Size.X;
+                    var height = playerTransformComponent.Size.Y;
+                    
+                    Rectangle playerBoundingBox = new Rectangle((int) x, (int) y, (int) width, (int) height);
+
+                    foreach (var blastRectangle in blastBoxes)
+                    {
+                        if (playerBoundingBox.Intersects(blastRectangle))
+                        {
+                            Logger.Instance.Log(Level.Debug,  "{} has been bombed! TODO: Do something about it...");
+                            ServiceManager.RemoveEntity(entity);
+                        }
+                    }
+
+
+                }
+
+
+            }
 
         }
 
