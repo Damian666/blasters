@@ -8,14 +8,14 @@ namespace BlastersShared.Game.Components
     /// <summary>
     /// The MovementModifier component contains information about how the movement speed is modified.
     /// </summary>
-    class MovementModifier
+    class MovementModifierComponent
     {
-        public MovementModifier(byte multiplier)
+        public MovementModifierComponent(byte multiplier)
         {
             Multiplier = multiplier;
         }
 
-        public MovementModifier()
+        public MovementModifierComponent()
         {
 
         }

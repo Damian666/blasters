@@ -6,7 +6,7 @@ using System.Text;
 namespace BlastersShared.Game.Components
 {
     /// <summary>
-    /// The RangeModifier component contains information about the modifier of the range.
+    /// The RangeModifier component contains information about how much range an object has.
     /// </summary>
     class RangeModifier
     {
@@ -21,7 +21,7 @@ namespace BlastersShared.Game.Components
         }
 
         /// <summary>
-        /// The amount of range that is modified from the range.
+        /// The amount of range.
         /// </summary>
         public byte Amount { get; set; }
     }

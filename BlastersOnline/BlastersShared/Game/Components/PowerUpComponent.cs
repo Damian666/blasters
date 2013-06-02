@@ -22,12 +22,12 @@ namespace BlastersShared.Game.Components
         }
 
         /// <summary>
-        /// How long the component lasts.
+        /// How long the it lasts.
         /// </summary>
         public double Duration { get; set; }
 
         /// <summary>
-        /// How many times the component can be stacked.
+        /// How many times it can be stacked.
         /// </summary>
         public byte Multiplier { get; set; }
     }

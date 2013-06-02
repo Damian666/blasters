@@ -6,22 +6,22 @@ using System.Text;
 namespace BlastersShared.Game.Components
 {
     /// <summary>
-    /// The BombModifier component contains information about the modifier of bombs.
+    /// The BombModifier component contains information about how many bombs an entity can possess.
     /// </summary>
-    class BombModifier
+    class BombModifierComponent
     {
-        public BombModifier(byte amount)
+        public BombModifierComponent(byte amount)
         {
             Amount = amount;
         }
 
-        public BombModifier()
+        public BombModifierComponent()
         {
 
         }
 
         /// <summary>
-        /// The amount of bombs an entity can possess.
+        /// The amount of bombs.
         /// </summary>
         public byte Amount { get; set; }
     }
