@@ -71,6 +71,7 @@
     <Compile Include="Game\Components\ExplosiveComponent.cs" />
     <Compile Include="Game\Components\NameComponent.cs" />
     <Compile Include="Game\Components\PlayerComponent.cs" />
+    <Compile Include="Game\Components\PowerUpComponent.cs" />
     <Compile Include="Game\Components\SkinComponent.cs" />
     <Compile Include="Game\Components\TransformComponent.cs" />
     <Compile Include="Game\Entity.cs" />
