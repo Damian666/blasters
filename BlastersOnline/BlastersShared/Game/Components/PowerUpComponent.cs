@@ -22,7 +22,7 @@ namespace BlastersShared.Game.Components
         }
 
         /// <summary>
-        /// The amount of time the component lasts.
+        /// How long the component lasts.
         /// </summary>
         public double Duration { get; set; }
 
