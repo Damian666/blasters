@@ -27,7 +27,7 @@ namespace AppServer.Network
         /// </summary>
         /// <param name="packetID">The type of packet that is expected</param>
         /// <param name="incomingMessage">The data contained within the packet</param>
-        public void ProcessPacket(int packetID, NetIncomingMessage incomingMessage)
+        public string ProcessPacket(int packetID, NetIncomingMessage incomingMessage)
         {
             //TODO: Type.InvokeMember(...) is an expensive call. Do monitor this if at all possible.
             //It'll likely be fine, and it adds great design addition. No nasty switches. Send and forget. 
@@ -47,6 +47,8 @@ namespace AppServer.Network
 
             //Automated packet service
             _packetService.ProcessReceivedPacket(returnValue);
+
+            return returnValue.GetType().Name;
         }
 
         public PacketProcessor()

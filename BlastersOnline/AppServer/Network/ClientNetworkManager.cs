@@ -149,10 +149,13 @@ namespace AppServer.Network
                         //Read the packet ID
                         int packetID = incomingMessage.ReadInt32();
 
-                        Logger.Instance.Log(Level.Debug, "Recieved a packet: " + packetID);
+
 
                         //Alert all other sub systems of the presence of this packet
-                        _packetProcessor.ProcessPacket(packetID, incomingMessage);
+                       var packet =  _packetProcessor.ProcessPacket(packetID, incomingMessage);
+
+                                                Logger.Instance.Log(Level.Debug, "Recieved a packet: " + packet);
+
                         break;
 
                     default:
