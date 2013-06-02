@@ -218,7 +218,7 @@ namespace AppServer.Services.Simulation
         {
             // Check to see if the timer is expired
 
-            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 25)
+            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 125)
                 TerminateSession();
 
         }

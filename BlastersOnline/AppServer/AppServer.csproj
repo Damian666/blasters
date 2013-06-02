@@ -66,6 +66,9 @@
     <Compile Include="Services\GameSessionSimulationService.cs" />
     <Compile Include="Services\LobbyCommunicatorService.cs" />
     <Compile Include="Services\Simulation\EntityFactory.cs" />
+    <Compile Include="Services\Simulation\Service.cs" />
+    <Compile Include="Services\Simulation\ServiceContainer.cs" />
+    <Compile Include="Services\Simulation\Services\DetonationService.cs" />
     <Compile Include="Services\Simulation\SimulatedGameSession.cs" />
     <Compile Include="Services\Simulation\SimulationStateFactory.cs" />
     <Compile Include="Services\Simulation\UserRoutingTable.cs" />
