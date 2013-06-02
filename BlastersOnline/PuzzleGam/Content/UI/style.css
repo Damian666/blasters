@@ -70,7 +70,7 @@ A:hover {text-decoration: none; color: #FFF;}
 
 /*********** Sidebar ************/
 
-#sidebar {float: right; padding-right: 4px;}
+#sidebar {float: right; padding-right: 0px;}
 
 #gamemap {
 	background: url('images/gamemapbg.png') no-repeat;

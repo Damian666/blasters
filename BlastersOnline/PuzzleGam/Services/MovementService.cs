@@ -106,11 +106,15 @@ namespace BlastersGame.Services
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
+            float movementBonus = 1.0f;
             if (movementModifierComponent != null)
-                transformComponent.LocalPosition += transformComponent.Velocity * movementModifierComponent.Bonus;    
-            else
-                transformComponent.LocalPosition += transformComponent.Velocity;   
-        
+                movementBonus = movementModifierComponent.Bonus;
+
+            transformComponent.LocalPosition += transformComponent.Velocity * movementBonus;
+            float x = MathHelper.Clamp(transformComponent.LocalPosition.X, 0, 640 - transformComponent.Size.X);
+            float y = MathHelper.Clamp(transformComponent.LocalPosition.Y, 35, 600 - transformComponent.Size.Y);
+            transformComponent.LocalPosition = new Vector2(x, y);
+            
             if (transformComponent.Velocity.X < 0)
                 transformComponent.DirectionalCache = DirectionalCache.Left;
             else if (transformComponent.Velocity.X > 0)
