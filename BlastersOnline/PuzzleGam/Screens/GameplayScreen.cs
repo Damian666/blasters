@@ -38,7 +38,7 @@ namespace PuzzleGame.Screens
 
         public override void LoadContent()
         {
-            _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\BMOTiles", ScreenManager.Game.GraphicsDevice);
+            _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\Tileset", ScreenManager.Game.GraphicsDevice);
             _curTexture = ScreenManager.Game.Content.GetTexture(@"Sprites\cursor", ScreenManager.Game.GraphicsDevice);
 
 
@@ -82,7 +82,7 @@ namespace PuzzleGame.Screens
             UI.CallJavascript("document.getElementById(\"room\").innerHTML = 'The Elite'");
             UI.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + _map.LevelID + "'");
 
-            string[] names = { "", "", "", "Robbie", "Seth", "Vaughan", "Justin", "N00b Slayer 42" };
+            string[] names = { "", "", "", "Robbie", "Seth", "Vaughan", "Justin", "Rory" };
             SetSidebarInfo(names);
 
         }

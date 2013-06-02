@@ -68,13 +68,13 @@
     <Compile Include="GameSession\GameSessionType.cs" />
     <Compile Include="GameSession\SessionEndStatistics.cs" />
     <Compile Include="Game\Component.cs" />
-    <Compile Include="Game\Components\BombCountModifierComponent.cs" />
-    <Compile Include="Game\Components\RangeModifierComponent.cs" />
+    <Compile Include="Game\Components\PowerUp\BombCountModifierComponent.cs" />
+    <Compile Include="Game\Components\PowerUp\RangeModifierComponent.cs" />
     <Compile Include="Game\Components\ExplosiveComponent.cs" />
-    <Compile Include="Game\Components\MovementModifierComponent.cs" />
+    <Compile Include="Game\Components\PowerUp\MovementModifierComponent.cs" />
     <Compile Include="Game\Components\NameComponent.cs" />
     <Compile Include="Game\Components\PlayerComponent.cs" />
-    <Compile Include="Game\Components\PowerUpComponent.cs" />
+    <Compile Include="Game\Components\PowerUp\PowerUpComponent.cs" />
     <Compile Include="Game\Components\SkinComponent.cs" />
     <Compile Include="Game\Components\TransformComponent.cs" />
     <Compile Include="Game\Entity.cs" />
