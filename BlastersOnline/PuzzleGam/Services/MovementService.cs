@@ -105,8 +105,12 @@ namespace BlastersGame.Services
             // Local players can be moved automatically, then report their status if needed
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
-            transformComponent.LocalPosition += transformComponent.Velocity;
 
+            if (movementModifierComponent != null)
+                transformComponent.LocalPosition += transformComponent.Velocity * movementModifierComponent.Bonus;    
+            else
+                transformComponent.LocalPosition += transformComponent.Velocity;   
+        
             if (transformComponent.Velocity.X < 0)
                 transformComponent.DirectionalCache = DirectionalCache.Left;
             else if (transformComponent.Velocity.X > 0)
