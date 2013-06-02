@@ -180,6 +180,12 @@ namespace PuzzleGame
             return IsNewKeyPress(Keys.Space, null, out index);
         }
 
+        public bool EnableDebugMode()
+        {
+            PlayerIndex index = PlayerIndex.Four;
+            return IsNewKeyPress(Keys.F1, null, out index);
+        }
+
         public bool MoveRightIssued()
         {
 

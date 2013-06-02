@@ -40,8 +40,8 @@ namespace PuzzleGame.Screens
         {
             _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\BMOTiles", ScreenManager.Game.GraphicsDevice);
             _curTexture = ScreenManager.Game.Content.GetTexture(@"Sprites\cursor", ScreenManager.Game.GraphicsDevice);
-            
-            
+
+
 
             _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content, ScreenManager.Game.GraphicsDevice);
 
@@ -57,7 +57,7 @@ namespace PuzzleGame.Screens
             UI.Load(@"Content\UI\index.html");
             UI.OnLoadCompleted = OnLoadCompleted;
             UI.OnDocumentCompleted = OnDocumentCompleted;
-            
+
 
 
 
@@ -66,11 +66,13 @@ namespace PuzzleGame.Screens
             var networkService = new NetworkInputService(_playerID);
             var movementService = new MovementService(_playerID);
             var entitySyncService = new EntitySyncService();
+            _debugService = new DebugService();
 
             _serviceContainer.AddService(service);
             _serviceContainer.AddService(networkService);
             _serviceContainer.AddService(movementService);
             _serviceContainer.AddService(entitySyncService);
+            _serviceContainer.AddService(_debugService);
 
             base.LoadContent();
         }
@@ -105,16 +107,22 @@ namespace PuzzleGame.Screens
 
         private void OnLoadCompleted()
         {
-  
+
 
         }
 
         public override void HandleInput(InputState input)
         {
+            if (input.EnableDebugMode())
+                _debugService.Visible = !_debugService.Visible;
+
             _serviceContainer.UpdateInput(input);
             curPosition = input.MousePosition;
             base.HandleInput(input);
         }
+
+        private DebugService _debugService;
+
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
@@ -126,7 +134,7 @@ namespace PuzzleGame.Screens
             var spriteBatch = ScreenManager.SpriteBatch;
 
 
-   
+
 
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null);
@@ -147,7 +155,7 @@ namespace PuzzleGame.Screens
 
             spriteBatch.End();
 
-           
+
 
 
 
@@ -164,14 +172,14 @@ namespace PuzzleGame.Screens
 
             spriteBatch.Begin();
 
-     
+
 
             if (UI.webTexture != null)
                 spriteBatch.Draw(UI.webTexture, new Rectangle(0, 0, width, height), Color.White);
             spriteBatch.End();
 
 
-            
+
 
 
             UI.RenderWebView();

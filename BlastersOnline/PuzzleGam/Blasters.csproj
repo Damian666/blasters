@@ -63,6 +63,7 @@
     <Compile Include="ScreenManager\ScreenManager.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
+    <Compile Include="Services\DebugService.cs" />
     <Compile Include="Services\EntitySyncService.cs" />
     <Compile Include="Services\MovementService.cs" />
     <Compile Include="Services\Movement\EntityInterpolator.cs" />
@@ -101,6 +102,9 @@
     </Reference>
     <Reference Include="AwesomiumUiLib">
       <HintPath>..\..\References\AwesomiumUiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="C3.XNA.Primitives2D">
+      <HintPath>..\..\References\C3.XNA.Primitives2D.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
