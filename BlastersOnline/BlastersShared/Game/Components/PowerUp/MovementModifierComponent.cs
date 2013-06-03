@@ -10,19 +10,19 @@ namespace BlastersShared.Game.Components
     /// </summary>
     public class MovementModifierComponent : PowerUpComponent
     {
-        public MovementModifierComponent(byte bonus)
+        public MovementModifierComponent(float bonus)
         {
             Bonus = bonus;
         }
 
         public MovementModifierComponent()
         {
-            Bonus = 1;
+            Bonus = 1.0f;
         }
 
         /// <summary>
         /// How much movement speed is added.
         /// </summary>
-        public byte Bonus { get; set; }
+        public float Bonus { get; set; }
     }
 }

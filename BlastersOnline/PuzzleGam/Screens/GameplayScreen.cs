@@ -151,6 +151,7 @@ namespace PuzzleGame.Screens
                     var texX = (int)(relativeGID % tilesAcross);
                     var texY = (int)(relativeGID / tilesAcross);
 
+                    // TODO: 35px offset needs to be abstracted out
                     spriteBatch.Draw(_tileset, new Vector2(tile.X * tmxTileset.TileWidth, 35 + tile.Y * tmxTileset.TileHeight),
                                      new Rectangle(texX * tmxTileset.TileWidth, texY * tmxTileset.TileHeight, tmxTileset.TileWidth, tmxTileset.TileHeight), Color.White);
                 }
