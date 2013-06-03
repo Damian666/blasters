@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PuzzleGame;
 using PuzzleGame.Network;
+using PuzzleGame.Levels;
+using TiledSharp;
+using BlastersGame.Components;
 
 namespace BlastersGame.Services
 {
@@ -26,6 +29,8 @@ namespace BlastersGame.Services
         // Timing related info (amount of updates sent per seconds i.e 0.1 is 10FPS )
         const float MovementRate = 0.1f;
         private float _lastReaction;
+
+        public Map Map { get; set; }
 
         public MovementService(ulong idToMonitor)
         {
@@ -103,6 +108,8 @@ namespace BlastersGame.Services
         private void ProcessLocalPlayer(Entity entity, GameTime gameTime)
         {
             // Local players can be moved automatically, then report their status if needed
+            var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
+            //var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
@@ -112,15 +119,37 @@ namespace BlastersGame.Services
                 movementBonus = movementModifierComponent.Bonus;
 
             // Apply the multiplier to the velocity and move the position
-            transformComponent.LocalPosition += transformComponent.Velocity * movementBonus;
+            Vector2 nextPosition = transformComponent.LocalPosition;
+            nextPosition += transformComponent.Velocity * movementBonus;
 
             // Clamp the x and y so the player won't keep walking offscreen
-            float x = MathHelper.Clamp(transformComponent.LocalPosition.X, 0, 640 - transformComponent.Size.X);
-            float y = MathHelper.Clamp(transformComponent.LocalPosition.Y, 35, 600 - transformComponent.Size.Y);
+            float x = MathHelper.Clamp(nextPosition.X, 0, 640 - transformComponent.Size.X);
+            float y = MathHelper.Clamp(nextPosition.Y, 35, 600 - transformComponent.Size.Y);
 
             // Assign the clamped position to the LocalPosition
-            transformComponent.LocalPosition = new Vector2(x, y);
-            
+            nextPosition = new Vector2(x, y);
+
+            // TODO: This is shitty. Needs to be redone.
+            if (Map != null)
+            {
+                foreach (TmxLayer layer in Map.Layers)
+                {
+                    foreach (TmxLayerTile tile in layer.Tiles)
+                    {
+                        // TODO: Needs to be made dynamic
+                        if ((int)(x / 32) == tile.X && (int)(y / 32) == tile.Y)
+                        {
+                            if (tile.GID == 6)
+                            {
+                                nextPosition = transformComponent.LocalPosition;
+                            }
+                        }
+                    }
+                }
+            }
+
+            transformComponent.LocalPosition = nextPosition;
+
             if (transformComponent.Velocity.X < 0)
                 transformComponent.DirectionalCache = DirectionalCache.Left;
             else if (transformComponent.Velocity.X > 0)
