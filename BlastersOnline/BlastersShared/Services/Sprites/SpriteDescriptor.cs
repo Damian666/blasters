@@ -29,6 +29,12 @@ namespace BlastersShared.Services.Sprites
         /// </summary>
         public Vector2 FrameSize { get; set; }
 
+        /// <summary>
+        /// The bounding box of the sprite.
+        /// This is necessary for collision with dynamically sized sprites.
+        /// </summary>
+        public Rectangle BoundingBox { get; set; }
+
         public List<SpriteDescriptorAnimation> Animations { get; set; }
 
         public SpriteDescriptor()
