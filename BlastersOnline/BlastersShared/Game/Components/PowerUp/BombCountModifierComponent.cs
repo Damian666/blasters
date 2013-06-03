@@ -10,14 +10,14 @@ namespace BlastersShared.Game.Components
     /// </summary>
     public class BombCountModifierComponent : PowerUpComponent
     {
-        public BombCountModifierComponent(byte amount)
-        {
-            Amount = amount;
-        }
-
         public BombCountModifierComponent()
         {
 
+        }
+
+        public BombCountModifierComponent(byte amount)
+        {
+            Amount = amount;
         }
 
         /// <summary>

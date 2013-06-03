@@ -10,14 +10,14 @@ namespace BlastersShared.Game.Components
     /// </summary>
     public class RangeModifier : PowerUpComponent
     {
-        public RangeModifier(byte amount)
-        {
-            Amount = amount;
-        }
-
         public RangeModifier()
         {
 
+        }
+
+        public RangeModifier(byte amount)
+        {
+            Amount = amount;
         }
 
         /// <summary>

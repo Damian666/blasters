@@ -10,14 +10,14 @@ namespace BlastersShared.Game.Components
     /// </summary>
     public class MovementModifierComponent : PowerUpComponent
     {
-        public MovementModifierComponent(float bonus)
-        {
-            Bonus = bonus;
-        }
-
         public MovementModifierComponent()
         {
             Bonus = 1.0f;
+        }
+
+        public MovementModifierComponent(float bonus)
+        {
+            Bonus = bonus;
         }
 
         /// <summary>
