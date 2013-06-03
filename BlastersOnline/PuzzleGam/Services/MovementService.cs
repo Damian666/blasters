@@ -110,11 +110,12 @@ namespace BlastersGame.Services
         private void ProcessLocalPlayer(Entity entity, GameTime gameTime)
         {
             // Local players can be moved automatically, then report their status if needed
-            var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
+            var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
             // TODO: Make it so we can get the sprite descriptors from the sprite service.
             var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
-            var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
-            var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
+            var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+            var movementModifierComponent =
+                (MovementModifierComponent) entity.GetComponent(typeof (MovementModifierComponent));
 
             // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
@@ -123,7 +124,7 @@ namespace BlastersGame.Services
 
             // Apply the multiplier to the velocity and move the position
             Vector2 nextPosition = transformComponent.LocalPosition;
-            nextPosition += transformComponent.Velocity * movementBonus;
+            nextPosition += transformComponent.Velocity*movementBonus;
 
             // Clamp the x and y so the player won't keep walking offscreen
             float x = MathHelper.Clamp(nextPosition.X, 0, 640 - transformComponent.Size.X);
@@ -133,25 +134,28 @@ namespace BlastersGame.Services
             nextPosition = new Vector2(x, y);
 
             // TODO: This is shitty. Needs to be redone.
-            if (Map != null)
-            {
-                foreach (TmxLayer layer in Map.Layers)
+            if (transformComponent.Velocity.LengthSquared() != 0) {
+                if (Map != null)
                 {
-                    foreach (TmxLayerTile tile in layer.Tiles)
+                    foreach (TmxLayer layer in Map.Layers)
                     {
-                        // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
-                        if (tile.GID == 7)
+                        foreach (TmxLayerTile tile in layer.Tiles)
                         {
-                            Rectangle tileRect = new Rectangle(tile.X*32, tile.Y*32, 32, 32);
-                            Rectangle bbox = new Rectangle(
-                                (int) (x + spriteDescriptor.BoundingBox.X),
-                                (int) (y + spriteDescriptor.BoundingBox.Y),
-                                spriteDescriptor.BoundingBox.Width,
-                                spriteDescriptor.BoundingBox.Height);
-                            if (tileRect.Intersects(bbox))
+                            // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
+                            if (tile.GID == 7)
                             {
+                                Rectangle tileRect = new Rectangle(tile.X*32, tile.Y*32, 32, 32);
+                                Rectangle bbox = new Rectangle(
+                                    (int) (x + spriteDescriptor.BoundingBox.X),
+                                    (int) (y + spriteDescriptor.BoundingBox.Y),
+                                    spriteDescriptor.BoundingBox.Width,
+                                    spriteDescriptor.BoundingBox.Height);
 
-                                nextPosition = transformComponent.LocalPosition;
+                                if (tileRect.Intersects(bbox))
+                                {
+
+                                    nextPosition = transformComponent.LocalPosition;
+                                }
                             }
                         }
                     }
