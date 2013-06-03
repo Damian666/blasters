@@ -15,6 +15,7 @@ using PuzzleGame.Levels;
 using TiledSharp;
 using BlastersGame.Components;
 using BlastersShared.Services.Sprites;
+using C3.XNA;
 
 namespace BlastersGame.Services
 {
@@ -75,13 +76,13 @@ namespace BlastersGame.Services
             {
                 var transformComponent = (TransformComponent)player.GetComponent(typeof(TransformComponent));
 
-                if(obj.Velocity.X < 0)
+                if (obj.Velocity.X < 0)
                     transformComponent.DirectionalCache = DirectionalCache.Left;
-                else if(obj.Velocity.X > 0)
+                else if (obj.Velocity.X > 0)
                     transformComponent.DirectionalCache = DirectionalCache.Right;
-                else if(obj.Velocity.Y > 0)
+                else if (obj.Velocity.Y > 0)
                     transformComponent.DirectionalCache = DirectionalCache.Down;
-                else if(obj.Velocity.Y < 0)
+                else if (obj.Velocity.Y < 0)
                     transformComponent.DirectionalCache = DirectionalCache.Up;
             }
 
@@ -92,7 +93,45 @@ namespace BlastersGame.Services
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            // Do nothing
+
+            spriteBatch.Begin();
+            foreach (var entity in ServiceManager.Entities)
+            {
+                // Local players can be moved automatically, then report their status if needed
+                var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
+                // TODO: Make it so we can get the sprite descriptors from the sprite service.
+                var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
+                var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+
+                Rectangle bbox = new Rectangle(
+                    (int) (transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X),
+                    (int) (transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y),
+                    spriteDescriptor.BoundingBox.Width,
+                    spriteDescriptor.BoundingBox.Height);
+           
+                spriteBatch.DrawRectangle(bbox, Color.White, 2f);
+        
+
+
+            }
+
+            foreach (TmxLayer layer in Map.Layers)
+            {
+                foreach (TmxLayerTile tile in layer.Tiles)
+                {
+                    // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
+                    if (tile.GID == 7)
+                    {
+                        Rectangle tileRect = new Rectangle(tile.X*32, tile.Y*32, 32, 32);
+                        spriteBatch.DrawRectangle(tileRect, Color.Red, 3f);
+
+                    }
+
+                }
+            }
+            spriteBatch.End();
+
+
         }
 
         public override void Update(GameTime gameTime)
@@ -110,12 +149,12 @@ namespace BlastersGame.Services
         private void ProcessLocalPlayer(Entity entity, GameTime gameTime)
         {
             // Local players can be moved automatically, then report their status if needed
-            var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
+            var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
             // TODO: Make it so we can get the sprite descriptors from the sprite service.
             var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
-            var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+            var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             var movementModifierComponent =
-                (MovementModifierComponent) entity.GetComponent(typeof (MovementModifierComponent));
+                (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
             // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
@@ -124,7 +163,7 @@ namespace BlastersGame.Services
 
             // Apply the multiplier to the velocity and move the position
             Vector2 nextPosition = transformComponent.LocalPosition;
-            nextPosition += transformComponent.Velocity*movementBonus;
+            nextPosition += transformComponent.Velocity * movementBonus;
 
             // Clamp the x and y so the player won't keep walking offscreen
             float x = MathHelper.Clamp(nextPosition.X, 0, 640 - transformComponent.Size.X);
@@ -134,7 +173,8 @@ namespace BlastersGame.Services
             nextPosition = new Vector2(x, y);
 
             // TODO: This is shitty. Needs to be redone.
-            if (transformComponent.Velocity.LengthSquared() != 0) {
+            if (transformComponent.Velocity.LengthSquared() != 0)
+            {
                 if (Map != null)
                 {
                     foreach (TmxLayer layer in Map.Layers)
@@ -144,12 +184,13 @@ namespace BlastersGame.Services
                             // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
                             if (tile.GID == 7)
                             {
-                                Rectangle tileRect = new Rectangle(tile.X*32, tile.Y*32, 32, 32);
+                                Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
+
                                 Rectangle bbox = new Rectangle(
-                                    (int) (x + spriteDescriptor.BoundingBox.X),
-                                    (int) (y + spriteDescriptor.BoundingBox.Y),
-                                    spriteDescriptor.BoundingBox.Width,
-                                    spriteDescriptor.BoundingBox.Height);
+                                      (int)(transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X),
+                                      (int)(transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y),
+                                      spriteDescriptor.BoundingBox.Width,
+                                      spriteDescriptor.BoundingBox.Height);
 
                                 if (tileRect.Intersects(bbox))
                                 {

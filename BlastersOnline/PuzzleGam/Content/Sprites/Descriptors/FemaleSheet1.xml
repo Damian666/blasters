@@ -7,13 +7,13 @@
     <Y>70</Y>
   </FrameSize>
   <BoundingBox>
-    <X>9</X>
-    <Y>38</Y>
-    <Width>32</Width>
-    <Height>32</Height>
+    <X>15</X>
+    <Y>45</Y>
+    <Width>25</Width>
+    <Height>20</Height>
     <Location>
-      <X>9</X>
-      <Y>38</Y>
+      <X>15</X>
+      <Y>45</Y>
     </Location>
   </BoundingBox>
   <Animations>
