@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using TiledSharp;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace PuzzleGame.Levels
 {
@@ -31,6 +32,11 @@ namespace PuzzleGame.Levels
         public string LevelID
         {
             get { return _levelID; }
+        }
+
+        public TmxList Tilesets
+        {
+            get { return _map.Tilesets; }
         }
 
         public Vector2 WorldSizePixels

@@ -21,7 +21,7 @@ namespace PuzzleGame.Screens
     {
         private Texture2D _tileset;
         private Texture2D _curTexture;
-        private Map _map = new Map("TESTBattle_Royale");
+        private Map _map = new Map("Battle_Royale");
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
@@ -38,10 +38,10 @@ namespace PuzzleGame.Screens
 
         public override void LoadContent()
         {
-            _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\Tileset", ScreenManager.Game.GraphicsDevice);
             _curTexture = ScreenManager.Game.Content.GetTexture(@"Sprites\cursor", ScreenManager.Game.GraphicsDevice);
-
-
+            
+            // TODO: Make this dynamic for multiple tilesets
+            _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\" + (_map.Tilesets[0] as TmxTileset).Image.Source.Replace(".png", ""), ScreenManager.Game.GraphicsDevice);
 
             _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content, ScreenManager.Game.GraphicsDevice);
 
@@ -141,15 +141,18 @@ namespace PuzzleGame.Screens
 
             foreach (TmxLayer layer in _map.Layers)
             {
-
                 foreach (var tile in layer.Tiles)
                 {
-                    
-                    var texX = (int)((tile.GID - 1) % 16);
-                    var texY = (int)((tile.GID - 1) / 16);
+                    // TODO: Make this dynamic for multiple tilesets
+                    var relativeGID = tile.GID - 1;
+                    var tmxTileset = _map.Tilesets[0] as TmxTileset;
+                    var tilesAcross = _tileset.Width / tmxTileset.TileWidth;
 
-                    spriteBatch.Draw(_tileset, new Vector2(tile.X * 32, tile.Y * 32),
-                                     new Rectangle(texX * 32, texY * 32, 32, 32), Color.White);
+                    var texX = (int)(relativeGID % tilesAcross);
+                    var texY = (int)(relativeGID / tilesAcross);
+
+                    spriteBatch.Draw(_tileset, new Vector2(tile.X * tmxTileset.TileWidth, 35 + tile.Y * tmxTileset.TileHeight),
+                                     new Rectangle(texX * tmxTileset.TileWidth, texY * tmxTileset.TileHeight, tmxTileset.TileWidth, tmxTileset.TileHeight), Color.White);
                 }
 
             }
