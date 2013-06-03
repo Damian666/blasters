@@ -24,6 +24,8 @@ namespace BlastersGame.Services
         // This is used to look up sprites for drawing. It's cached in memory for ease of use
         readonly Dictionary<string, SpriteDescriptor> _spriteDescriptorsLookup = new Dictionary<string, SpriteDescriptor>();
         private SpriteFont _entityFont;
+        private float _lastAnimationTimer;
+        private byte _animationFrame;
 
         public override void Initialize()
         {
@@ -34,7 +36,6 @@ namespace BlastersGame.Services
 
             // Listen for when an entity might hav ebeen added on
             ServiceManager.EntityAdded += ServiceManagerOnEntityAdded;
-
         }
 
         private void ServiceManagerOnEntityAdded(Entity entity)
@@ -90,8 +91,8 @@ namespace BlastersGame.Services
                 {
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
+                    var sourceRectangle = new Rectangle((int)descriptor.FrameSize.X * _animationFrame, (int)(descriptor.FrameSize.Y * descriptor.Animations[(int)transformComponent.DirectionalCache].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
 
-                    var sourceRectangle = new Rectangle(0, (int)(descriptor.FrameSize.Y * descriptor.Animations[(int)transformComponent.DirectionalCache].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White);
 
                     // If this sprite has a name
@@ -126,8 +127,43 @@ namespace BlastersGame.Services
             spriteBatch.End();
         }
 
+        private void UpdateAnimation() 
+        {
+            foreach (var entity in ServiceManager.Entities)
+            {
+                var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+
+                // Don't animate if they aren't moving
+                if ((int)transformComponent.Velocity.X != 0 | (int)transformComponent.Velocity.Y != 0)
+                {
+                    // Change animation frame every 1/4 of a second
+                    if (_lastAnimationTimer >= .25)
+                    {
+                        if (_animationFrame == 0)
+                            _animationFrame = 1;
+                        else if (_animationFrame == 1)
+                            _animationFrame = 2;
+                        else if (_animationFrame == 2)
+                            _animationFrame = 3;
+                        else if (_animationFrame == 3)
+                            _animationFrame = 0;
+
+                        _lastAnimationTimer = 0;
+                    }
+                }
+                else
+                    // Reset animation frame if they stop moving
+                    _animationFrame = 1;
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
+            _lastAnimationTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Update animation frames
+            UpdateAnimation();
+
             //throw new NotImplementedException();
         }
 

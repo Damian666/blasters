@@ -68,9 +68,6 @@ namespace BlastersShared.Services.Sprites
             using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
                 return (SpriteDescriptor) serializer.Deserialize(fs);
         }
-
-
-
     }
 
     public class SpriteDescriptorAnimation
