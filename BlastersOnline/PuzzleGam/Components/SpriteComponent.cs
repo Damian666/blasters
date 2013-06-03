@@ -14,5 +14,9 @@ namespace BlastersGame.Components
         /// </summary>
         public Texture2D Texture { get; set; }
 
+
     }
+
+
+
 }

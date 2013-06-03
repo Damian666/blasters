@@ -71,6 +71,7 @@ namespace BlastersShared.Game.Components
         public Vector2 Size { get; set; }
 
         public DirectionalCache DirectionalCache { get; set; }
+
     }
 
     public enum DirectionalCache

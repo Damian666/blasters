@@ -283,7 +283,6 @@
     </None>
     <None Include="Content\Levels\BMO.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Content\Levels\Battle_Royale2.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

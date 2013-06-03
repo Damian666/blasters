@@ -10,15 +10,15 @@ namespace BlastersShared.Game.Components
     /// </summary>
     public class PowerUpComponent : Component
     {
-        public PowerUpComponent()
-        {
-
-        }
-
         public PowerUpComponent(double time, byte multiplier)
         {
             Duration = time;
             Multiplier = multiplier;
+        }
+
+        public PowerUpComponent()
+        {
+
         }
 
         /// <summary>

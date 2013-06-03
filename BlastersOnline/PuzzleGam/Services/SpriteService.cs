@@ -22,8 +22,9 @@ namespace BlastersGame.Services
     public class SpriteService : Service
     {
         // This is used to look up sprites for drawing. It's cached in memory for ease of use
-        readonly Dictionary<string, SpriteDescriptor> _spriteDescriptorsLookup = new Dictionary<string, SpriteDescriptor>();
+        Dictionary<string, SpriteDescriptor> _spriteDescriptorsLookup = new Dictionary<string, SpriteDescriptor>();
         private SpriteFont _entityFont;
+
 
         public override void Initialize()
         {
@@ -43,8 +44,12 @@ namespace BlastersGame.Services
             AddSpriteComponent(entity);
         }
 
+
         private void LoadDescriptors()
         {
+
+
+
             // It's much easier to grab all the descriptors in one go
             // Then, they're all available in memory and there's nothing to worry about
             foreach (var file in Directory.GetFiles(PathUtility.SpriteDescriptorPath))
@@ -71,10 +76,10 @@ namespace BlastersGame.Services
                             ContentManager.GetTexture(_spriteDescriptorsLookup[skinComponent.SpriteDescriptorName].SpritePath,
                                                       ServiceManager.GraphicsDevice)
                     };
-
                 entity.AddComponent(spriteComponent);
             }
         }
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -88,10 +93,13 @@ namespace BlastersGame.Services
 
                 if (spriteComponent != null)
                 {
+                    int animation = (int)transformComponent.DirectionalCache;
+                    if (entity.GetComponent(typeof (PlayerComponent)) == null)
+                        animation = 0;
+
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
-
-                    var sourceRectangle = new Rectangle(0, (int)(descriptor.FrameSize.Y * descriptor.Animations[(int)transformComponent.DirectionalCache].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
+                    var sourceRectangle = new Rectangle(0, (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White);
 
                     // If this sprite has a name
@@ -101,6 +109,7 @@ namespace BlastersGame.Services
                         var size = font.MeasureString(nameComponent.Name);
                         var namePos = transformComponent.LocalPosition;
 
+
                         Vector2 pos = namePos - new Vector2(0, 0);
 
                         pos = pos + new Vector2((int)(transformComponent.Size.X / 2), -20);
@@ -108,15 +117,23 @@ namespace BlastersGame.Services
 
                         pos = new Vector2((float)Math.Round(pos.X), (float)Math.Round(pos.Y));
 
+
+
                         //Draw stroke
                         spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(1, 0), Color.DarkRed);
 
+
                         spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(-1, 0), Color.DarkRed);
+
 
                         spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(0, 1), Color.DarkRed);
                         spriteBatch.DrawString(font, nameComponent.Name, pos + new Vector2(0, -1), Color.DarkRed);
 
+
                         spriteBatch.DrawString(font, nameComponent.Name, pos, Color.DarkBlue);
+
+
+
                     }
 
                 }
@@ -124,7 +141,10 @@ namespace BlastersGame.Services
             }
 
             spriteBatch.End();
+
         }
+
+
 
         public override void Update(GameTime gameTime)
         {

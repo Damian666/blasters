@@ -10,6 +10,7 @@ namespace BlastersShared.Services.Sprites
     /// </summary>
     public class SpriteDescriptor
     {
+
         /// <summary>
         /// The name of a descriptor if it has any.
         /// This should map to the name of the sprite a particular entity is going to use.
