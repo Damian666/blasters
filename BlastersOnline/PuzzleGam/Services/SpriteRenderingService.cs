@@ -22,14 +22,19 @@ namespace BlastersGame.Services
     public class SpriteRenderingService : Service
     {
         // This is used to look up sprites for drawing. It's cached in memory for ease of use
-        readonly Dictionary<string, SpriteDescriptor> _spriteDescriptorsLookup = new Dictionary<string, SpriteDescriptor>();
+        readonly Dictionary<string, SpriteDescriptor> _spriteDescriptorLookup = new Dictionary<string, SpriteDescriptor>();
         private SpriteFont _entityFont;
         private float _lastAnimationTimer;
 
+        public Dictionary<string, SpriteDescriptor>  SpriteDescriptorLookup
+        {
+            get { return _spriteDescriptorLookup; }
+        }
+        
         public override void Initialize()
         {
             LoadDescriptors();
-
+            
             // Load fonts
             _entityFont = ContentManager.Load<SpriteFont>(@"Fonts\Kootenay");
 
@@ -50,7 +55,7 @@ namespace BlastersGame.Services
             foreach (var file in Directory.GetFiles(PathUtility.SpriteDescriptorPath))
             {
                 var descriptor = SpriteDescriptor.FromFile(file);
-                _spriteDescriptorsLookup.Add(descriptor.Name, descriptor);
+                _spriteDescriptorLookup.Add(descriptor.Name, descriptor);
             }
 
             foreach (var entity in ServiceManager.Entities)
@@ -68,7 +73,7 @@ namespace BlastersGame.Services
                 var spriteComponent = new SpriteComponent
                 {
                     Texture =
-                        ContentManager.GetTexture(_spriteDescriptorsLookup[skinComponent.SpriteDescriptorName].SpritePath,
+                        ContentManager.GetTexture(_spriteDescriptorLookup[skinComponent.SpriteDescriptorName].SpritePath,
                                                   ServiceManager.GraphicsDevice)           
                 };
 
@@ -89,7 +94,7 @@ namespace BlastersGame.Services
                 if (spriteComponent != null)
                 {
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
-                    var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
+                    var descriptor = _spriteDescriptorLookup[skinComponent.SpriteDescriptorName];
                     var sourceRectangle = new Rectangle((int)descriptor.FrameSize.X * spriteComponent.AnimationFrame, (int)(descriptor.FrameSize.Y * descriptor.Animations[(int)transformComponent.DirectionalCache].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
 
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White);
@@ -137,10 +142,10 @@ namespace BlastersGame.Services
                 {
                     var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
                     var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
-                    var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
+                    var descriptor = _spriteDescriptorLookup[skinComponent.SpriteDescriptorName];
 
                     // Total amount of frames
-                    var frameCount = ContentManager.GetTexture(_spriteDescriptorsLookup[skinComponent.SpriteDescriptorName].SpritePath,
+                    var frameCount = ContentManager.GetTexture(_spriteDescriptorLookup[skinComponent.SpriteDescriptorName].SpritePath,
                                                   ServiceManager.GraphicsDevice).Width / descriptor.FrameSize.X;
 
                     // We don't need to animate if there's only one frame

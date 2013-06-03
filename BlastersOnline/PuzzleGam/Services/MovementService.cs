@@ -14,6 +14,7 @@ using PuzzleGame.Network;
 using PuzzleGame.Levels;
 using TiledSharp;
 using BlastersGame.Components;
+using BlastersShared.Services.Sprites;
 
 namespace BlastersGame.Services
 {
@@ -31,6 +32,7 @@ namespace BlastersGame.Services
         private float _lastReaction;
 
         public Map Map { get; set; }
+        public Dictionary<string, SpriteDescriptor> SpriteDescriptorLookup { get; set; }
 
         public MovementService(ulong idToMonitor)
         {
@@ -110,7 +112,7 @@ namespace BlastersGame.Services
             // Local players can be moved automatically, then report their status if needed
             var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
             // TODO: Make it so we can get the sprite descriptors from the sprite service.
-            //var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
+            var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
@@ -137,11 +139,18 @@ namespace BlastersGame.Services
                 {
                     foreach (TmxLayerTile tile in layer.Tiles)
                     {
-                        // TODO: Needs to be made dynamic
-                        if ((int)(x / 32) == tile.X && (int)(y / 32) == tile.Y)
+                        // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
+                        if (tile.GID == 7)
                         {
-                            if (tile.GID == 6)
+                            Rectangle tileRect = new Rectangle(tile.X*32, tile.Y*32, 32, 32);
+                            Rectangle bbox = new Rectangle(
+                                (int) (x + spriteDescriptor.BoundingBox.X),
+                                (int) (y + spriteDescriptor.BoundingBox.Y),
+                                spriteDescriptor.BoundingBox.Width,
+                                spriteDescriptor.BoundingBox.Height);
+                            if (tileRect.Intersects(bbox))
                             {
+
                                 nextPosition = transformComponent.LocalPosition;
                             }
                         }

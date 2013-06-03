@@ -62,17 +62,18 @@ namespace PuzzleGame.Screens
 
 
 
-            var service = new SpriteRenderingService();
-            var networkService = new NetworkInputService(_playerID);
+            var spriteRenderingService = new SpriteRenderingService();
+            var networkInputService = new NetworkInputService(_playerID);
             
             var movementService = new MovementService(_playerID);
             movementService.Map = _map;
+            movementService.SpriteDescriptorLookup = spriteRenderingService.SpriteDescriptorLookup;
 
             var entitySyncService = new EntitySyncService();
             _debugService = new DebugService();
 
-            _serviceContainer.AddService(service);
-            _serviceContainer.AddService(networkService);
+            _serviceContainer.AddService(spriteRenderingService);
+            _serviceContainer.AddService(networkInputService);
             _serviceContainer.AddService(movementService);
             _serviceContainer.AddService(entitySyncService);
             _serviceContainer.AddService(_debugService);
