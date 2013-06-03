@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using BlastersShared.Game;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.Client;
 using Microsoft.Xna.Framework;
@@ -23,7 +18,7 @@ namespace PuzzleGame.Screens
     {
         private Texture2D _bg;
         private Texture2D _logo;
-        private GameTimer _timer = new GameTimer(5);
+        private readonly GameTimer _timer = new GameTimer(5);
         private float i_y = 50;
         private float logoY = 50;
 
@@ -31,17 +26,13 @@ namespace PuzzleGame.Screens
 
         public override void Draw(GameTime gameTime)
         {
-
             // We draw this and just start writing in the background
-
-
             ScreenManager.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied,
                                             SamplerState.LinearWrap, null, null);
             ScreenManager.SpriteBatch.Draw(_bg, new Vector2(0, 0),
                                            new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width,
                                                          ScreenManager.GraphicsDevice.Viewport.Height), Color.White);
             ScreenManager.SpriteBatch.End();
-
 
             ScreenManager.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             var positionRectangle = new Rectangle((800 - _logo.Width) / 2, (int) logoY, _logo.Width, _logo.Height);
@@ -64,28 +55,20 @@ namespace PuzzleGame.Screens
 
             logoY = MathHelper.SmoothStep(i_y, targetY, (float) time);
 
-
-
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
-
         public override void LoadContent()
         {
-
             TransitionOffTime = new TimeSpan(0, 0, 0, 3);
             _timer.Completed += DoStuff;
     
-
             PacketService.RegisterPacket<SessionSendSimulationStatePacket>(Handler);
 
             _bg = ScreenManager.Game.Content.GetTexture(@"Screens\Title\bg", ScreenManager.Game.GraphicsDevice);
             _logo = ScreenManager.Game.Content.GetTexture(@"bmo_logo", ScreenManager.Game.GraphicsDevice);
             
-       
-
-            // Send off a packet :)
-
+            // Send off a packet
             var list = Environment.GetCommandLineArgs().ToList();
 
             
@@ -102,12 +85,8 @@ namespace PuzzleGame.Screens
 
             NetworkManager.Instance.ConnectTo(info[0], int.Parse(info[1]));
 
-
-
-
             base.LoadContent();
         }
-
 
         private void Handler(SessionSendSimulationStatePacket sessionSendSimulationStatePacket)
         {
@@ -119,33 +98,16 @@ namespace PuzzleGame.Screens
         }
 
         private Guid _myToken;
-        private bool _done = false;
+        private bool _done;
 
         private void DoStuff(object sender, EventArgs e)
         {
-
             if (_done)
                 return;
           
-
             var packet = new NotifyLoadedGamePacket(_myToken);
             NetworkManager.Instance.SendPacket(packet);
             _done = true;
-
-            return;
-
-
         }
-
-        public override void HandleInput(InputState input)
-        {
-            base.HandleInput(input);
-        }
-
-        public override void UnloadContent()
-        {
-            base.UnloadContent();
-        }
-
     }
 }
