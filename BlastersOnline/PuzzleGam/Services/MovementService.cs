@@ -109,6 +109,7 @@ namespace BlastersGame.Services
         {
             // Local players can be moved automatically, then report their status if needed
             var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
+            // TODO: Make it so we can get the sprite descriptors from the sprite service.
             //var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
