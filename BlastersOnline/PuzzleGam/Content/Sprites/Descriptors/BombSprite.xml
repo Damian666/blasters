@@ -3,9 +3,19 @@
   <Name>BombSprite</Name>
   <SpritePath>Sprites\Bomb</SpritePath>
   <FrameSize>
-    <X>50</X>
-    <Y>70</Y>
+    <X>32</X>
+    <Y>32</Y>
   </FrameSize>
+  <BoundingBox>
+    <X>0</X>
+    <Y>0</Y>
+    <Width>32</Width>
+    <Height>32</Height>
+    <Location>
+      <X>0</X>
+      <Y>0</Y>
+    </Location>
+  </BoundingBox>
   <Animations>
     <SpriteDescriptorAnimation>
       <Name>Default</Name>
