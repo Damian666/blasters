@@ -70,7 +70,7 @@
     <Compile Include="Services\NetworkInputService.cs" />
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\ServiceContainer.cs" />
-    <Compile Include="Services\SpriteService.cs" />
+    <Compile Include="Services\SpriteRenderingService.cs" />
     <Compile Include="Utilities\GameTimer.cs" />
     <Compile Include="Utilities\PathUtility.cs" />
     <Compile Include="Utilities\Tiled\Layer.cs" />

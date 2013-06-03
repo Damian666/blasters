@@ -14,7 +14,10 @@ namespace BlastersGame.Components
         /// </summary>
         public Texture2D Texture { get; set; }
 
-
+        /// <summary>
+        /// The frame of animation that is assoicated with this component
+        /// </summary>
+        public byte AnimationFrame { get; set; }
     }
 
 

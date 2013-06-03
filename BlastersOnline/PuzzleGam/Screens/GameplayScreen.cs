@@ -62,7 +62,7 @@ namespace PuzzleGame.Screens
 
 
 
-            var service = new SpriteService();
+            var service = new SpriteRenderingService();
             var networkService = new NetworkInputService(_playerID);
             
             var movementService = new MovementService(_playerID);

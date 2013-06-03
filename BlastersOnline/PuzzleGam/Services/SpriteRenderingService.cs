@@ -19,13 +19,12 @@ namespace BlastersGame.Services
     /// <summary>
     /// The sprite service is responsible for drawing entities that might have sprites.
     /// </summary>
-    public class SpriteService : Service
+    public class SpriteRenderingService : Service
     {
         // This is used to look up sprites for drawing. It's cached in memory for ease of use
         readonly Dictionary<string, SpriteDescriptor> _spriteDescriptorsLookup = new Dictionary<string, SpriteDescriptor>();
         private SpriteFont _entityFont;
         private float _lastAnimationTimer;
-        private byte _animationFrame;
 
         public override void Initialize()
         {
@@ -70,7 +69,7 @@ namespace BlastersGame.Services
                 {
                     Texture =
                         ContentManager.GetTexture(_spriteDescriptorsLookup[skinComponent.SpriteDescriptorName].SpritePath,
-                                                  ServiceManager.GraphicsDevice)
+                                                  ServiceManager.GraphicsDevice)           
                 };
 
                 entity.AddComponent(spriteComponent);
@@ -91,7 +90,7 @@ namespace BlastersGame.Services
                 {
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
-                    var sourceRectangle = new Rectangle((int)descriptor.FrameSize.X * _animationFrame, (int)(descriptor.FrameSize.Y * descriptor.Animations[(int)transformComponent.DirectionalCache].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
+                    var sourceRectangle = new Rectangle((int)descriptor.FrameSize.X * spriteComponent.AnimationFrame, (int)(descriptor.FrameSize.Y * descriptor.Animations[(int)transformComponent.DirectionalCache].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
 
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White);
 
@@ -131,29 +130,53 @@ namespace BlastersGame.Services
         {
             foreach (var entity in ServiceManager.Entities)
             {
-                var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+                var spriteComponent = (SpriteComponent)entity.GetComponent(typeof(SpriteComponent));
 
-                // Don't animate if they aren't moving
-                if ((int)transformComponent.Velocity.X != 0 | (int)transformComponent.Velocity.Y != 0)
+                // Make sure the component exists
+                if (spriteComponent != null)
                 {
-                    // Change animation frame every 1/4 of a second
-                    if (_lastAnimationTimer >= .25)
-                    {
-                        if (_animationFrame == 0)
-                            _animationFrame = 1;
-                        else if (_animationFrame == 1)
-                            _animationFrame = 2;
-                        else if (_animationFrame == 2)
-                            _animationFrame = 3;
-                        else if (_animationFrame == 3)
-                            _animationFrame = 0;
+                    var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+                    var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
+                    var descriptor = _spriteDescriptorsLookup[skinComponent.SpriteDescriptorName];
 
-                        _lastAnimationTimer = 0;
+                    // Total amount of frames
+                    var frameCount = ContentManager.GetTexture(_spriteDescriptorsLookup[skinComponent.SpriteDescriptorName].SpritePath,
+                                                  ServiceManager.GraphicsDevice).Width / descriptor.FrameSize.X;
+
+                    // We don't need to animate if there's only one frame
+                    if ((int)frameCount == 1)
+                    {
+                        return;
                     }
+
+                    // Don't animate if the player isn't moving
+                    if ((int)transformComponent.Velocity.X != 0 | (int)transformComponent.Velocity.Y != 0)
+                    {
+                        // Change animation frame every 1/4 of a second
+                        if (_lastAnimationTimer >= .25)
+                        {
+                            for (var i = 0; i <= frameCount - 1; i++)
+                            {
+                                if (spriteComponent.AnimationFrame < i)
+                                {
+                                    spriteComponent.AnimationFrame++;
+                                    break;
+                                }
+
+                                if (i == (int)frameCount - 1)
+                                {
+                                    spriteComponent.AnimationFrame = 0;
+                                    break;
+                                }
+                            }
+     
+                            _lastAnimationTimer = 0;
+                        }
+                    }
+                    else
+                        // Reset animation frame if they stop moving; default for moving objects
+                        spriteComponent.AnimationFrame = 1;
                 }
-                else
-                    // Reset animation frame if they stop moving
-                    _animationFrame = 1;
             }
         }
 
