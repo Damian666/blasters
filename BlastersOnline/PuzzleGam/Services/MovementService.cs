@@ -108,6 +108,7 @@ namespace BlastersGame.Services
 
             // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
+
             if (movementModifierComponent != null)
                 movementBonus = movementModifierComponent.Bonus;
 

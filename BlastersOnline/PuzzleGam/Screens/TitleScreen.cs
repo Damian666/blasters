@@ -42,7 +42,7 @@ namespace PuzzleGame.Screens
             base.Draw(gameTime);
         }
 
-        private double time = 0;
+        private double time;
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
