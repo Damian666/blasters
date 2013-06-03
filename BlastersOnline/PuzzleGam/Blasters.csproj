@@ -135,7 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Levels\Tileset.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Bomb.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -270,7 +270,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Levels\Battle_Royale.tmx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Levels\TESTBattle_Royale.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ReferenceDependencies\awesomium_process">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

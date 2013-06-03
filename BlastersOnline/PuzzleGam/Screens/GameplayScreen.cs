@@ -21,7 +21,7 @@ namespace PuzzleGame.Screens
     {
         private Texture2D _tileset;
         private Texture2D _curTexture;
-        private Map _map = new Map("Battle_Royale");
+        private Map _map = new Map("TESTBattle_Royale");
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
@@ -82,7 +82,7 @@ namespace PuzzleGame.Screens
             UI.CallJavascript("document.getElementById(\"room\").innerHTML = 'The Elite'");
             UI.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + _map.LevelID + "'");
 
-            string[] names = { "", "", "", "Robbie", "Seth", "Vaughan", "Justin", "Rory" };
+            string[] names = { "", "", "", "Seth", "Robbie", "Vaughan", "Justin", "Rory" };
             SetSidebarInfo(names);
 
         }
@@ -144,6 +144,7 @@ namespace PuzzleGame.Screens
 
                 foreach (var tile in layer.Tiles)
                 {
+                    
                     var texX = (int)((tile.GID - 1) % 16);
                     var texY = (int)((tile.GID - 1) / 16);
 
