@@ -45,7 +45,7 @@ namespace BlastersGame.Services
             // Hook into networks events
             PacketService.RegisterPacket<MovementRecievedPacket>(MovementRecieved);
 
-            // Query for the player we want
+            // Query for the players we don't want
             foreach (var entity in ServiceManager.Entities)
             {
                 if (entity.ID == _idToMonitor)
@@ -154,7 +154,7 @@ namespace BlastersGame.Services
             var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
             
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
-            ServiceManager.Camera.Move(-transformComponent.LocalPosition);
+            ServiceManager.Camera.Move(transformComponent.LocalPosition);
 
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
@@ -213,7 +213,7 @@ namespace BlastersGame.Services
             }
 
             transformComponent.LocalPosition = new Vector2(nextX, nextY);
-            ServiceManager.Camera.Move(transformComponent.LocalPosition);
+            ServiceManager.Camera.Move(-transformComponent.LocalPosition);
 
             if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
                 if (transformComponent.Velocity.X < 0)
