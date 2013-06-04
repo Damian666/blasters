@@ -110,9 +110,6 @@ namespace BlastersGame.Services
                     spriteDescriptor.BoundingBox.Height);
            
                 spriteBatch.DrawRectangle(bbox, Color.White, 2f);
-        
-
-
             }
 
             foreach (TmxLayer layer in Map.Layers)
@@ -124,14 +121,11 @@ namespace BlastersGame.Services
                     {
                         Rectangle tileRect = new Rectangle(tile.X*32, 35+tile.Y*32, 32, 32);
                         spriteBatch.DrawRectangle(tileRect, Color.Red, 3f);
-
                     }
-
                 }
             }
+
             spriteBatch.End();
-
-
         }
 
         public override void Update(GameTime gameTime)
@@ -154,6 +148,8 @@ namespace BlastersGame.Services
             var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
             
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
+            
+            // Move the camera
             ServiceManager.Camera.Move(transformComponent.LocalPosition);
 
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
@@ -213,6 +209,8 @@ namespace BlastersGame.Services
             }
 
             transformComponent.LocalPosition = new Vector2(nextX, nextY);
+
+            // Move the camera back
             ServiceManager.Camera.Move(-transformComponent.LocalPosition);
 
             if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
