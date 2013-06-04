@@ -27,14 +27,12 @@ namespace BlastersGame.Screens
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
-        private Entity _player;
 
         public GameplayScreen(SimulationState simulationState, ulong playerID, string mapName)
         {
             _simulationState = simulationState;
             _playerID = playerID;
             _map = new Map(mapName);
-            //_camera = new Camera2D(new Viewport(0, 0, 500, 500), (int)_map.WorldSizePixels.X, (int)_map.WorldSizePixels.Y, 1.0f);
         }
 
         private AwesomiumUI UI;
@@ -75,10 +73,6 @@ namespace BlastersGame.Screens
             _serviceContainer.AddService(movementService);
             _serviceContainer.AddService(entitySyncService);
             _serviceContainer.AddService(_debugService);
-
-            foreach (var entity in _serviceContainer.Entities)
-                if (entity.ID == _playerID)
-                    _player = entity;
 
             base.LoadContent();
         }
@@ -130,9 +124,6 @@ namespace BlastersGame.Screens
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            // Get the transform component
-            var transformComponent = (TransformComponent) _player.GetComponent(typeof (TransformComponent));
-
             // Lets try drawing our level on screen
             var spriteBatch = ScreenManager.SpriteBatch;
 
