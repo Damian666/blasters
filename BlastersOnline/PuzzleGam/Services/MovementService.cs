@@ -122,7 +122,7 @@ namespace BlastersGame.Services
                     // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
                     if (tile.GID == 7)
                     {
-                        Rectangle tileRect = new Rectangle(tile.X*32, tile.Y*32, 32, 32);
+                        Rectangle tileRect = new Rectangle(tile.X*32, 35+tile.Y*32, 32, 32);
                         spriteBatch.DrawRectangle(tileRect, Color.Red, 3f);
 
                     }
@@ -166,11 +166,8 @@ namespace BlastersGame.Services
             nextPosition += transformComponent.Velocity * movementBonus;
 
             // Clamp the x and y so the player won't keep walking offscreen
-            float x = MathHelper.Clamp(nextPosition.X, 0, 640 - transformComponent.Size.X);
-            float y = MathHelper.Clamp(nextPosition.Y, 35, 600 - transformComponent.Size.Y);
-
-            // Assign the clamped position to the LocalPosition
-            nextPosition = new Vector2(x, y);
+            float nextX = MathHelper.Clamp(nextPosition.X, 0, 640 - transformComponent.Size.X);
+            float nextY = MathHelper.Clamp(nextPosition.Y, 35, 600 - transformComponent.Size.Y);
 
             // TODO: This is shitty. Needs to be redone.
             if (transformComponent.Velocity.LengthSquared() != 0)
@@ -184,18 +181,28 @@ namespace BlastersGame.Services
                             // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
                             if (tile.GID == 7)
                             {
-                                Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
+                                Rectangle tileRect = new Rectangle(tile.X * 32, 35 + tile.Y * 32, 32, 32);
+                                
+                                Rectangle xBBox = new Rectangle(
+                                      (int)nextX + spriteDescriptor.BoundingBox.X,
+                                      (int)transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y,
+                                      (int)spriteDescriptor.BoundingBox.Width,
+                                      (int)spriteDescriptor.BoundingBox.Height);
 
-                                Rectangle bbox = new Rectangle(
-                                      (int)(transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X),
-                                      (int)(transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y),
-                                      spriteDescriptor.BoundingBox.Width,
-                                      spriteDescriptor.BoundingBox.Height);
-
-                                if (tileRect.Intersects(bbox))
+                                if (tileRect.Intersects(xBBox))
                                 {
+                                    nextX = transformComponent.LocalPosition.X;
+                                }
 
-                                    nextPosition = transformComponent.LocalPosition;
+                                Rectangle yBBox = new Rectangle(
+                                      (int)nextX + spriteDescriptor.BoundingBox.X,
+                                      (int)nextY + spriteDescriptor.BoundingBox.Y,
+                                      (int)spriteDescriptor.BoundingBox.Width,
+                                      (int)spriteDescriptor.BoundingBox.Height);
+
+                                if (tileRect.Intersects(yBBox))
+                                {
+                                    nextY = transformComponent.LocalPosition.Y;
                                 }
                             }
                         }
@@ -203,7 +210,7 @@ namespace BlastersGame.Services
                 }
             }
 
-            transformComponent.LocalPosition = nextPosition;
+            transformComponent.LocalPosition = new Vector2(nextX, nextY);
 
             if (transformComponent.Velocity.X < 0)
                 transformComponent.DirectionalCache = DirectionalCache.Left;
