@@ -52,7 +52,6 @@
     <Compile Include="GUI\HTMLElement.cs" />
     <Compile Include="GUI\UIManager.cs" />
     <Compile Include="Levels\Map.cs" />
-    <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\Tileset.cs" />
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\PacketProcessor.cs" />
