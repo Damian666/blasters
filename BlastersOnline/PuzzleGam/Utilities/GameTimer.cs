@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace PuzzleGame.Utilities
+namespace BlastersGame.Utilities
 {
     /// <summary>
     /// A <see cref="GameTimer"/> provides callbacks for when a certain amount of time has elapased.

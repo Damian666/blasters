@@ -8,8 +8,8 @@ using BlastersShared.Game.Entities;
 using BlastersShared.Network.Packets.Client;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PuzzleGame;
-using PuzzleGame.Network;
+using BlastersGame;
+using BlastersGame.Network;
 
 namespace BlastersGame.Services
 {

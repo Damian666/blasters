@@ -6,7 +6,7 @@ using BlastersShared.Game.Components;
 using BlastersShared.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PuzzleGame;
+using BlastersGame;
 using C3.XNA;
 
 namespace BlastersGame.Services

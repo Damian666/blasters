@@ -5,7 +5,7 @@ using System.Linq;
 
 #endregion
 
-namespace PuzzleGame
+namespace BlastersGame
 {
     /// <summary>
     /// The main class.

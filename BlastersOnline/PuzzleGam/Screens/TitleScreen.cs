@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using BlastersGame.Network;
+using BlastersGame.Utilities;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.Client;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PuzzleGame.Network;
-using PuzzleGame.Utilities;
 using BlastersGame;
 
-namespace PuzzleGame.Screens
+namespace BlastersGame.Screens
 {
     /// <summary>
     /// The title screen that is displayed before the game can actually begin

@@ -17,7 +17,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 #endregion
 
-namespace PuzzleGame
+namespace BlastersGame
 {
     /// <summary>
     /// The screen manager is a component which manages one or more GameScreen

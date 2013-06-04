@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using TiledSharp;
 
-namespace PuzzleGame.Levels
+namespace BlastersGame.Levels
 {
     /// <summary>
     /// A level is a model of the data contained within a specific level. 

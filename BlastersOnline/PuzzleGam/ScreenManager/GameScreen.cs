@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using System.IO;
 #endregion
 
-namespace PuzzleGame
+namespace BlastersGame
 {
     /// <summary>
     /// Enum describes the screen transition state.

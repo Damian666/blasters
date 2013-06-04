@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using BlastersGame.Network;
+using BlastersGame.Screens;
 using BlastersShared.Network.Packets.AppServer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -9,12 +11,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-using PuzzleGame.Network;
-using PuzzleGame.Screens;
 
 #endregion
 
-namespace PuzzleGame
+namespace BlastersGame
 {
     /// <summary>
     /// This is the main type for your game

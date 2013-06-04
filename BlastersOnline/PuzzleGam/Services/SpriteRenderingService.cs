@@ -12,7 +12,7 @@ using BlastersShared.Services.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BlastersShared.Game;
-using PuzzleGame;
+using BlastersGame;
 
 namespace BlastersGame.Services
 {

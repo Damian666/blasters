@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using BlastersShared.Network.Packets;
 
-namespace PuzzleGame.Network
+namespace BlastersGame.Network
 {
     public class PacketService
     {

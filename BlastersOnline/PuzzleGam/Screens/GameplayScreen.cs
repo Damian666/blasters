@@ -8,14 +8,14 @@ using Awesomium.Core;
 using AwesomiumUiLib;
 using BlastersGame;
 using BlastersGame.Components;
+using BlastersGame.Levels;
 using BlastersGame.Services;
 using BlastersShared.Game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PuzzleGame.Levels;
 using TiledSharp;
 
-namespace PuzzleGame.Screens
+namespace BlastersGame.Screens
 {
     public class GameplayScreen : GameScreen
     {
@@ -31,7 +31,6 @@ namespace PuzzleGame.Screens
         {
             _simulationState = simulationState;
             _playerID = playerID;
-
         }
 
         private AwesomiumUI UI;
@@ -45,7 +44,6 @@ namespace PuzzleGame.Screens
 
             _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content, ScreenManager.Game.GraphicsDevice);
 
-
             var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
 
             UI = new AwesomiumUI();
@@ -53,14 +51,9 @@ namespace PuzzleGame.Screens
             var height = ScreenManager.Game.GraphicsDevice.PresentationParameters.BackBufferHeight;
             UI.Initialize(ScreenManager.Game.GraphicsDevice, width, height, executionPath);
 
-
             UI.Load(@"Content\UI\index.html");
             UI.OnLoadCompleted = OnLoadCompleted;
             UI.OnDocumentCompleted = OnDocumentCompleted;
-
-
-
-
 
             var spriteRenderingService = new SpriteRenderingService();
             var networkInputService = new NetworkInputService(_playerID);
@@ -112,7 +105,6 @@ namespace PuzzleGame.Screens
         private void OnLoadCompleted()
         {
 
-
         }
 
         public override void HandleInput(InputState input)
@@ -130,16 +122,8 @@ namespace PuzzleGame.Screens
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-
-
-
-
             // Lets try drawing our level on screen
             var spriteBatch = ScreenManager.SpriteBatch;
-
-
-
-
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null);
 
@@ -164,15 +148,7 @@ namespace PuzzleGame.Screens
 
             spriteBatch.End();
 
-
-
-
-
-
-
             _serviceContainer.Draw(spriteBatch);
-
-
 
             ScreenManager.Game.GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
@@ -181,22 +157,16 @@ namespace PuzzleGame.Screens
 
             spriteBatch.Begin();
 
-
-
             if (UI.webTexture != null)
                 spriteBatch.Draw(UI.webTexture, new Rectangle(0, 0, width, height), Color.White);
+            
             spriteBatch.End();
-
-
-
-
-
+            
             UI.RenderWebView();
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             spriteBatch.Draw(_curTexture, curPosition, Color.White);
             spriteBatch.End();
-
 
             base.Draw(gameTime);
         }

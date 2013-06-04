@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PuzzleGame
+namespace BlastersGame
 {
     public class Camera2D
     {

@@ -7,7 +7,7 @@ using BlastersShared.Game.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using PuzzleGame;
+using BlastersGame;
 
 namespace BlastersGame.Services
 {

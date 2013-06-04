@@ -5,7 +5,7 @@ using System.Threading;
 using BlastersShared.Network.Packets;
 using Lidgren.Network;
 
-namespace PuzzleGame.Network
+namespace BlastersGame.Network
 {
     /// <summary>
     /// Creates and manages networking server that listens for incoming connections and handles the incoming data. 

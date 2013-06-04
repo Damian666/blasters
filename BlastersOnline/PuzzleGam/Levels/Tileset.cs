@@ -15,7 +15,7 @@ namespace BlastersGame.Levels
         public Tileset(TmxTileset tileset)
         {
             _tileset = tileset;
-
+            // TODO: Figure out how to "efficiently" link tile GIDs to tilesets
         }
 
         public int GetTileTextureX(int gid)

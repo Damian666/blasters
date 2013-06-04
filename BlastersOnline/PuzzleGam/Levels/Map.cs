@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using TiledSharp;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PuzzleGame.Levels
+namespace BlastersGame.Levels
 {
     /// <summary>
     /// A level is a model of the data contained within a specific level. 
@@ -61,6 +61,7 @@ namespace PuzzleGame.Levels
             var gid = y * _map.Height + x;
 
             //Get tile at ALL layers
+            // TODO: Link tile GIDs to tilesets, this needs to be abstracted into the wind
             var set = (TmxTileset) _map.Tilesets[0];
 
             foreach (TmxLayer layer in _map.Layers)

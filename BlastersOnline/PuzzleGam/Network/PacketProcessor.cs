@@ -7,7 +7,7 @@ using BlastersShared.Network;
 using BlastersShared.Network.Packets;
 using Lidgren.Network;
 
-namespace PuzzleGame.Network
+namespace BlastersGame.Network
 {
     /// <summary>
     /// The packet processor is responsbile for taking an incoming packet and identifying its type
