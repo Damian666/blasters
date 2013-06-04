@@ -55,27 +55,20 @@ namespace PuzzleGame.Levels
         /// <returns></returns>
         public bool IsSolid(int x, int y)
         {
-
-
             if (x < 0 || y < 0 || x > _map.Width - 1 || y > _map.Height - 1)
                 return true;
 
             var gid = y * _map.Height + x;
-    
 
             //Get tile at ALL layers
-            var set =
-            (TmxTileset) _map.Tilesets[0];
-
+            var set = (TmxTileset) _map.Tilesets[0];
 
             foreach (TmxLayer layer in _map.Layers)
             {
-
                 foreach (var tb in layer.Tiles)
                 {
                     if (tb.X == x && tb.Y == y)
                     {
-
                         var tile = tb;
 
                         if (set.Tiles.ContainsKey((int) tile.GID - 1))
@@ -87,14 +80,10 @@ namespace PuzzleGame.Levels
                                     return true;
                                 }
                             }
-
                         }
                     }
-
                 }
-
             }
-
 
             return false;
 
