@@ -22,16 +22,17 @@ namespace BlastersGame.Screens
         private Texture2D _tileset;
         private Texture2D _curTexture;
         private Map _map;
+        private Camera2D _camera;
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
-
 
         public GameplayScreen(SimulationState simulationState, ulong playerID, string mapName)
         {
             _simulationState = simulationState;
             _playerID = playerID;
             _map = new Map(mapName);
+            _camera = new Camera2D(new Viewport(0, 0, 500, 500), (int)_map.WorldSizePixels.X, (int)_map.WorldSizePixels.Y, 1.0f);
         }
 
         private AwesomiumUI UI;
@@ -123,11 +124,14 @@ namespace BlastersGame.Screens
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            //_camera.Move();
+
             // Lets try drawing our level on screen
             var spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null);
 
+            // Draw tiles
             foreach (TmxLayer layer in _map.Layers)
             {
                 foreach (var tile in layer.Tiles)
