@@ -53,6 +53,7 @@
     <Compile Include="GUI\UIManager.cs" />
     <Compile Include="Levels\Map.cs" />
     <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\Tileset.cs" />
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\PacketProcessor.cs" />
     <Compile Include="Network\PacketService.cs" />
@@ -194,6 +195,7 @@
     </Content>
     <Content Include="Content\Sprites\Descriptors\FemaleSheet1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\success.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

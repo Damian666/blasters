@@ -45,19 +45,20 @@ namespace BlastersGame.Services
 
             const int ABSOLUTE_SPEED = 3;
 
-            // We adjust instant velocity as needed here
+            // We adjust instant velocity as needed here)
+            transformComponent.Velocity = Vector2.Zero;
 
-            if (inputState.MoveLeftIssued())
-                transformComponent.Velocity = new Vector2(ABSOLUTE_SPEED * -1, 0);
+            if (inputState.MoveLeftIssued() && !inputState.MoveRightIssued())
+                transformComponent.Velocity -= new Vector2(ABSOLUTE_SPEED * 1, 0);
 
-            if (inputState.MoveUpIssued())
-                transformComponent.Velocity = new Vector2(0, ABSOLUTE_SPEED * -1);
+            if (inputState.MoveRightIssued() && !inputState.MoveLeftIssued())
+                transformComponent.Velocity += new Vector2(ABSOLUTE_SPEED * 1, 0);
 
-            if (inputState.MoveDownIssued())
-                transformComponent.Velocity = new Vector2(0, ABSOLUTE_SPEED * 1);
+            if (inputState.MoveUpIssued() && !inputState.MoveDownIssued())
+                transformComponent.Velocity -= new Vector2(0, ABSOLUTE_SPEED * 1);
 
-            if (inputState.MoveRightIssued())
-                transformComponent.Velocity = new Vector2(ABSOLUTE_SPEED * 1, 0);
+            if (inputState.MoveDownIssued() && !inputState.MoveUpIssued())
+                transformComponent.Velocity += new Vector2(0, ABSOLUTE_SPEED * 1);
 
             if (inputState.NotMoving())
                 transformComponent.Velocity = Vector2.Zero;
