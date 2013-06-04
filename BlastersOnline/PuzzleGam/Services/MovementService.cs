@@ -150,7 +150,7 @@ namespace BlastersGame.Services
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             
             // Move the camera
-            ServiceManager.Camera.Move(transformComponent.LocalPosition);
+            ServiceManager.Camera.Move(-transformComponent.LocalPosition);
 
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
@@ -211,7 +211,7 @@ namespace BlastersGame.Services
             transformComponent.LocalPosition = new Vector2(nextX, nextY);
 
             // Move the camera back
-            ServiceManager.Camera.Move(-transformComponent.LocalPosition);
+            ServiceManager.Camera.Move(transformComponent.LocalPosition);
 
             if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
                 if (transformComponent.Velocity.X < 0)

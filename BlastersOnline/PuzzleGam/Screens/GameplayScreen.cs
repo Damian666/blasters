@@ -45,7 +45,7 @@ namespace BlastersGame.Screens
             _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\" + (_map.Tilesets[0] as TmxTileset).Image.Source.Replace(".png", ""), ScreenManager.Game.GraphicsDevice);
 
             _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content, ScreenManager.Game.GraphicsDevice);
-            _serviceContainer.Camera = new Camera2D(new Viewport(0, 35, 500, 500), (int)_map.WorldSizePixels.X, (int)_map.WorldSizePixels.Y, 1.0f);
+            _serviceContainer.Camera = new Camera2D(new Viewport(0, 0, 500, 500), (int)_map.WorldSizePixels.X, (int)_map.WorldSizePixels.Y, 1.0f);
 
             var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
 
