@@ -24,7 +24,6 @@ namespace BlastersGame.Screens
         private Texture2D _tileset;
         private Texture2D _curTexture;
         private Map _map;
-        private Camera2D _camera;
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
@@ -35,7 +34,7 @@ namespace BlastersGame.Screens
             _simulationState = simulationState;
             _playerID = playerID;
             _map = new Map(mapName);
-            _camera = new Camera2D(new Viewport(0, 0, 500, 500), (int)_map.WorldSizePixels.X, (int)_map.WorldSizePixels.Y, 1.0f);
+            //_camera = new Camera2D(new Viewport(0, 0, 500, 500), (int)_map.WorldSizePixels.X, (int)_map.WorldSizePixels.Y, 1.0f);
         }
 
         private AwesomiumUI UI;
@@ -48,6 +47,7 @@ namespace BlastersGame.Screens
             _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\" + (_map.Tilesets[0] as TmxTileset).Image.Source.Replace(".png", ""), ScreenManager.Game.GraphicsDevice);
 
             _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content, ScreenManager.Game.GraphicsDevice);
+            _serviceContainer.Camera = new Camera2D(new Viewport(0, 35, 500, 500), (int)_map.WorldSizePixels.X, (int)_map.WorldSizePixels.Y, 1.0f);
 
             var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
 
@@ -133,13 +133,10 @@ namespace BlastersGame.Screens
             // Get the transform component
             var transformComponent = (TransformComponent) _player.GetComponent(typeof (TransformComponent));
 
-            // Move the camera
-            _camera.Move(transformComponent.LocalPosition);
-            
             // Lets try drawing our level on screen
             var spriteBatch = ScreenManager.SpriteBatch;
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, _serviceContainer.Camera.GetTransformation());
 
             // Draw tiles
             foreach (TmxLayer layer in _map.Layers)

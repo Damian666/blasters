@@ -152,9 +152,11 @@ namespace BlastersGame.Services
             var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
             // TODO: Make it so we can get the sprite descriptors from the sprite service.
             var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
+            
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
-            var movementModifierComponent =
-                (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
+            ServiceManager.Camera.Move(-transformComponent.LocalPosition);
+
+            var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
             // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
@@ -211,6 +213,7 @@ namespace BlastersGame.Services
             }
 
             transformComponent.LocalPosition = new Vector2(nextX, nextY);
+            ServiceManager.Camera.Move(transformComponent.LocalPosition);
 
             if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
                 if (transformComponent.Velocity.X < 0)

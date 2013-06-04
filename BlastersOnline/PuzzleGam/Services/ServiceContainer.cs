@@ -31,6 +31,8 @@ namespace BlastersGame.Services
 
         public GraphicsDevice GraphicsDevice { get; set; }
 
+        public Camera2D Camera { get; set; }
+
         private List<Service> _services = new List<Service>();
         private ContentManager _contentManager;
 
