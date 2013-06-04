@@ -212,14 +212,15 @@ namespace BlastersGame.Services
 
             transformComponent.LocalPosition = new Vector2(nextX, nextY);
 
-            if (transformComponent.Velocity.X < 0)
-                transformComponent.DirectionalCache = DirectionalCache.Left;
-            else if (transformComponent.Velocity.X > 0)
-                transformComponent.DirectionalCache = DirectionalCache.Right;
-            else if (transformComponent.Velocity.Y > 0)
-                transformComponent.DirectionalCache = DirectionalCache.Down;
-            else if (transformComponent.Velocity.Y < 0)
-                transformComponent.DirectionalCache = DirectionalCache.Up;
+            if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
+                if (transformComponent.Velocity.X < 0)
+                    transformComponent.DirectionalCache = DirectionalCache.Left;
+                else if (transformComponent.Velocity.X > 0)
+                    transformComponent.DirectionalCache = DirectionalCache.Right;
+                else if (transformComponent.Velocity.Y > 0)
+                    transformComponent.DirectionalCache = DirectionalCache.Down;
+                else if (transformComponent.Velocity.Y < 0)
+                    transformComponent.DirectionalCache = DirectionalCache.Up;
 
             if ((_lastReaction > MovementRate && transformComponent.Velocity != Vector2.Zero) || transformComponent.Velocity != transformComponent.LastVelocity)
             {

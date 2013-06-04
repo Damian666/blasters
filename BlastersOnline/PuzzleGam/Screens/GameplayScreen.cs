@@ -14,6 +14,8 @@ using BlastersShared.Game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TiledSharp;
+using BlastersShared.Game.Entities;
+using BlastersShared.Game.Components;
 
 namespace BlastersGame.Screens
 {
@@ -26,6 +28,7 @@ namespace BlastersGame.Screens
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
+        private Entity _player;
 
         public GameplayScreen(SimulationState simulationState, ulong playerID, string mapName)
         {
@@ -73,6 +76,10 @@ namespace BlastersGame.Screens
             _serviceContainer.AddService(entitySyncService);
             _serviceContainer.AddService(_debugService);
 
+            foreach (var entity in _serviceContainer.Entities)
+                if (entity.ID == _playerID)
+                    _player = entity;
+
             base.LoadContent();
         }
 
@@ -83,7 +90,6 @@ namespace BlastersGame.Screens
 
             string[] names = { "", "", "", "Seth", "Robbie", "Vaughan", "Justin", "Rory" };
             SetSidebarInfo(names);
-
         }
 
 
@@ -106,7 +112,7 @@ namespace BlastersGame.Screens
 
         private void OnLoadCompleted()
         {
-
+            
         }
 
         public override void HandleInput(InputState input)
@@ -124,8 +130,12 @@ namespace BlastersGame.Screens
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            //_camera.Move();
+            // Get the transform component
+            var transformComponent = (TransformComponent) _player.GetComponent(typeof (TransformComponent));
 
+            // Move the camera
+            _camera.Move(transformComponent.LocalPosition);
+            
             // Lets try drawing our level on screen
             var spriteBatch = ScreenManager.SpriteBatch;
 
