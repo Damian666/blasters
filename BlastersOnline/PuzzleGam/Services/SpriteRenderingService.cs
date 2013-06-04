@@ -93,9 +93,13 @@ namespace BlastersGame.Services
 
                 if (spriteComponent != null)
                 {
+                    int animation = (int)transformComponent.DirectionalCache;
+                    if (entity.GetComponent(typeof (PlayerComponent)) == null)
+                        animation = 0;
+
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorLookup[skinComponent.SpriteDescriptorName];
-                    var sourceRectangle = new Rectangle((int)descriptor.FrameSize.X * spriteComponent.AnimationFrame, (int)(descriptor.FrameSize.Y * descriptor.Animations[(int)transformComponent.DirectionalCache].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
+                    var sourceRectangle = new Rectangle((int)descriptor.FrameSize.X * spriteComponent.AnimationFrame, (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
 
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White);
 
