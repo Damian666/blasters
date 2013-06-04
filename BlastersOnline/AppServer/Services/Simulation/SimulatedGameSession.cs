@@ -175,7 +175,7 @@ namespace AppServer.Services.Simulation
                 ulong id = FindUser(obj);
 
                 // Once a player has loaded, it's okay to send them them the game state
-                var packet = new SessionSendSimulationStatePacket(_simulationState, id, "Battle_Royale");
+                var packet = new SessionSendSimulationStatePacket(_simulationState, id);
                 ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
 
                 // The minute we know this entity is good, use it

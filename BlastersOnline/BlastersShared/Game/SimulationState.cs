@@ -23,8 +23,10 @@ namespace BlastersShared.Game
             set { _entities = value; }
         }
 
-
-
+        /// <summary>
+        /// The map name that the player will be playing in.
+        /// </summary>
+        public string MapName { get; set; }
 
         /// <summary>
         /// This blank constructor is used for AltSerializer to create the object
@@ -32,7 +34,7 @@ namespace BlastersShared.Game
         /// </summary>
         public SimulationState()
         {
-            
+            MapName = "Battle_Royale";
         }
 
 
