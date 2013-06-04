@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BlastersShared.Game.Components
+namespace BlastersShared.Game.Components.PowerUp
 {
     /// <summary>
     /// The RangeModifier component contains information about how much range an object has.

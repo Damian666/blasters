@@ -21,7 +21,6 @@ namespace BlastersGame.Screens
 {
     public class GameplayScreen : GameScreen
     {
-        private Texture2D _tileset;
         private Texture2D _curTexture;
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
@@ -46,9 +45,6 @@ namespace BlastersGame.Screens
             _serviceContainer.Camera = new Camera2D(new Viewport(0, 0, 638, 566), (int)_serviceContainer.Map.WorldSizePixels.X, (int)_serviceContainer.Map.WorldSizePixels.Y, 1.0f);
             _serviceContainer.Camera.Move(new Vector2(319, 283));
 
-            // TODO: Make this dynamic for multiple tilesets
-            _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\" + (_serviceContainer.Map.Tilesets[0] as TmxTileset).Image.Source.Replace(".png", ""), ScreenManager.Game.GraphicsDevice);
-
             var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
 
             UI = new AwesomiumUI();
@@ -60,6 +56,7 @@ namespace BlastersGame.Screens
             UI.OnLoadCompleted = OnLoadCompleted;
             UI.OnDocumentCompleted = OnDocumentCompleted;
 
+            var mapRenderingService = new MapRenderingService();
             var spriteRenderingService = new SpriteRenderingService();
             var networkInputService = new NetworkInputService(_playerID);
             
@@ -69,6 +66,7 @@ namespace BlastersGame.Screens
             var entitySyncService = new EntitySyncService();
             _debugService = new DebugService();
 
+            _serviceContainer.AddService(mapRenderingService);
             _serviceContainer.AddService(spriteRenderingService);
             _serviceContainer.AddService(networkInputService);
             _serviceContainer.AddService(movementService);
@@ -127,30 +125,6 @@ namespace BlastersGame.Screens
         {
             // Lets try drawing our level on screen
             var spriteBatch = ScreenManager.SpriteBatch;
-
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, _serviceContainer.Camera.GetTransformation());
-
-            // Draw tiles
-            foreach (TmxLayer layer in _serviceContainer.Map.Layers)
-            {
-                foreach (var tile in layer.Tiles)
-                {
-                    // TODO: Make this dynamic for multiple tilesets
-                    var relativeGID = tile.GID - 1;
-                    var tmxTileset = _serviceContainer.Map.Tilesets[0] as TmxTileset;
-                    var tilesAcross = _tileset.Width / tmxTileset.TileWidth;
-
-                    var texX = (int)(relativeGID % tilesAcross);
-                    var texY = (int)(relativeGID / tilesAcross);
-
-                    // TODO: 35px offset needs to be abstracted out
-                    spriteBatch.Draw(_tileset, new Vector2(tile.X * tmxTileset.TileWidth, 35 + tile.Y * tmxTileset.TileHeight),
-                                     new Rectangle(texX * tmxTileset.TileWidth, texY * tmxTileset.TileHeight, tmxTileset.TileWidth, tmxTileset.TileHeight), Color.White);
-                }
-
-            }
-
-            spriteBatch.End();
 
             _serviceContainer.Draw(spriteBatch);
 

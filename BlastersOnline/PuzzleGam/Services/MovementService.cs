@@ -16,6 +16,7 @@ using TiledSharp;
 using BlastersGame.Components;
 using BlastersShared.Services.Sprites;
 using C3.XNA;
+using BlastersShared.Game.Components.PowerUp;
 
 namespace BlastersGame.Services
 {

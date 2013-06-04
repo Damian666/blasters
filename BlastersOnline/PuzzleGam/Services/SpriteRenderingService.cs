@@ -17,7 +17,7 @@ using BlastersGame;
 namespace BlastersGame.Services
 {
     /// <summary>
-    /// The sprite service is responsible for drawing entities that might have sprites.
+    /// The sprite rendering service is responsible for drawing entities that might have sprites.
     /// </summary>
     public class SpriteRenderingService : Service
     {

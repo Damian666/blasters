@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BlastersShared.Game.Components
+namespace BlastersShared.Game.Components.PowerUp
 {
     /// <summary>
     /// The PowerUp component contains information about world power ups for an entity.
