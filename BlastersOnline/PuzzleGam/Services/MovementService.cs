@@ -31,8 +31,8 @@ namespace BlastersGame.Services
         // Timing related info (amount of updates sent per seconds i.e 0.1 is 10FPS )
         const float MovementRate = 0.1f;
         private float _lastReaction;
+        private Vector2 lastTransformVector = Vector2.Zero;
 
-        public Map Map { get; set; }
         public Dictionary<string, SpriteDescriptor> SpriteDescriptorLookup { get; set; }
 
         public MovementService(ulong idToMonitor)
@@ -112,7 +112,7 @@ namespace BlastersGame.Services
                 spriteBatch.DrawRectangle(bbox, Color.White, 2f);
             }
 
-            foreach (TmxLayer layer in Map.Layers)
+            foreach (TmxLayer layer in ServiceManager.Map.Layers)
             {
                 foreach (TmxLayerTile tile in layer.Tiles)
                 {
@@ -150,7 +150,7 @@ namespace BlastersGame.Services
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
             
             // Move the camera
-            ServiceManager.Camera.Move(-transformComponent.LocalPosition);
+            ServiceManager.Camera.Move(-lastTransformVector);
 
             var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
@@ -164,15 +164,15 @@ namespace BlastersGame.Services
             nextPosition += transformComponent.Velocity * movementBonus;
 
             // Clamp the x and y so the player won't keep walking offscreen
-            float nextX = MathHelper.Clamp(nextPosition.X, 0, 640 - transformComponent.Size.X);
-            float nextY = MathHelper.Clamp(nextPosition.Y, 35, 600 - transformComponent.Size.Y);
+            float nextX = MathHelper.Clamp(nextPosition.X + spriteDescriptor.BoundingBox.X, 0, ServiceManager.Map.WorldSizePixels.X / 2 - spriteDescriptor.BoundingBox.Width);
+            float nextY = MathHelper.Clamp(nextPosition.Y + spriteDescriptor.BoundingBox.Y, 35, 35 + ServiceManager.Map.WorldSizePixels.Y / 2 - spriteDescriptor.BoundingBox.Height);
 
             // TODO: This is shitty. Needs to be redone.
             if (transformComponent.Velocity.LengthSquared() != 0)
             {
-                if (Map != null)
+                if (ServiceManager.Map != null)
                 {
-                    foreach (TmxLayer layer in Map.Layers)
+                    foreach (TmxLayer layer in ServiceManager.Map.Layers)
                     {
                         foreach (TmxLayerTile tile in layer.Tiles)
                         {
@@ -182,25 +182,25 @@ namespace BlastersGame.Services
                                 Rectangle tileRect = new Rectangle(tile.X * 32, 35 + tile.Y * 32, 32, 32);
                                 
                                 Rectangle xBBox = new Rectangle(
-                                      (int)nextX + spriteDescriptor.BoundingBox.X,
+                                      (int)nextX,
                                       (int)transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y,
                                       (int)spriteDescriptor.BoundingBox.Width,
                                       (int)spriteDescriptor.BoundingBox.Height);
 
                                 if (tileRect.Intersects(xBBox))
                                 {
-                                    nextX = transformComponent.LocalPosition.X;
+                                    nextX = transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X;
                                 }
 
                                 Rectangle yBBox = new Rectangle(
-                                      (int)nextX + spriteDescriptor.BoundingBox.X,
-                                      (int)nextY + spriteDescriptor.BoundingBox.Y,
+                                      (int)nextX,
+                                      (int)nextY,
                                       (int)spriteDescriptor.BoundingBox.Width,
                                       (int)spriteDescriptor.BoundingBox.Height);
 
                                 if (tileRect.Intersects(yBBox))
                                 {
-                                    nextY = transformComponent.LocalPosition.Y;
+                                    nextY = transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y;
                                 }
                             }
                         }
@@ -208,10 +208,22 @@ namespace BlastersGame.Services
                 }
             }
 
-            transformComponent.LocalPosition = new Vector2(nextX, nextY);
+            transformComponent.LocalPosition = new Vector2(nextX - +spriteDescriptor.BoundingBox.X, nextY - +spriteDescriptor.BoundingBox.Y);
 
+            float transformX = transformComponent.LocalPosition.X;
+            float transformY = transformComponent.LocalPosition.Y;
+
+            float offsetX = spriteDescriptor.BoundingBox.Left + spriteDescriptor.BoundingBox.Width / 2;
+            float offsetY = spriteDescriptor.BoundingBox.Bottom;
+
+            transformX = Math.Max(transformX - 319 + offsetX, 0);
+            transformX = Math.Min(transformX, ServiceManager.Map.WorldSizePixels.X / 2 - 638);
+            transformY = Math.Max(transformY - 283 + offsetY, 0);
+            transformY = Math.Min(transformY, ServiceManager.Map.WorldSizePixels.Y / 2 - 566);
+            
             // Move the camera back
-            ServiceManager.Camera.Move(transformComponent.LocalPosition);
+            lastTransformVector = new Vector2(transformX, transformY);
+            ServiceManager.Camera.Move(lastTransformVector);
 
             if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
                 if (transformComponent.Velocity.X < 0)

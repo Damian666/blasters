@@ -23,16 +23,14 @@ namespace BlastersGame.Screens
     {
         private Texture2D _tileset;
         private Texture2D _curTexture;
-        private Map _map;
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
 
-        public GameplayScreen(SimulationState simulationState, ulong playerID, string mapName)
+        public GameplayScreen(SimulationState simulationState, ulong playerID)
         {
             _simulationState = simulationState;
             _playerID = playerID;
-            _map = new Map(mapName);
         }
 
         private AwesomiumUI UI;
@@ -40,13 +38,16 @@ namespace BlastersGame.Screens
         public override void LoadContent()
         {
             _curTexture = ScreenManager.Game.Content.GetTexture(@"Sprites\cursor", ScreenManager.Game.GraphicsDevice);
-            
-            // TODO: Make this dynamic for multiple tilesets
-            _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\" + (_map.Tilesets[0] as TmxTileset).Image.Source.Replace(".png", ""), ScreenManager.Game.GraphicsDevice);
 
             _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content, ScreenManager.Game.GraphicsDevice);
-            _serviceContainer.Camera = new Camera2D(new Viewport(0, 0, 638, 566), (int)_map.WorldSizePixels.X, (int)_map.WorldSizePixels.Y, 1.0f);
+
+            _serviceContainer.Map = new Map(_simulationState.MapName);
+
+            _serviceContainer.Camera = new Camera2D(new Viewport(0, 0, 638, 566), (int)_serviceContainer.Map.WorldSizePixels.X, (int)_serviceContainer.Map.WorldSizePixels.Y, 1.0f);
             _serviceContainer.Camera.Move(new Vector2(319, 283));
+
+            // TODO: Make this dynamic for multiple tilesets
+            _tileset = ScreenManager.Game.Content.GetTexture(@"Levels\" + (_serviceContainer.Map.Tilesets[0] as TmxTileset).Image.Source.Replace(".png", ""), ScreenManager.Game.GraphicsDevice);
 
             var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
 
@@ -63,7 +64,6 @@ namespace BlastersGame.Screens
             var networkInputService = new NetworkInputService(_playerID);
             
             var movementService = new MovementService(_playerID);
-            movementService.Map = _map;
             movementService.SpriteDescriptorLookup = spriteRenderingService.SpriteDescriptorLookup;
 
             var entitySyncService = new EntitySyncService();
@@ -81,7 +81,7 @@ namespace BlastersGame.Screens
         private void OnDocumentCompleted()
         {
             UI.CallJavascript("document.getElementById(\"room\").innerHTML = 'The Elite'");
-            UI.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + _map.LevelID + "'");
+            UI.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + _serviceContainer.Map.LevelID + "'");
 
             string[] names = { "", "", "", "Seth", "Robbie", "Vaughan", "Justin", "Rory" };
             SetSidebarInfo(names);
@@ -131,13 +131,13 @@ namespace BlastersGame.Screens
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, _serviceContainer.Camera.GetTransformation());
 
             // Draw tiles
-            foreach (TmxLayer layer in _map.Layers)
+            foreach (TmxLayer layer in _serviceContainer.Map.Layers)
             {
                 foreach (var tile in layer.Tiles)
                 {
                     // TODO: Make this dynamic for multiple tilesets
                     var relativeGID = tile.GID - 1;
-                    var tmxTileset = _map.Tilesets[0] as TmxTileset;
+                    var tmxTileset = _serviceContainer.Map.Tilesets[0] as TmxTileset;
                     var tilesAcross = _tileset.Width / tmxTileset.TileWidth;
 
                     var texX = (int)(relativeGID % tilesAcross);

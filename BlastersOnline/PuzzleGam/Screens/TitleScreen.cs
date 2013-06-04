@@ -94,7 +94,7 @@ namespace BlastersGame.Screens
 
 
             ScreenManager.RemoveScreen(this);
-            ScreenManager.AddScreen(new GameplayScreen(state, sessionSendSimulationStatePacket.PlayerUID, sessionSendSimulationStatePacket.SimulationState.MapName), null);
+            ScreenManager.AddScreen(new GameplayScreen(state, sessionSendSimulationStatePacket.PlayerUID), null);
         }
 
         private Guid _myToken;

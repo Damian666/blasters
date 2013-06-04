@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BlastersGame;
+using BlastersGame.Levels;
 
 namespace BlastersGame.Services
 {
@@ -32,6 +33,7 @@ namespace BlastersGame.Services
         public GraphicsDevice GraphicsDevice { get; set; }
 
         public Camera2D Camera { get; set; }
+        public Map Map { get; set; }
 
         private List<Service> _services = new List<Service>();
         private ContentManager _contentManager;
