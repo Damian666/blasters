@@ -23,6 +23,12 @@ namespace BlastersLobby
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            FormWebView form = new FormWebView();
+            form.Show();
+            Visible = false;
+
+            return;
             Form1 form1 = new Form1();
             form1.Show();
             Visible = false;

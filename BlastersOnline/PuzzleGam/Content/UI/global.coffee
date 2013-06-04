@@ -11,4 +11,7 @@ window.setPlayerNames = (text) ->
 		playerBox = element.getElementsByClassName("playername")[0]
 		playerBox.innerHTML = list.pop();
 
+		if(list.length == 0)
+			break
+
 	return null

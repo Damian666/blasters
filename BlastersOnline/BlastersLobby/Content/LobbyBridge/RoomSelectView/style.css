@@ -1,0 +1,182 @@
+/*********** Body ************/
+
+* { margin:0; padding:0; }
+
+body
+{ 
+	font:12px Trebuchet MS, Tahoma, Tw Cen MT, Arial;
+	color:#000;
+	background: url('images/background.png') repeat;
+}
+
+A:link {text-decoration: none; color: #000;}
+A:visited {text-decoration: none; color: #000;}
+A:active {text-decoration: none; color: #000;}
+A:hover {text-decoration: none; color: #000;}
+
+.clear {clear:both;}
+
+#container {
+	width: 800px; height: 600px;
+	margin: 0 auto;
+}
+
+#content {
+	padding: 0 9px 0 6px;
+	float: left;
+}
+
+.page {
+	background: url('images/pagenumbers.png') no-repeat;
+	width: 71px; height: 19px;
+	float: left; margin: 6px 0 0 2px;
+	font-size: 12px;
+	padding: 5px 0 0 6px;
+}
+.pages {width: 145px; margin: 7px 0 0 5px; }
+.back {float: left;}
+.page ul li {display: inline;}
+.page ul li a {color: white; }
+.forward{float: right;}
+
+/*********** News ************/
+
+#news {
+	background: url('images/newsbarbg.png') repeat;
+	width: 567px; height: 23px;
+	color: white;
+	font-weight: bold;
+	padding: 9px 0 0 65px;
+	float: right;
+	margin-right: 9px;
+}
+
+/*********** Game Room ************/
+
+#gameroom {
+	width: 619px;
+}
+
+.gameroom {
+	margin: -30px 0 -1px 5px;
+}
+
+#nav {
+	background: url('images/menubg.png') repeat-x;
+	width: 614px; height: 32px;
+	padding-left: 5px;
+}
+
+#nav a {color: #044c7f; font-weight: bold;}
+#nav ul li {
+	list-style-type: none; 
+	display: inline-block;
+	height: 30px;
+	float: left;
+	padding: 10px 0 0 0;
+	margin: 0 5px 0 5px;
+}
+#nav ul li img {margin-top: -6px;}
+
+#gamearea {
+	background: url('images/gameroombg.png') no-repeat;
+	widows: 607px; height: 392px;
+	margin-top: -9px;
+	padding: 5px;
+}
+
+.room {
+	background: url('images/roombg.png') no-repeat;
+	width: 298px; height: 86px;
+	float: left;
+	margin: 0 0 3px 3px;
+}
+
+.gameareapage {width: 145px; margin: 0px 0 0 5px; margin: 5px 0 0 250px;}
+.page2 {
+	background: url('images/pagenumbers.png') no-repeat;
+	width: 71px; height: 19px;
+	float: left; margin: 0px 0 0 2px;
+	font-size: 12px;
+	padding: 5px 0 0 6px;
+}
+.page2 ul li {display: inline;}
+.page2 ul li a {color: white; }
+
+/*********** Stats ************/
+
+#stats {
+	background: url('images/statsbg.png') no-repeat;
+	width: 602px; height: 64px;
+	margin-top: 6px;
+	padding: 15px 0 10px 15px;
+}
+
+#stats ul li {list-style-type: none;}
+#stats .left {float: left;}
+
+#stats .server { float: left; margin-right: 10px}
+#stats .left ul li {
+	float: left;
+	color: white;
+	font-weight: bold;
+	text-shadow: 0px 0px 5px #000000;
+	margin: 3px 0 3px 0;
+}
+
+#stats .right {
+	float: right;
+	text-align: right;
+	padding-right: 10px;
+	font-weight: bold;
+}
+
+/*********** Sidebar ************/
+
+#sidebar { float: right; width: 166px; }
+
+#sidebar img { margin: 6px 0 0 0;}
+
+#playersonline {
+	background: url('images/playersonlinebg.png') no-repeat; 
+	width: 157px; height: 330px;
+	color: white;
+	font-size: 13px;
+	line-height: 16px;
+}
+
+#players {padding: 15px 0 0 17px;}
+#players li {list-style-type: none;}
+
+/*********** Bottom Bar ************/
+
+#bottombar {
+	background: url('images/bottombarbg.png') repeat-x; 
+	height: 28px;
+	padding: 5px 5px 0 5px;
+}
+#bottombar ul li { list-style-type: none; display: inline-block;}
+#bottombar .left {float: left;}
+#bottombar .right {float: right;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

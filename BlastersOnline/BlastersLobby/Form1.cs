@@ -109,8 +109,7 @@ namespace BlastersLobby
             randomName = GetRandomName();
             Text = "Lobby - Hi, " + randomName;
 
-            var packet = new LoginRequestPacket(randomName, "password");
-            NetworkManager.Instance.SendPacket(packet);
+
 
 
         }
