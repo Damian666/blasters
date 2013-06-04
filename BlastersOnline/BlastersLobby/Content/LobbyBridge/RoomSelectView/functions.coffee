@@ -14,3 +14,6 @@ window.setPlayerNames = (text) ->
 		li.innerHTML = line
 		ele.appendChild(li)
 	return null
+
+window.populateSessionPages = (sessionInfo) ->
+	return null

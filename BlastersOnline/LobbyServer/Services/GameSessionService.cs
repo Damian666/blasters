@@ -36,6 +36,27 @@ namespace LobbyServer
             ClientNetworkManager.Instance.SendPacket(packet, user.Connection);
         }
 
+        public void SendUserOnlineList(User user)
+        {
+
+            var nameList = new List<string>();
+            foreach (var player in ServiceContainer.Users)
+                nameList.Add(player.Value.Name);
+
+            var packet = new NotifyUsersOnlinePacket(nameList);
+            ClientNetworkManager.Instance.SendPacket(packet, user.Connection);
+        }
+
+        public void SendToUsersOnlineList()
+        {
+            //TODO: Send to interested parties only (not engaged in a game, not in-store etc)
+
+            foreach (var user in ServiceContainer.Users.Values)
+            {
+                SendUserOnlineList(user);
+            }
+        }
+
 
         /// <summary>
         /// Adds a user to a given game session is space is available. 
@@ -87,10 +108,10 @@ namespace LobbyServer
 
 #if DEBUG_MOCK
                 foreach (var cUser in gameSession.Users)
-                    cUser.SecureToken = Guid.Empty;                                    
+                    cUser.SecureToken = Guid.Empty;
 #endif
 
-                var appServerService = (AppServerService) ServiceContainer.GetService(typeof (AppServerService));
+                var appServerService = (AppServerService)ServiceContainer.GetService(typeof(AppServerService));
                 var server = appServerService.GetAvailableServer();
 
                 // Notify the app server
@@ -131,7 +152,7 @@ namespace LobbyServer
         public GameSessionService()
         {
             Sessions = new List<GameSession>();
-        
+
             // Register network callbacks
             PacketService.RegisterPacket<SessionJoinRequestPacket>(ProcessSessionJoinRequest);
             PacketService.RegisterPacket<SessionEndedLobbyPacket>(ProcessSessionEnded);
@@ -201,7 +222,7 @@ namespace LobbyServer
 
         public override void PeformUpdate()
         {
-            
+
         }
 
     }

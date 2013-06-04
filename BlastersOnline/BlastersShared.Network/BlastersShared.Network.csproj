@@ -74,6 +74,7 @@
     <Compile Include="Packets\Lobby\SessionBeginNotificationPacket.cs" />
     <Compile Include="Packets\Lobby\SessionJoinResultPacket.cs" />
     <Compile Include="Packets\Lobby\SessionListInformationPacket.cs" />
+    <Compile Include="Packets\NotifyUsersOnlinePacket.cs" />
     <Compile Include="Packets\SPlayerDisconnect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -45,12 +45,14 @@ namespace LobbyServer.Services
                 // Send the user a list of sessions going on 
                 var sessionService = (GameSessionService) ServiceContainer.GetService(typeof (GameSessionService));
                 sessionService.SendUserSessions(user);
+                sessionService.SendToUsersOnlineList();
 
             }
 
 
 
         }
+
 
         public User AddUser(LoginRequestPacket obj, string username)
         {

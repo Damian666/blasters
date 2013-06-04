@@ -46,13 +46,8 @@ namespace BlastersLobby.Views
 
         public override void UpdateView()
         {
-
-            List<string> users = new List<string>();
-
-            foreach (var game in _model.SessionsAvailable)
-                users.Add(game.Name);
                 
-            ExecuteJavascriptViaString("setPlayerNames", users);        
+            ExecuteJavascriptViaString("setPlayerNames", _model.OnlineUsers);        
         }
 
 

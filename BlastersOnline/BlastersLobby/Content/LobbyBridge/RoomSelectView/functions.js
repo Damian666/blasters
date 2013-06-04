@@ -16,3 +16,7 @@ window.setPlayerNames = function(text) {
   }
   return null;
 };
+
+window.populateSessionPages = function(sessionInfo) {
+  return null;
+};

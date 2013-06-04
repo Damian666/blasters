@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlastersLobby.Models;
 using BlastersLobby.Network;
 using BlastersLobby.Views;
+using BlastersShared.Network.Packets;
 using BlastersShared.Network.Packets.Lobby;
 
 namespace BlastersLobby.Controllers
@@ -31,6 +32,13 @@ namespace BlastersLobby.Controllers
         private void CreateNetworkCallbacks()
         {
             PacketService.RegisterPacket<SessionListInformationPacket>(ProcessSessionInformation);
+            PacketService.RegisterPacket<NotifyUsersOnlinePacket>(Handler); 
+        }
+
+        private void Handler(NotifyUsersOnlinePacket notifyUsersOnlinePacket)
+        {
+            _viewModel.OnlineUsers = notifyUsersOnlinePacket.OnlineUsers;
+            _view.UpdateView();
         }
 
 
