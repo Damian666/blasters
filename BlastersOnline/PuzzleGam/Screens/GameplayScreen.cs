@@ -21,16 +21,17 @@ namespace BlastersGame.Screens
     {
         private Texture2D _tileset;
         private Texture2D _curTexture;
-        private Map _map = new Map("Battle_Royale");
+        private Map _map;
         private SimulationState _simulationState;
         private ServiceContainer _serviceContainer;
         private ulong _playerID;
 
 
-        public GameplayScreen(SimulationState simulationState, ulong playerID)
+        public GameplayScreen(SimulationState simulationState, ulong playerID, string mapName)
         {
             _simulationState = simulationState;
             _playerID = playerID;
+            _map = new Map(mapName);
         }
 
         private AwesomiumUI UI;
