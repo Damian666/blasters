@@ -34,9 +34,7 @@ namespace LobbyServer.Services
             var username = obj.Username;
             var password = obj.Password;
 
-            var validPassword = password;
-
-            if (password == validPassword)
+            if (AreCredentialsValid(username, password))
             {
                 var user = AddUser(obj, username);
 
@@ -48,9 +46,6 @@ namespace LobbyServer.Services
                 sessionService.SendToUsersOnlineList();
 
             }
-
-
-
         }
 
 

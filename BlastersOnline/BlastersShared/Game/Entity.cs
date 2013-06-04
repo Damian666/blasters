@@ -77,6 +77,16 @@ namespace BlastersShared.Game.Entities
             return null;
         }
 
+        /// <summary>
+        /// Returns whether or not a particular entity has a component or not.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public bool HasComponent(Type type)
+        {
+            return GetComponent(type) != null;
+        }
+
 
 
     }

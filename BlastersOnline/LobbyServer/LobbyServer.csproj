@@ -45,7 +45,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -63,9 +62,11 @@
     <Compile Include="Network\PacketService.cs" />
     <Compile Include="Lobby.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MasterAccount.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlastersShared.Network\BlastersShared.Network.csproj">
