@@ -83,7 +83,7 @@ namespace BlastersGame.Services
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
 
             foreach (var entity in ServiceManager.Entities)
             {
@@ -101,7 +101,9 @@ namespace BlastersGame.Services
                     var descriptor = _spriteDescriptorLookup[skinComponent.SpriteDescriptorName];
                     var sourceRectangle = new Rectangle((int)descriptor.FrameSize.X * spriteComponent.AnimationFrame, (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
 
-                    spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White);
+
+
+                    spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, descriptor.SpriteDepth);
 
                     // If this sprite has a name
                     if (nameComponent != null)

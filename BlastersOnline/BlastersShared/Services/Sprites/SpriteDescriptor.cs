@@ -35,6 +35,11 @@ namespace BlastersShared.Services.Sprites
         /// </summary>
         public Rectangle BoundingBox { get; set; }
 
+        /// <summary>
+        /// The depth for a particular sprite; this is used for sorting before drawing.
+        /// </summary>
+        public int SpriteDepth { get; set; }
+
         public List<SpriteDescriptorAnimation> Animations { get; set; }
 
         public SpriteDescriptor()
