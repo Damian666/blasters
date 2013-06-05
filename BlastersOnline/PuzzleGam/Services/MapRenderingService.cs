@@ -27,7 +27,7 @@ namespace BlastersGame.Services
                         continue;
 
                     // TODO: Make this dynamic for multiple tilesets
-                    var relativeGID = (int)tile.GID - 1;
+                    var relativeGID = tile.GID - 1;
 
                     var tmxTileset = ServiceManager.Map.Tilesets[0] as TmxTileset;
                     var tilesAcross = _tileset.Width / tmxTileset.TileWidth;
