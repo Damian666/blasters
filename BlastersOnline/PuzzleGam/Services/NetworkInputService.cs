@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using BlastersShared.Game.Components;
+using BlastersShared.Game.Components.PowerUp;
 using BlastersShared.Game.Entities;
 using BlastersShared.Network.Packets.Client;
 using Microsoft.Xna.Framework;
@@ -42,6 +43,7 @@ namespace BlastersGame.Services
 
             // Get the transform component
             var transformComponent = (TransformComponent)_player.GetComponent(typeof(TransformComponent));
+            var bombModifier = (BombCountModifierComponent) _player.GetComponent(typeof (BombCountModifierComponent));
 
             const int ABSOLUTE_SPEED = 3;
 
@@ -70,6 +72,13 @@ namespace BlastersGame.Services
 
             if (inputState.PlaceBomb())
             {
+
+                // Don't do anything if they can't place any more bombs
+                if (bombModifier.Amount == bombModifier.CurrentBombCount)
+                    return;
+                else
+                    bombModifier.CurrentBombCount++;
+
                 var packet = new RequestPlaceBombPacket();
                 NetworkManager.Instance.SendPacket(packet);
             }

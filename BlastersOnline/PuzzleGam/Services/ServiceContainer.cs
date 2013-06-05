@@ -29,6 +29,17 @@ namespace BlastersGame.Services
             GraphicsDevice = device;
         }
 
+        public Entity RetrieveEntityByID(ulong userID)
+        {
+            foreach (var entity in Entities)
+            {
+                if (entity.ID == userID)
+                    return entity;
+            }
+
+            return null;
+        }
+
 
         public GraphicsDevice GraphicsDevice { get; set; }
 

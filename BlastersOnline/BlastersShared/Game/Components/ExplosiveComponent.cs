@@ -16,10 +16,11 @@ namespace BlastersShared.Game.Components
             
         }
 
-        public ExplosiveComponent(float detonateTime, int range)
+        public ExplosiveComponent(float detonateTime, int range, ulong ownerID)
         {
             DetonationTime = detonateTime;
             Range = range;
+            OwnerID = ownerID;
         }
 
         /// <summary>
@@ -31,6 +32,12 @@ namespace BlastersShared.Game.Components
         /// The given range of of this <see cref="ExplosiveEntity"/>. 
         /// </summary>
         public int Range { get; set;  }
+
+        /// <summary>
+        /// The ID Of the entity that owns this particular explosive; used for computing kills.
+        /// Null indicates the entity is owned by noone.
+        /// </summary>
+        public ulong OwnerID { get; set; }
 
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlastersShared;
 using BlastersShared.Game.Components;
+using BlastersShared.Game.Components.PowerUp;
 using BlastersShared.Game.Entities;
 using Microsoft.Xna.Framework;
 
@@ -31,6 +32,11 @@ namespace AppServer.Services.Simulation
             var nameComponent = new NameComponent(user.Name);
             var skinComponent = new SkinComponent(user.SessionConfig.Skin);
             var playerComponent = new PlayerComponent();
+            var bombModifier = new BombCountModifierComponent(1);
+
+
+            // Add modifier components to the sprite
+
             playerComponent.Connection = user.Connection;
             playerComponent.SecureToken = user.SecureToken;
 
@@ -38,17 +44,18 @@ namespace AppServer.Services.Simulation
             entity.AddComponent(nameComponent);
             entity.AddComponent(skinComponent);
             entity.AddComponent(playerComponent);
+            entity.AddComponent(bombModifier);
 
             return entity;
         }
 
-        public static Entity CreateBomb(Vector2 location) 
+        public static Entity CreateBomb(Vector2 location, ulong userID) 
         {
             var entity = new Entity();
 
             var transformComponent = new TransformComponent(location, new Vector2(32, 32));
             var skinComponent = new SkinComponent("BombSprite");
-            var explosiveComponent = new ExplosiveComponent(3f, 100);
+            var explosiveComponent = new ExplosiveComponent(3f, 100, userID);
 
             entity.AddComponent(transformComponent);
             entity.AddComponent(skinComponent);

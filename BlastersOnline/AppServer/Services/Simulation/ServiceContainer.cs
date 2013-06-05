@@ -37,6 +37,7 @@ namespace AppServer.Services.Simulation
             _services.Add(service);
         }
 
+
         public delegate void EntityEvent(Entity entity);
 
         public event EntityEvent EntityAdded;
@@ -54,6 +55,17 @@ namespace AppServer.Services.Simulation
             if (handler != null) handler(entity);
         }
 
+
+        public Entity RetrieveEntityByID(ulong userID)
+        {
+            foreach (var entity in Entities)
+            {
+                if (entity.ID == userID)
+                    return entity;
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Adds an entity to the server container, also fires off events for notifications.

@@ -6,6 +6,7 @@ using AppServer.Services.Simulation.Services;
 using BlastersShared;
 using BlastersShared.Game;
 using BlastersShared.Game.Components;
+using BlastersShared.Game.Components.PowerUp;
 using BlastersShared.Game.Entities;
 using BlastersShared.GameSession;
 using BlastersShared.Network.Packets;
@@ -66,12 +67,19 @@ namespace AppServer.Services.Simulation
 
             var sender = RetrieveSender(request);
             var transformComponent = (TransformComponent)sender.GetComponent(typeof(TransformComponent));
+            var bombModifier = (BombCountModifierComponent)sender.GetComponent(typeof(BombCountModifierComponent));
+
+            if (bombModifier.Amount == bombModifier.CurrentBombCount)
+                return;
+            else
+                bombModifier.CurrentBombCount++;
+
 
             Vector2 location = transformComponent.LastLocalPosition;
             location += new Vector2(transformComponent.Size.X / 2, transformComponent.Size.Y);
             location -= new Vector2(16, 16);
 
-            var bomb = EntityFactory.CreateBomb(location);
+            var bomb = EntityFactory.CreateBomb(location, sender.ID);
 
 
             AddEntity(bomb);

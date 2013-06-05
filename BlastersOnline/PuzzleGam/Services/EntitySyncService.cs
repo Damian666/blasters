@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlastersShared.Game.Components;
+using BlastersShared.Game.Components.PowerUp;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.AppServer.BlastersShared.Network.Packets.AppServer;
 using Microsoft.Xna.Framework;
@@ -39,7 +41,27 @@ namespace BlastersGame.Services
 
         private void HandleEntityRemove(EntityRemovePacket entityRemovePacket)
         {
+
+            var entity = ServiceManager.RetrieveEntityByID(entityRemovePacket.EntityID);
+
+
+          // If an entity was removed, check if it's blow-up-able
+            var explosiveComponent = (ExplosiveComponent)entity.GetComponent(typeof(ExplosiveComponent));
+
+            // Get the owner
+            var owner = ServiceManager.RetrieveEntityByID(explosiveComponent.OwnerID);
+            var ownerBombModifier =
+                (BombCountModifierComponent)owner.GetComponent(typeof(BombCountModifierComponent));
+            ownerBombModifier.CurrentBombCount--;
+
+
+
             ServiceManager.RemoveEntityByID(entityRemovePacket.EntityID);
+
+            
+
+
+
         }
 
 

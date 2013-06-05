@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlastersShared.Game.Components;
+using BlastersShared.Game.Components.PowerUp;
 using BlastersShared.Game.Entities;
 using BlastersShared.Utilities;
 using Microsoft.Xna.Framework;
@@ -90,7 +91,25 @@ namespace AppServer.Services.Simulation.Services
 
         public override void Initialize()
         {
+            ServiceManager.EntityRemoved += ServiceManager_EntityRemoved;
+        }
+
+        /// <summary>
+        /// Fired when an entity is removed
+        /// </summary>
+        /// <param name="entity"></param>
+        void ServiceManager_EntityRemoved(Entity entity)
+        {
+            var explosiveComponent = (ExplosiveComponent) entity.GetComponent(typeof (ExplosiveComponent));
+
+            // Get the owner
+            var owner = ServiceManager.RetrieveEntityByID(explosiveComponent.OwnerID);
+            var ownerBombModifier =
+                (BombCountModifierComponent) owner.GetComponent(typeof (BombCountModifierComponent));
+            ownerBombModifier.CurrentBombCount--;
 
         }
+
+
     }
 }
