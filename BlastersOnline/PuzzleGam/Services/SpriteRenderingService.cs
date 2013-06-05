@@ -99,7 +99,10 @@ namespace BlastersGame.Services
 
                     var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
                     var descriptor = _spriteDescriptorLookup[skinComponent.SpriteDescriptorName];
-                    var sourceRectangle = new Rectangle((int)descriptor.FrameSize.X * spriteComponent.AnimationFrame, (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
+                    var sourceRectangle = new Rectangle(
+                        (int)descriptor.FrameSize.X * spriteComponent.AnimationFrame, 
+                        (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), 
+                        (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
 
 
 
@@ -151,8 +154,9 @@ namespace BlastersGame.Services
                     var descriptor = _spriteDescriptorLookup[skinComponent.SpriteDescriptorName];
 
                     // Total amount of frames
-                    var frameCount = ContentManager.GetTexture(_spriteDescriptorLookup[skinComponent.SpriteDescriptorName].SpritePath,
-                                                  ServiceManager.GraphicsDevice).Width / descriptor.FrameSize.X;
+                    var frameCount = ContentManager.GetTexture(
+                        _spriteDescriptorLookup[skinComponent.SpriteDescriptorName].SpritePath,
+                        ServiceManager.GraphicsDevice).Width / descriptor.FrameSize.X;
 
                     // We don't need to animate if there's only one frame
                     if ((int)frameCount == 1)
