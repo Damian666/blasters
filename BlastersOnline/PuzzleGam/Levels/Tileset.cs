@@ -11,27 +11,30 @@ namespace BlastersGame.Levels
     {
         private TmxTileset _tileset;
         private Texture2D _texture;
+        private uint _tilesAcross;
+        private uint _tilesDown;
 
         public Tileset(TmxTileset tileset)
         {
             _tileset = tileset;
+            _tilesAcross = (uint)(_tileset.Image.Width / _tileset.TileWidth);
+            _tilesDown = (uint)(_tileset.Image.Height / _tileset.TileHeight);
             // TODO: Figure out how to "efficiently" link tile GIDs to tilesets
         }
 
-        public int GetTileTextureX(int gid)
+        public uint TileCount
         {
-            long relativeGid = gid - (_tileset.FirstGid + 1);
-            int tiles = _tileset.Image.Width / _tileset.TileWidth;
-
-            return (int)(relativeGid % tiles);
+            get { return _tilesAcross * _tilesDown; }
         }
 
-        public int GetTileTextureY(int gid)
+        public bool IsValidTile(TmxLayerTile tile)
         {
-            long relativeGid = gid - (_tileset.FirstGid + 1);
-            int tiles = _tileset.Image.Width / _tileset.TileWidth;
+            return tile.GID >= _tileset.FirstGid && tile.GID < _tileset.FirstGid + TileCount;
+        }
 
-            return (int)(relativeGid / tiles);
+        public uint RelativeTileID(TmxLayerTile tile)
+        {
+            return tile.GID - (_tileset.FirstGid + 1);
         }
     }
 }
