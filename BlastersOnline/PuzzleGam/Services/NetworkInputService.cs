@@ -46,22 +46,27 @@ namespace BlastersGame.Services
             const int ABSOLUTE_SPEED = 3;
 
             // We adjust instant velocity as needed here)
-            transformComponent.Velocity = Vector2.Zero;
-
-            if (inputState.MoveLeftIssued() && !inputState.MoveRightIssued())
-                transformComponent.Velocity -= new Vector2(ABSOLUTE_SPEED * 1, 0);
-
-            if (inputState.MoveRightIssued() && !inputState.MoveLeftIssued())
-                transformComponent.Velocity += new Vector2(ABSOLUTE_SPEED * 1, 0);
-
-            if (inputState.MoveUpIssued() && !inputState.MoveDownIssued())
-                transformComponent.Velocity -= new Vector2(0, ABSOLUTE_SPEED * 1);
-
-            if (inputState.MoveDownIssued() && !inputState.MoveUpIssued())
-                transformComponent.Velocity += new Vector2(0, ABSOLUTE_SPEED * 1);
+            Vector2 newVector = Vector2.Zero;
 
             if (inputState.NotMoving())
-                transformComponent.Velocity = Vector2.Zero;
+                newVector = Vector2.Zero;
+
+            if (inputState.MoveLeftIssued())
+                newVector -= new Vector2(ABSOLUTE_SPEED * 1, 0);
+
+            if (inputState.MoveRightIssued())
+                newVector += new Vector2(ABSOLUTE_SPEED * 1, 0);
+
+            if (inputState.MoveUpIssued())
+                newVector -= new Vector2(0, ABSOLUTE_SPEED * 1);
+
+            if (inputState.MoveDownIssued())
+                newVector += new Vector2(0, ABSOLUTE_SPEED * 1);
+
+
+
+            if (newVector != transformComponent.Velocity)
+                transformComponent.Velocity = newVector;
 
             if (inputState.PlaceBomb())
             {
@@ -69,16 +74,15 @@ namespace BlastersGame.Services
                 NetworkManager.Instance.SendPacket(packet);
             }
 
-            // We can also plant bombs here, etc over the network
 
         }
 
-        
+
 
         public override void Initialize()
         {
             // Query for the player we want
-    
+
             foreach (var entity in ServiceManager.Entities)
                 if (entity.ID == _idToMonitor)
                     _player = entity;

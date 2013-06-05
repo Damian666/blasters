@@ -29,7 +29,7 @@ namespace BlastersGame.Services
         private readonly Dictionary<ulong, EntityInterpolator> _entityInterpolators = new Dictionary<ulong, EntityInterpolator>();
 
         // Timing related info (amount of updates sent per seconds i.e 0.1 is 10FPS )
-        const float MovementRate = 0.1f;
+        const float MovementRate = 0.2f;
         private float _lastReaction;
         private Vector2 lastTransformVector = Vector2.Zero;
 
@@ -235,7 +235,11 @@ namespace BlastersGame.Services
                 else if (transformComponent.Velocity.Y < 0)
                     transformComponent.DirectionalCache = DirectionalCache.Up;
 
-            if ((_lastReaction > MovementRate && transformComponent.Velocity != Vector2.Zero) || transformComponent.Velocity != transformComponent.LastVelocity)
+            var directionalChange = (transformComponent.Velocity != transformComponent.LastVelocity &&
+                                     transformComponent.Velocity != Vector2.Zero);
+            directionalChange = false;
+
+            if ((_lastReaction > MovementRate && transformComponent.Velocity != Vector2.Zero) ||  directionalChange)
             {
                 // Alert the server out this change in events if needed
                 var packet = new NotifyMovementPacket(transformComponent.Velocity, transformComponent.LocalPosition);
