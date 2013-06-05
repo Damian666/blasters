@@ -15,15 +15,20 @@ namespace BlastersGame.Services
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, ServiceManager.Camera.GetTransformation());
 
             // Draw tiles
             foreach (TmxLayer layer in ServiceManager.Map.Layers)
             {
                 foreach (var tile in layer.Tiles)
                 {
+                    // Ignore empty tiles
+                    if (tile.GID < 1)
+                        continue;
+
                     // TODO: Make this dynamic for multiple tilesets
-                    var relativeGID = tile.GID - 1;
+                    var relativeGID = (int)tile.GID - 1;
+
                     var tmxTileset = ServiceManager.Map.Tilesets[0] as TmxTileset;
                     var tilesAcross = _tileset.Width / tmxTileset.TileWidth;
 
@@ -34,7 +39,6 @@ namespace BlastersGame.Services
                     spriteBatch.Draw(_tileset, new Vector2(tile.X * tmxTileset.TileWidth, 35 + tile.Y * tmxTileset.TileHeight),
                                      new Rectangle(texX * tmxTileset.TileWidth, texY * tmxTileset.TileHeight, tmxTileset.TileWidth, tmxTileset.TileHeight), Color.White);
                 }
-
             }
 
             spriteBatch.End();
