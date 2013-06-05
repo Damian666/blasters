@@ -47,7 +47,6 @@ namespace BlastersGame.Services
 
         private void LoadTilesetTextures()
         {
-            // TODO: Make this dynamic for multiple tilesets
             foreach (TmxTileset tmxTileset in ServiceManager.Map.Tilesets)
             {
                 Tileset tileset = new Tileset(tmxTileset);
@@ -58,18 +57,16 @@ namespace BlastersGame.Services
                 for (uint i = 0; i < tileset.TileCount; i++)
                     _tilesets.Add(i + tmxTileset.FirstGid, tileset);
             }
-
-            //_tileset = ContentManager.GetTexture(@"Levels\" + (ServiceManager.Map.Tilesets[0] as TmxTileset).Image.Source.Replace(".png", ""), ServiceManager.GraphicsDevice);
         }
 
         public override void Update(GameTime gameTime)
         {
-            //throw new NotImplementedException();
+            
         }
 
         public override void HandleInput(InputState inputState)
         {
-            //throw new NotImplementedException();
+            
         }
     }
 }
