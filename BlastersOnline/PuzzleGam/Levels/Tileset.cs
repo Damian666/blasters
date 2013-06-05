@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using BlastersGame.Services;
+using Microsoft.Xna.Framework.Graphics;
 using TiledSharp;
 
 namespace BlastersGame.Levels
@@ -19,8 +20,9 @@ namespace BlastersGame.Levels
             _tileset = tileset;
             _tilesAcross = (uint)(_tileset.Image.Width / _tileset.TileWidth);
             _tilesDown = (uint)(_tileset.Image.Height / _tileset.TileHeight);
-            // TODO: Figure out how to "efficiently" link tile GIDs to tilesets
         }
+
+        public Texture2D Texture { get; internal set; }
 
         public uint TileCount
         {
