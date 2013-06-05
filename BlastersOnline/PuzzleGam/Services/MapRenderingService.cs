@@ -29,18 +29,11 @@ namespace BlastersGame.Services
                     if (tile.GID < 1)
                         continue;
 
-                    var relativeGID = tile.GID - 1;
-
-                    // TODO: Make this dynamic for multiple tilesets
-                    var tmxTileset = ServiceManager.Map.Tilesets[0] as TmxTileset;
                     var tileset = _tilesets[tile.GID];
-                    var tilesAcross = tileset.Texture.Width / tmxTileset.TileWidth;
-
-                    var texX = (int)(relativeGID % tilesAcross);
-                    var texY = (int)(relativeGID / tilesAcross);
-
-                    spriteBatch.Draw(tileset.Texture, new Vector2(tile.X * tmxTileset.TileWidth, tile.Y * tmxTileset.TileHeight),
-                                     new Rectangle(texX * tmxTileset.TileWidth, texY * tmxTileset.TileHeight, tmxTileset.TileWidth, tmxTileset.TileHeight), Color.White);
+                    spriteBatch.Draw(tileset.Texture,
+                        new Vector2(tile.X, tile.Y) * tileset.TileSize,
+                        tileset.GetTileRectangle(tile), 
+                        Color.White);
                 }
             }
 

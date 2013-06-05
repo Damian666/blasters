@@ -1,4 +1,5 @@
 ﻿using BlastersGame.Services;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TiledSharp;
 
@@ -11,21 +12,46 @@ namespace BlastersGame.Levels
     public class Tileset
     {
         private TmxTileset _tileset;
-        private uint _tilesAcross;
-        private uint _tilesDown;
+        private int _tilesAcross;
+        private int _tilesDown;
 
         public Tileset(TmxTileset tileset)
         {
             _tileset = tileset;
-            _tilesAcross = (uint)(_tileset.Image.Width / _tileset.TileWidth);
-            _tilesDown = (uint)(_tileset.Image.Height / _tileset.TileHeight);
+            _tilesAcross = _tileset.Image.Width / _tileset.TileWidth;
+            _tilesDown = _tileset.Image.Height / _tileset.TileHeight;
         }
 
         public Texture2D Texture { get; internal set; }
 
         public uint TileCount
         {
-            get { return _tilesAcross * _tilesDown; }
+            get { return (uint)(_tilesAcross * _tilesDown); }
+        }
+
+        public int TileWidth
+        {
+            get { return _tileset.TileWidth; }
+        }
+
+        public int TileHeight
+        {
+            get { return _tileset.TileHeight; }
+        }
+
+        public Vector2 TileSize
+        {
+            get { return new Vector2(TileWidth, TileHeight); }
+        }
+
+        public int TilesAcross
+        {
+            get { return _tilesAcross; }
+        }
+
+        public int TilesDown
+        {
+            get { return _tilesDown; }
         }
 
         public bool IsValidTile(TmxLayerTile tile)
@@ -35,7 +61,19 @@ namespace BlastersGame.Levels
 
         public uint RelativeTileID(TmxLayerTile tile)
         {
-            return tile.GID - (_tileset.FirstGid + 1);
+            return tile.GID - _tileset.FirstGid;
+        }
+
+        public Rectangle GetTileRectangle(TmxLayerTile tile)
+        {
+            if (!IsValidTile(tile))
+                return new Rectangle();
+
+            return new Rectangle(
+                (int)(RelativeTileID(tile) % _tilesAcross) * TileWidth,
+                (int)(RelativeTileID(tile) / _tilesAcross) * TileHeight,
+                TileWidth,
+                TileHeight);
         }
     }
 }
