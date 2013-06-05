@@ -7,7 +7,7 @@ window.setPlayerNames = (text) ->
 
 	# Find the elements
 	ele = document.getElementById("players")
-
+	ele.innerHTML = ""
 
 	for line in list
 		li = document.createElement("li")

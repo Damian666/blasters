@@ -33,9 +33,6 @@ namespace BlastersLobby
         {
 
 
-            var packet = new LoginRequestPacket("Vaughan", "password");
-            NetworkManager.Instance.SendPacket(packet);
-
 
             // Initalize our flow controller
             _flowController = new ViewFlowController(webControl1);
@@ -43,7 +40,7 @@ namespace BlastersLobby
             webControl1.ConsoleMessage += webControl1_ConsoleMessage;
 
             // Change the view as needed
-            var roomSelectView = new RoomSelectView();
+            var roomSelectView = new LoginView();
             _flowController.ChangeView(roomSelectView);
         }
 

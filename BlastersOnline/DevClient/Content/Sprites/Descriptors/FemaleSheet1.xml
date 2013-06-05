@@ -6,6 +6,16 @@
     <X>50</X>
     <Y>70</Y>
   </FrameSize>
+  <BoundingBox>
+    <X>13</X>
+    <Y>45</Y>
+    <Width>24</Width>
+    <Height>20</Height>
+    <Location>
+      <X>13</X>
+      <Y>45</Y>
+    </Location>
+  </BoundingBox>
   <Animations>
     <SpriteDescriptorAnimation>
       <Name>WalkUp</Name>

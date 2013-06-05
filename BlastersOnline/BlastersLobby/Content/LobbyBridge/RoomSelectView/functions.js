@@ -8,6 +8,7 @@ window.setPlayerNames = function(text) {
 
   list = text.split("|");
   ele = document.getElementById("players");
+  ele.innerHTML = "";
   for (_i = 0, _len = list.length; _i < _len; _i++) {
     line = list[_i];
     li = document.createElement("li");

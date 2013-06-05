@@ -32,13 +32,15 @@ namespace BlastersLobby.Controllers
         private void CreateNetworkCallbacks()
         {
             PacketService.RegisterPacket<SessionListInformationPacket>(ProcessSessionInformation);
-            PacketService.RegisterPacket<NotifyUsersOnlinePacket>(Handler); 
+            PacketService.RegisterPacket<NotifyUsersOnlinePacket>(Handler);
         }
 
         private void Handler(NotifyUsersOnlinePacket notifyUsersOnlinePacket)
         {
             _viewModel.OnlineUsers = notifyUsersOnlinePacket.OnlineUsers;
-            _view.UpdateView();
+
+            if (_view.FlowController.WebControl.IsDocumentReady)
+                _view.UpdateView();
         }
 
 
@@ -46,7 +48,9 @@ namespace BlastersLobby.Controllers
         {
             // All we need to do is update the model
             _viewModel.SessionsAvailable = obj.GameSessions;
-            _view.UpdateView();
+
+            if (_view.FlowController.WebControl.IsDocumentReady)
+                _view.UpdateView();
         }
 
 
