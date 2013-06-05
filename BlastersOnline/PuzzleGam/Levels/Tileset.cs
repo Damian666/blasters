@@ -11,7 +11,6 @@ namespace BlastersGame.Levels
     public class Tileset
     {
         private TmxTileset _tileset;
-        private Texture2D _texture;
         private uint _tilesAcross;
         private uint _tilesDown;
 
