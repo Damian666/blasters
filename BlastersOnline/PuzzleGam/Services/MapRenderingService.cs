@@ -26,17 +26,16 @@ namespace BlastersGame.Services
                     if (tile.GID < 1)
                         continue;
 
-                    // TODO: Make this dynamic for multiple tilesets
                     var relativeGID = tile.GID - 1;
 
+                    // TODO: Make this dynamic for multiple tilesets
                     var tmxTileset = ServiceManager.Map.Tilesets[0] as TmxTileset;
                     var tilesAcross = _tileset.Width / tmxTileset.TileWidth;
 
                     var texX = (int)(relativeGID % tilesAcross);
                     var texY = (int)(relativeGID / tilesAcross);
 
-                    // TODO: 35px offset needs to be abstracted out
-                    spriteBatch.Draw(_tileset, new Vector2(tile.X * tmxTileset.TileWidth, 35 + tile.Y * tmxTileset.TileHeight),
+                    spriteBatch.Draw(_tileset, new Vector2(tile.X * tmxTileset.TileWidth, tile.Y * tmxTileset.TileHeight),
                                      new Rectangle(texX * tmxTileset.TileWidth, texY * tmxTileset.TileHeight, tmxTileset.TileWidth, tmxTileset.TileHeight), Color.White);
                 }
             }

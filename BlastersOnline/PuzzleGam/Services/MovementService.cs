@@ -120,7 +120,7 @@ namespace BlastersGame.Services
                     // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
                     if (tile.GID == 7)
                     {
-                        Rectangle tileRect = new Rectangle(tile.X*32, 35+tile.Y*32, 32, 32);
+                        Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
                         spriteBatch.DrawRectangle(tileRect, Color.Red, 3f);
                     }
                 }
@@ -166,7 +166,7 @@ namespace BlastersGame.Services
 
             // Clamp the x and y so the player won't keep walking offscreen
             float nextX = MathHelper.Clamp(nextPosition.X + spriteDescriptor.BoundingBox.X, 0, ServiceManager.Map.WorldSizePixels.X / 2 - spriteDescriptor.BoundingBox.Width);
-            float nextY = MathHelper.Clamp(nextPosition.Y + spriteDescriptor.BoundingBox.Y, 35, 35 + ServiceManager.Map.WorldSizePixels.Y / 2 - spriteDescriptor.BoundingBox.Height);
+            float nextY = MathHelper.Clamp(nextPosition.Y + spriteDescriptor.BoundingBox.Y, 0, ServiceManager.Map.WorldSizePixels.Y / 2 - spriteDescriptor.BoundingBox.Height);
 
             // TODO: This is shitty. Needs to be redone.
             if (transformComponent.Velocity.LengthSquared() != 0)
@@ -180,7 +180,7 @@ namespace BlastersGame.Services
                             // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
                             if (tile.GID == 7)
                             {
-                                Rectangle tileRect = new Rectangle(tile.X * 32, 35 + tile.Y * 32, 32, 32);
+                                Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
                                 
                                 Rectangle xBBox = new Rectangle(
                                       (int)nextX,

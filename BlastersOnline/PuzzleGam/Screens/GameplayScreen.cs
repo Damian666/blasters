@@ -43,7 +43,7 @@ namespace BlastersGame.Screens
             _serviceContainer.Map = new Map(_simulationState.MapName);
 
             _serviceContainer.Camera = new Camera2D(new Viewport(0, 0, 638, 566), (int)_serviceContainer.Map.WorldSizePixels.X, (int)_serviceContainer.Map.WorldSizePixels.Y, 1.0f);
-            _serviceContainer.Camera.Move(new Vector2(319, 283));
+            _serviceContainer.Camera.Move(new Vector2(319, 248));
 
             var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
 
