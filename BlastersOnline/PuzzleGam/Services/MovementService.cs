@@ -222,7 +222,7 @@ namespace BlastersGame.Services
             lastTransformVector = new Vector2(transformX, transformY);
             ServiceManager.Camera.Move(lastTransformVector);
 
-            if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
+            if (transformComponent.LastVelocity.X == transformComponent.LastVelocity.Y)
             {
                 if (transformComponent.Velocity.X < 0)
                     transformComponent.DirectionalCache = DirectionalCache.Left;
