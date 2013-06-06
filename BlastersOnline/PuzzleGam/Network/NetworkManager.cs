@@ -14,9 +14,6 @@ namespace BlastersGame.Network
     {
         private static NetworkManager _instance;
 
-        //The packet service used to process information
-        readonly PacketService _packetService = new PacketService();
-
         //Create a packet processor for servicing packets
         private readonly PacketProcessor _processor = new PacketProcessor();
 
