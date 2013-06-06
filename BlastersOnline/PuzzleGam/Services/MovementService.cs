@@ -182,8 +182,7 @@ namespace BlastersGame.Services
                             {
                                 Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
                                 
-                                Rectangle xBBox = new Rectangle(
-                                      (int)nextX,
+                                Rectangle xBBox = new Rectangle((int)nextX,
                                       (int)transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y,
                                       (int)spriteDescriptor.BoundingBox.Width,
                                       (int)spriteDescriptor.BoundingBox.Height);
@@ -193,9 +192,7 @@ namespace BlastersGame.Services
                                     nextX = transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X;
                                 }
 
-                                Rectangle yBBox = new Rectangle(
-                                      (int)nextX,
-                                      (int)nextY,
+                                Rectangle yBBox = new Rectangle((int)nextX, (int)nextY,
                                       (int)spriteDescriptor.BoundingBox.Width,
                                       (int)spriteDescriptor.BoundingBox.Height);
 
@@ -209,7 +206,7 @@ namespace BlastersGame.Services
                 }
             }
 
-            transformComponent.LocalPosition = new Vector2(nextX - +spriteDescriptor.BoundingBox.X, nextY - +spriteDescriptor.BoundingBox.Y);
+            transformComponent.LocalPosition = new Vector2(nextX - spriteDescriptor.BoundingBox.X, nextY - spriteDescriptor.BoundingBox.Y);
 
             float transformX = transformComponent.LocalPosition.X;
             float transformY = transformComponent.LocalPosition.Y;
