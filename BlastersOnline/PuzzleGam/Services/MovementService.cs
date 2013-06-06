@@ -121,7 +121,7 @@ namespace BlastersGame.Services
                     if (tile.GID == 7)
                     {
                         Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
-                        spriteBatch.DrawRectangle(tileRect, Color.Red, 3f);
+                        spriteBatch.DrawRectangle(tileRect, Color.Red, 2f);
                     }
                 }
             }
@@ -144,16 +144,15 @@ namespace BlastersGame.Services
         private void ProcessLocalPlayer(Entity entity, GameTime gameTime)
         {
             // Local players can be moved automatically, then report their status if needed
-            var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
-            // TODO: Make it so we can get the sprite descriptors from the sprite service.
-            var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
-            
             var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
+            var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
+
+            // Get the skin information so we can calculate bounding box collisions
+            var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
+            var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
             
             // Move the camera
             ServiceManager.Camera.Move(-lastTransformVector);
-
-            var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
             // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
@@ -181,7 +180,7 @@ namespace BlastersGame.Services
                             if (tile.GID == 7)
                             {
                                 Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
-                                
+
                                 Rectangle xBBox = new Rectangle((int)nextX,
                                       (int)transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y,
                                       (int)spriteDescriptor.BoundingBox.Width,
@@ -224,14 +223,19 @@ namespace BlastersGame.Services
             ServiceManager.Camera.Move(lastTransformVector);
 
             if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
+            {
                 if (transformComponent.Velocity.X < 0)
                     transformComponent.DirectionalCache = DirectionalCache.Left;
-                else if (transformComponent.Velocity.X > 0)
+                
+                if (transformComponent.Velocity.X > 0)
                     transformComponent.DirectionalCache = DirectionalCache.Right;
-                else if (transformComponent.Velocity.Y > 0)
+                
+                if (transformComponent.Velocity.Y > 0)
                     transformComponent.DirectionalCache = DirectionalCache.Down;
-                else if (transformComponent.Velocity.Y < 0)
+                
+                if (transformComponent.Velocity.Y < 0)
                     transformComponent.DirectionalCache = DirectionalCache.Up;
+            }
 
             var directionalChange = (transformComponent.Velocity != transformComponent.LastVelocity &&
                                      transformComponent.Velocity != Vector2.Zero);
