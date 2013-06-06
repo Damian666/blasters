@@ -65,6 +65,7 @@
     <Compile Include="Screens\TitleScreen.cs" />
     <Compile Include="Services\DebugService.cs" />
     <Compile Include="Services\EntitySyncService.cs" />
+    <Compile Include="Services\InterfaceRenderingService.cs" />
     <Compile Include="Services\MapRenderingService.cs" />
     <Compile Include="Services\MovementService.cs" />
     <Compile Include="Services\Movement\EntityInterpolator.cs" />

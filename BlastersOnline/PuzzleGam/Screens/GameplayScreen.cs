@@ -21,10 +21,11 @@ namespace BlastersGame.Screens
 {
     public class GameplayScreen : GameScreen
     {
-        private Texture2D _curTexture;
         private SimulationState _simulationState;
-        private ServiceContainer _serviceContainer;
         private ulong _playerID;
+
+        private ServiceContainer _serviceContainer;
+        private DebugService _debugService;
 
         public GameplayScreen(SimulationState simulationState, ulong playerID)
         {
@@ -32,29 +33,12 @@ namespace BlastersGame.Screens
             _playerID = playerID;
         }
 
-        private AwesomiumUI UI;
-
         public override void LoadContent()
         {
-            _curTexture = ScreenManager.Game.Content.GetTexture(@"Sprites\cursor", ScreenManager.Game.GraphicsDevice);
-
             _serviceContainer = new ServiceContainer(_simulationState, ScreenManager.Game.Content, ScreenManager.Game.GraphicsDevice);
-
             _serviceContainer.Map = new Map(_simulationState.MapName);
-
             _serviceContainer.Camera = new Camera2D(new Viewport(0, 0, 638, 566), (int)_serviceContainer.Map.WorldSizePixels.X, (int)_serviceContainer.Map.WorldSizePixels.Y, 1.0f);
             _serviceContainer.Camera.Move(new Vector2(319, 248));
-
-            var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
-
-            UI = new AwesomiumUI();
-            var width = ScreenManager.Game.GraphicsDevice.PresentationParameters.BackBufferWidth;
-            var height = ScreenManager.Game.GraphicsDevice.PresentationParameters.BackBufferHeight;
-            UI.Initialize(ScreenManager.Game.GraphicsDevice, width, height, executionPath);
-
-            UI.Load(@"Content\UI\index.html");
-            UI.OnLoadCompleted = OnLoadCompleted;
-            UI.OnDocumentCompleted = OnDocumentCompleted;
 
             var mapRenderingService = new MapRenderingService();
             var spriteRenderingService = new SpriteRenderingService();
@@ -64,6 +48,7 @@ namespace BlastersGame.Screens
             movementService.SpriteDescriptorLookup = spriteRenderingService.SpriteDescriptorLookup;
 
             var entitySyncService = new EntitySyncService();
+            var interfaceRenderingService = new InterfaceRenderingService();
             _debugService = new DebugService();
 
             _serviceContainer.AddService(mapRenderingService);
@@ -72,40 +57,9 @@ namespace BlastersGame.Screens
             _serviceContainer.AddService(movementService);
             _serviceContainer.AddService(entitySyncService);
             _serviceContainer.AddService(_debugService);
+            _serviceContainer.AddService(interfaceRenderingService);
 
             base.LoadContent();
-        }
-
-        private void OnDocumentCompleted()
-        {
-            UI.CallJavascript("document.getElementById(\"room\").innerHTML = 'The Elite'");
-            UI.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + _serviceContainer.Map.LevelID + "'");
-
-            string[] names = { "", "", "", "Seth", "Robbie", "Vaughan", "Justin", "Rory" };
-            SetSidebarInfo(names);
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="names"></param>
-        private void SetSidebarInfo(string[] names)
-        {
-            JSObject window = UI.webView.ExecuteJavascriptWithResult("window");
-            names.Reverse();
-            string paramSet = String.Join("|", names);
-
-            using (window)
-            {
-                window.Invoke("setPlayerNames", paramSet);
-            }
-        }
-
-
-        private void OnLoadCompleted()
-        {
-            
         }
 
         public override void HandleInput(InputState input)
@@ -114,12 +68,9 @@ namespace BlastersGame.Screens
                 _debugService.Visible = !_debugService.Visible;
 
             _serviceContainer.UpdateInput(input);
-            curPosition = input.MousePosition;
+            
             base.HandleInput(input);
         }
-
-        private DebugService _debugService;
-
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
@@ -128,35 +79,13 @@ namespace BlastersGame.Screens
 
             _serviceContainer.Draw(spriteBatch);
 
-            ScreenManager.Game.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-
-            var width = ScreenManager.Game.GraphicsDevice.PresentationParameters.BackBufferWidth;
-            var height = ScreenManager.Game.GraphicsDevice.PresentationParameters.BackBufferHeight;
-
-            spriteBatch.Begin();
-
-            if (UI.webTexture != null)
-                spriteBatch.Draw(UI.webTexture, new Rectangle(0, 0, width, height), Color.White);
-            
-            spriteBatch.End();
-            
-            UI.RenderWebView();
-
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            spriteBatch.Draw(_curTexture, curPosition, Color.White);
-            spriteBatch.End();
-
             base.Draw(gameTime);
         }
 
-        private Vector2 curPosition = Vector2.Zero;
-
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
         {
-            UI.Update();
             _serviceContainer.UpdateService(gameTime);
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
-
     }
 }
