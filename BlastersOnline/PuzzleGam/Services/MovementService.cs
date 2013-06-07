@@ -77,14 +77,20 @@ namespace BlastersGame.Services
             {
                 var transformComponent = (TransformComponent)player.GetComponent(typeof(TransformComponent));
 
-                if (obj.Velocity.X < 0)
-                    transformComponent.DirectionalCache = DirectionalCache.Left;
-                else if (obj.Velocity.X > 0)
-                    transformComponent.DirectionalCache = DirectionalCache.Right;
-                else if (obj.Velocity.Y > 0)
-                    transformComponent.DirectionalCache = DirectionalCache.Down;
-                else if (obj.Velocity.Y < 0)
-                    transformComponent.DirectionalCache = DirectionalCache.Up;
+                if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
+                {
+                    if (obj.Velocity.X < 0)
+                        transformComponent.DirectionalCache = DirectionalCache.Left;
+
+                    if (obj.Velocity.X > 0)
+                        transformComponent.DirectionalCache = DirectionalCache.Right;
+
+                    if (obj.Velocity.Y > 0)
+                        transformComponent.DirectionalCache = DirectionalCache.Down;
+
+                    if (obj.Velocity.Y < 0)
+                        transformComponent.DirectionalCache = DirectionalCache.Up;
+                }
             }
 
             // Retreieve an interpolator
@@ -222,7 +228,7 @@ namespace BlastersGame.Services
             lastTransformVector = new Vector2(transformX, transformY);
             ServiceManager.Camera.Move(lastTransformVector);
 
-            if (transformComponent.LastVelocity.X == transformComponent.LastVelocity.Y)
+            if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
             {
                 if (transformComponent.Velocity.X < 0)
                     transformComponent.DirectionalCache = DirectionalCache.Left;

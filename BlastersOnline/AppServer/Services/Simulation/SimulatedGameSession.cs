@@ -80,8 +80,6 @@ namespace AppServer.Services.Simulation
             location = new Vector2(32 * (int)(location.X / 32), 32 * (int)(location.Y / 32));
 
             var bomb = EntityFactory.CreateBomb(location, sender.ID);
-
-
             AddEntity(bomb);
         }
 
