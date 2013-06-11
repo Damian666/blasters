@@ -9,67 +9,63 @@
 <script src="functions.js"> </script>
 
 <body id="container">
-
-
-
 	<div id="news">
-	 <marquee>	BLASTERS ONLINE: A BRAND NEW ARCADE GAME IS TAKING THE WORLD BY STORM. COME JOIN THE BETA TODAY.
- </marquee>	</div>
+		<div class="newstext" id="newstext">
+		<marquee> ALPHA CLIENT: TESTING OF THE NEW CLIENT UI HAS BEGUN, PLEASE REPORT ALL BUGS. </marquee>
+		</div>
+	</div>
 		<div id="content">
 		
 			<div id="gameroom">
-				<img src="images/gameroom.png" alt="" class="gameroom" />
+				<div class="gameroom"></div>
 				<div id="nav">
+					<div id="nav_align">
 					<ul>
-						<li><a href="">REFRESH</a></li>
-						<li><img src="images/menudivider.png" alt="" /></li>
-						<li><a href="">FILTER</a></li>
-						<li><img src="images/menudivider.png" alt="" /></li>
-						<li><a href="">SEARCH</a></li>
+						<li><a href=""><img src="images/nav_create.png"></img></a></li>
+						<li><a href=""><img src="images/nav_refresh.png"></img></a></li>
 					</ul>
+					</div>
 				</div><div class="clear"></div>
 				<div id="gamearea">
 					
 					<div class="room">
-						
+						<div class="roompicture"> </div>
+						<div class="roomtitle"> <div class="roomtext"></div> </div>
 					</div>
-						<div class="room">
-							
-						</div>
 					<div class="room">
-						
+						<div class="roompicture"> </div>
+						<div class="roomtitle"> <div class="roomtext"></div> </div>
 					</div>
-						<div class="room">
-							
-						</div>
 					<div class="room">
-						
+						<div class="roompicture"> </div>
+						<div class="roomtitle"> <div class="roomtext"></div> </div>
 					</div>
-						<div class="room">
-							
-						</div>
 					<div class="room">
-						
+						<div class="roompicture"> </div>
+						<div class="roomtitle"> <div class="roomtext"></div> </div>
+					</div>					
+					<div class="room">
+						<div class="roompicture"> </div>
+						<div class="roomtitle"> <div class="roomtext"></div> </div>
 					</div>
-						<div class="room">
-							
-						</div>
+					<div class="room">
+						<div class="roompicture"> </div>
+						<div class="roomtitle"> <div class="roomtext"></div> </div>
+					</div>
+					<div class="room">
+						<div class="roompicture"> </div>
+						<div class="roomtitle"> <div class="roomtext"></div> </div>
+					</div>
+					<div class="room">
+						<div class="roompicture"> </div>
+						<div class="roomtitle"> <div class="roomtext"></div> </div>
+					</div>
+
+
 					
 					<div class="clear"></div>
-					
-					
-					
 					<div class="gameareapage">
 						<a href=""><img src="images/back.png" alt="" class="back" /></a>
-						<div class="page2">
-							<ul>
-								<li><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li><a href="">...</a></li>
-								<li><a href="">10</a></li>
-								<li><a href="">11</a></li>
-							</ul>	
-						</div>
 						<a href=""><img src="images/forward.png" alt="" class="forward" /></a>
 						
 						<div class="clear"></div>
@@ -79,19 +75,11 @@
 			
 			<div id="stats">
 				<div class="left">
-					<img src="images/eastserver.png" alt="" class="server"/>
 					<ul>
-						<li>400 PLAYERS ONLINE</li>
-						<li>400 PLAYERS ONLINE</li>
-						<li>400 PLAYERS ONLINE</li>
 					</ul>
 				</div>
 					<div class="right">
 						<ul>
-							<li>PLAYER NAME</li>
-							<li>STATS</li>
-							<li>LVL 10</li>
-							<li>ETC</li>
 						</ul>
 					</div>
 				<div class="clear"></div>
@@ -100,26 +88,21 @@
 		</div>
 		
 			<div id="sidebar">
-				<a href=""><img src="images/createroom.png" alt="" /></a>
-				<a href=""><img src="images/quickplay.png" alt="" /></a>
-				
-				<img src="images/playersonlinetop.png" alt="" />
+				<a href=""><div class="create_room"></div></a>
+				<a href=""><div class="quick_play"></div></a>
+				<div class="players_online_top"></div></a>
 				<div id="playersonline">
 					<ul id="players">
-
+						<li>Vaughan</li>
+						<li>Seth</li>
+						<li>Justin</li>
+						<li>Kaitlin</li>
+						<li>Robbie</li>
+						<li>Helix</li>						
 					</ul>
 					
 					<div class="pages">
 						<a href=""><img src="images/back.png" alt="" class="back" /></a>
-						<div class="page">
-							<ul>
-								<li><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li><a href="">...</a></li>
-								<li><a href="">10</a></li>
-								<li><a href="">11</a></li>
-							</ul>	
-						</div>
 						<a href=""><img src="images/forward.png" alt="" class="forward" /></a>
 						
 						<div class="clear"></div>
@@ -133,18 +116,15 @@
 	<div id="bottombar">
 		<ul class="left">
 			<li><a href=""><img src="images/menu.png" alt="" /></a></li>
-			<li><img src="images/divider.png" alt="" /></li>
 			<li><a href=""><img src="images/backarrow.png" alt="" /></a></li>
-			<li><img src="images/divider.png" alt="" /></li>
-			<li><a href=""><img src="images/shop.png" alt="" /></a></li>
 			<li><a href=""><img src="images/lobby.png" alt="" /></a></li>
+			<li><a href=""><img src="images/shop.png" alt="" /></a></li>
 			<li><a href=""><img src="images/help.png" alt="" /></a></li>
 		</ul>
 		<ul class="right">
+			<li><a href=""><img src="images/smileyface.png" alt="" /></a></li>
 			<li><a href=""><img src="images/quests.png" alt="" /></a></li>
 			<li><a href=""><img src="images/mypage.png" alt="" /></a></li>
-			<li><img src="images/divider.png" alt="" /></li>
-			<li><a href=""><img src="images/smileyface.png" alt="" /></a></li>
 			<li><a href=""><img src="images/close.png" alt="" /></a></li>
 		</ul>
 	</div>

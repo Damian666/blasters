@@ -1,6 +1,29 @@
 window.stopTheGame = () ->
 	return 0
 
+
+window.setNews = (text) ->
+	newsElement = document.getElementById("newstext")
+	newsElement.innerHTML = "<marquee> " + text + "</marquee>"
+
+window.setRoomNames = (text) ->
+
+	list = text.split("|")
+	list.reverse()
+
+	# Find the elements
+	elements = document.getElementsByClassName("roomtext")
+
+	for element in elements
+
+		if list.length == 0
+			return
+
+		element.innerHTML = list.pop()	
+
+
+	return null	
+
 window.setPlayerNames = (text) ->
 	
 	list = text.split("|")

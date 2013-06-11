@@ -3,6 +3,29 @@ window.stopTheGame = function() {
   return 0;
 };
 
+window.setNews = function(text) {
+  var newsElement;
+
+  newsElement = document.getElementById("newstext");
+  return newsElement.innerHTML = "<marquee> " + text + "</marquee>";
+};
+
+window.setRoomNames = function(text) {
+  var element, elements, list, _i, _len;
+
+  list = text.split("|");
+  list.reverse();
+  elements = document.getElementsByClassName("roomtext");
+  for (_i = 0, _len = elements.length; _i < _len; _i++) {
+    element = elements[_i];
+    if (list.length === 0) {
+      return;
+    }
+    element.innerHTML = list.pop();
+  }
+  return null;
+};
+
 window.setPlayerNames = function(text) {
   var ele, li, line, list, _i, _len;
 

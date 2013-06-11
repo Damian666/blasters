@@ -16,6 +16,7 @@
       <Y>0</Y>
     </Location>
   </BoundingBox>
+  <SpriteDepth>1</SpriteDepth>
   <Animations>
     <SpriteDescriptorAnimation>
       <Name>Default</Name>
