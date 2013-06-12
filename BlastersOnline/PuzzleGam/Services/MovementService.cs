@@ -176,6 +176,23 @@ namespace BlastersGame.Services
             // TODO: This is shitty. Needs to be redone.
             if (transformComponent.Velocity.LengthSquared() != 0)
             {
+                // Check Entity Collision
+                if (ServiceManager.Entities != null && ServiceManager.Entities.Count() > 0)
+                {
+                    foreach (Entity e in ServiceManager.Entities)
+                    {
+                        if (e != entity)
+                        {
+                            TransformComponent otherTransformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
+
+                            Vector2 relativePosition = transformComponent.LocalPosition - otherTransformComponent.LocalPosition;
+                            relativePosition.Normalize();
+                            relativePosition /= new Vector2(Math.Abs(relativePosition.X), Math.Abs(relativePosition.Y));
+                        }
+                    }
+                }
+
+                // Check Tile Collision
                 if (ServiceManager.Map != null)
                 {
                     foreach (TmxLayer layer in ServiceManager.Map.Layers)
