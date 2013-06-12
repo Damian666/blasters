@@ -46,8 +46,16 @@ namespace BlastersLobby.Views
 
         public override void UpdateView()
         {
+
+            ExecuteJavascriptViaString("setPlayerNames", _model.OnlineUsers);
+            var list = new List<string>();
+            list.Add("TEST NEWS: NEW UI IS IN PLACE. THANKS WINSTON!");
+            ExecuteJavascriptViaString("setNews", list);
+
+            // Set the rooms
+            var roomList = _model.SessionsAvailable.Select(room => room.Name).ToList();
+            ExecuteJavascriptViaString("setRoomNames", roomList);
                 
-            ExecuteJavascriptViaString("setPlayerNames", _model.OnlineUsers);        
         }
 
 

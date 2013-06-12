@@ -4,9 +4,10 @@
 
 body
 { 
-	font:12px Trebuchet MS, Tahoma, Tw Cen MT, Arial;
+	font:11px Franklin Gothic Demi;
 	color:#000;
-	background: url('images/background.png') repeat;
+	background: url('images/background.png') gray no-repeat center;
+	-webkit-font-smoothing: antialiased;
 }
 
 A:link {text-decoration: none; color: #000;}
@@ -19,6 +20,7 @@ A:hover {text-decoration: none; color: #000;}
 #container {
 	width: 800px; height: 600px;
 	margin: 0 auto;
+	margin-top: -1px;
 }
 
 #content {
@@ -33,7 +35,7 @@ A:hover {text-decoration: none; color: #000;}
 	font-size: 12px;
 	padding: 5px 0 0 6px;
 }
-.pages {width: 145px; margin: 7px 0 0 5px; }
+.pages {width: 145px; margin: 7px 0 0 5px; bottom: 7px; position: absolute; left: 4px;}
 .back {float: left;}
 .page ul li {display: inline;}
 .page ul li a {color: white; }
@@ -42,29 +44,35 @@ A:hover {text-decoration: none; color: #000;}
 /*********** News ************/
 
 #news {
-	background: url('images/newsbarbg.png') repeat;
-	width: 567px; height: 23px;
+	background: url('images/newsbarbg.png') no-repeat;
+	width: 634px; height: 34px;
+	margin-top: 0px;
 	color: white;
-	font-weight: bold;
-	padding: 9px 0 0 65px;
 	float: right;
-	margin-right: 9px;
+	line-height: 34px;
+	margin-right: 6px;
 }
-
+.newstext{
+	padding-left: 90px;
+}
 /*********** Game Room ************/
 
 #gameroom {
-	width: 619px;
+	width: 618px;
 }
 
 .gameroom {
-	margin: -30px 0 -1px 5px;
+	margin: -29px 0 -11px 3px;
+	background: url('images/gameroom.png') bottom;
+	width: 145px;
+	height: 38px;
 }
-
 #nav {
-	background: url('images/menubg.png') repeat-x;
-	width: 614px; height: 32px;
-	padding-left: 5px;
+	background: url('images/menubg.png') no-repeat;
+	width: 625px; height: 38px;
+	padding-left: 10px;
+	padding-top: 8px;
+	margin-top: 8px;
 }
 
 #nav a {color: #044c7f; font-weight: bold;}
@@ -81,16 +89,47 @@ A:hover {text-decoration: none; color: #000;}
 #gamearea {
 	background: url('images/gameroombg.png') no-repeat;
 	widows: 607px; height: 392px;
-	margin-top: -9px;
+	margin-top: -13px;
+	margin-bottom: -3px;
+	margin-left: 3px;
 	padding: 5px;
 }
 
 .room {
-	background: url('images/roombg.png') no-repeat;
+	background: url('images/roombg.png') center no-repeat;
 	width: 298px; height: 86px;
 	float: left;
-	margin: 0 0 3px 3px;
+	margin: 0 0 3px 4px;
 }
+
+.roompicture
+{
+	float: left;
+	background: url("images/blank_room_picbox.png");
+	width: 74px;
+	height: 72px;
+	margin-top: 5px;
+	margin-left: 6px;
+}
+
+.roomtitle
+{
+	text-align: center;
+	color: white;
+	font-size: 16px;
+	vertical-align: top;
+	margin-top: 5px;
+	margin-left: 85px;
+		background: url("images/room_title.png");
+		width: 204px;
+		height: 27px;
+}
+
+.roomtext
+{
+	padding-top: 2px;
+}
+
 
 .gameareapage {width: 145px; margin: 0px 0 0 5px; margin: 5px 0 0 250px;}
 .page2 {
@@ -107,8 +146,9 @@ A:hover {text-decoration: none; color: #000;}
 
 #stats {
 	background: url('images/statsbg.png') no-repeat;
-	width: 602px; height: 64px;
-	margin-top: 6px;
+	width: 599px; height: 69px;
+	margin-top: 2px;
+	margin-left: 5px;
 	padding: 15px 0 10px 15px;
 }
 
@@ -139,27 +179,51 @@ A:hover {text-decoration: none; color: #000;}
 
 #playersonline {
 	background: url('images/playersonlinebg.png') no-repeat; 
-	width: 157px; height: 330px;
+	width: 163px; height: 330px;
 	color: white;
 	font-size: 13px;
 	line-height: 16px;
+	margin-left: -2px;
+	position: relative;
 }
 
+.players_online_top {
+	background: url('images/playersonlinetop.png') no-repeat;
+	width: 163px;
+	height: 37px;
+	margin-top: 1px;
+	margin-left: -2px;
+}
 #players {padding: 15px 0 0 17px;}
 #players li {list-style-type: none;}
 
 /*********** Bottom Bar ************/
 
 #bottombar {
-	background: url('images/bottombarbg.png') repeat-x; 
-	height: 28px;
+	background: url('images/bottombarbg.png') repeat-x top; 
+	height: 37px;
+	margin-top: -6px;
 	padding: 5px 5px 0 5px;
 }
 #bottombar ul li { list-style-type: none; display: inline-block;}
 #bottombar .left {float: left;}
 #bottombar .right {float: right;}
 
+.create_room{
+	width: 163px;
+	height:79px;
+	background: url('images/createroom.png') no-repeat ;
+	margin-top: 5px;
+	margin-left: -2px;
+}
 
+.quick_play{
+	width: 163px;
+	height:79px;
+	background: url('images/quickplay.png') no-repeat ;
+	margin-left: -2px;
+	margin-top: -1px;
+}
 
 
 
