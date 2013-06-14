@@ -9,13 +9,6 @@ namespace BlastersLobby.Models
 {
     public class RoomSelectModel
     {
-        /// <summary>
-        /// The news string for this view; stored on this model as a way of displaying it to the end user.
-        /// </summary>
-        public string News
-        {
-            get { return "Blasters online is a new, exciting arcade game  Combining quick paced action with EXPLOSIONS!";  }
-        }
 
         /// <summary>
         /// A list of all online, available users at the time of the models construction.
@@ -28,6 +21,12 @@ namespace BlastersLobby.Models
         /// </summary>
         public List<GameSession> SessionsAvailable { get; set; }
 
+        public string News { get; set; }
+
+        /// <summary>
+        /// The current page for this room
+        /// </summary>
+        public int RoomPage { get; set; }
 
         public RoomSelectModel()
         {

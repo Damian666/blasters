@@ -194,8 +194,8 @@ A:hover {text-decoration: none; color: #000;}
 	margin-top: 1px;
 	margin-left: -2px;
 }
-#players {padding: 15px 0 0 17px;}
-#players li {list-style-type: none;}
+#players {padding: 15px 0 0 0px;}
+#players li {list-style-type: none; text-align: left;}
 
 /*********** Bottom Bar ************/
 

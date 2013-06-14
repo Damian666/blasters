@@ -58,7 +58,7 @@ namespace LobbyServer
 //            Thread.Sleep(5000);
 
             // Create ten default games
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
                 _gameSessionService.CreateSession();
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using BlastersLobby.Models;
@@ -27,12 +28,22 @@ namespace BlastersLobby.Controllers
             _view = view;
 
             CreateNetworkCallbacks();
+
+            WebClient client = new WebClient();
+            var news = client.DownloadString("http://www.neoindies.com/blasters/NEWS.TXT");
+            _viewModel.News = news;
         }
 
         private void CreateNetworkCallbacks()
         {
             PacketService.RegisterPacket<SessionListInformationPacket>(ProcessSessionInformation);
             PacketService.RegisterPacket<NotifyUsersOnlinePacket>(Handler);
+        }
+
+        public void ChangeRoom(int roomPage)
+        {
+            _viewModel.RoomPage = roomPage;
+            _view.UpdateView();
         }
 
         private void Handler(NotifyUsersOnlinePacket notifyUsersOnlinePacket)

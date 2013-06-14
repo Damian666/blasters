@@ -37,7 +37,7 @@ namespace BlastersLobby
             // Initalize our flow controller
             _flowController = new ViewFlowController(webControl1);
 
-            webControl1.ConsoleMessage += webControl1_ConsoleMessage;
+            webControl1.ConsoleMessage += webControl1_ConsoleMessage;       
 
             // Change the view as needed
             var roomSelectView = new LoginView();

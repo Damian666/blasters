@@ -18,8 +18,9 @@ window.setRoomNames = function(text) {
   elements = document.getElementsByClassName("roomtext");
   for (_i = 0, _len = elements.length; _i < _len; _i++) {
     element = elements[_i];
+    element.innerHTML = "";
     if (list.length === 0) {
-      return;
+      continue;
     }
     element.innerHTML = list.pop();
   }

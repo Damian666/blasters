@@ -15,9 +15,10 @@ window.setRoomNames = (text) ->
 	elements = document.getElementsByClassName("roomtext")
 
 	for element in elements
+		element.innerHTML = ""
 
 		if list.length == 0
-			return
+			continue
 
 		element.innerHTML = list.pop()	
 

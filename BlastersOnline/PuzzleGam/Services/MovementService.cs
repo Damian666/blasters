@@ -30,7 +30,7 @@ namespace BlastersGame.Services
         private readonly Dictionary<ulong, EntityInterpolator> _entityInterpolators = new Dictionary<ulong, EntityInterpolator>();
 
         // Timing related info (amount of updates sent per seconds i.e 0.1 is 10FPS )
-        const float MovementRate = 0.2f;
+        const float MovementRate = 0.1f;
         private float _lastReaction;
         private Vector2 lastTransformVector = Vector2.Zero;
 
@@ -102,22 +102,22 @@ namespace BlastersGame.Services
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
             
-            foreach (var entity in ServiceManager.Entities)
-            {
-                // Local players can be moved automatically, then report their status if needed
-                var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
-                // TODO: Make it so we can get the sprite descriptors from the sprite service.
-                var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
-                var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+            //foreach (var entity in ServiceManager.Entities)
+            //{
+            //    // Local players can be moved automatically, then report their status if needed
+            //    var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
+            //    // TODO: Make it so we can get the sprite descriptors from the sprite service.
+            //    var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
+            //    var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
 
-                Rectangle bbox = new Rectangle(
-                    (int) (transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X),
-                    (int) (transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y),
-                    spriteDescriptor.BoundingBox.Width,
-                    spriteDescriptor.BoundingBox.Height);
+            //    Rectangle bbox = new Rectangle(
+            //        (int) (transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X),
+            //        (int) (transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y),
+            //        spriteDescriptor.BoundingBox.Width,
+            //        spriteDescriptor.BoundingBox.Height);
            
-                spriteBatch.DrawRectangle(bbox, Color.White, 2f);
-            }
+            //    spriteBatch.DrawRectangle(bbox, Color.White, 2f);
+            //}
 
             foreach (TmxLayer layer in ServiceManager.Map.Layers)
             {

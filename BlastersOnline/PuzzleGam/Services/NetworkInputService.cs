@@ -79,7 +79,7 @@ namespace BlastersGame.Services
                 else
                     bombModifier.CurrentBombCount++;
 
-                var packet = new RequestPlaceBombPacket();
+                var packet = new RequestPlaceBombPacket(transformComponent.LocalPosition);
                 NetworkManager.Instance.SendPacket(packet);
             }
 
