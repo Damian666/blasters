@@ -15,10 +15,10 @@ namespace BlastersShared.Game.Components.PowerUp
 
         }
 
-        public PowerUpComponent(double time, byte multiplier)
+        public PowerUpComponent()
         {
-            Duration = time;
-            Multiplier = multiplier;
+            Multiplier = 1;
+            Duration = double.MaxValue;
         }
 
         /// <summary>

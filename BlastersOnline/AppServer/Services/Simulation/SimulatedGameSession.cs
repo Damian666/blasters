@@ -230,9 +230,11 @@ namespace AppServer.Services.Simulation
             _serviceContainer = new ServiceContainer(_simulationState);
 
             var detonationService = new DetonationService();
+            var powerupService = new PowerupService();
 
             // Add services we might need
             _serviceContainer.AddService(detonationService);
+            _serviceContainer.AddService(powerupService);
 
             _serviceContainer.EntityRemoved += _serviceContainer_EntityRemoved;
 

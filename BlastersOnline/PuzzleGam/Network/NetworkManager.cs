@@ -4,6 +4,7 @@ using System.Net.Mime;
 using System.Threading;
 using BlastersShared.Network.Packets;
 using Lidgren.Network;
+using Microsoft.Xna.Framework;
 
 namespace BlastersGame.Network
 {
@@ -30,11 +31,11 @@ namespace BlastersGame.Network
             Random random = new Random();
             
 
-#if TEST
+
            config.SimulatedMinimumLatency = (float)MathHelper.Clamp((float)random.NextDouble(), 0, 0.95f); //(float) random.NextDouble();
            config.SimulatedMinimumLatency = (float)MathHelper.Clamp((float)random.NextDouble(), 0, 0.05f); //(float) random.NextDouble();
             config.SimulatedRandomLatency = 0.05f;
-#endif
+
             _client = new NetClient(config);
 
             _client.Start();

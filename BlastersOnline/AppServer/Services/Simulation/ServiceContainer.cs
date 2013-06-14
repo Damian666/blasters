@@ -22,6 +22,11 @@ namespace AppServer.Services.Simulation
         /// </summary>
         private SimulationState _simulationState;
 
+        /// <summary>
+        /// A read-only copy of the simulation state which can be used to access game state specific things.
+        /// </summary>
+        public SimulationState SimulationState { get { return _simulationState; } }
+
         public ServiceContainer(SimulationState simulationState)
         {
             _simulationState = simulationState;
