@@ -75,9 +75,12 @@ namespace AppServer.Services.Simulation
                 bombModifier.CurrentBombCount++;
 
             Vector2 location = transformComponent.LastLocalPosition;
+            location = request.CurrentPosition;
             location += transformComponent.Size * new Vector2(0.5f, 0.875f);
             // TODO: Remove hardcoded 32s
+            
             location = new Vector2(32 * (int)(location.X / 32), 32 * (int)(location.Y / 32));
+            
 
             var bomb = EntityFactory.CreateBomb(location, sender.ID);
             AddEntity(bomb);
