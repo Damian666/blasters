@@ -10,10 +10,7 @@ namespace BlastersShared.Game.Components.PowerUp
     /// </summary>
     public class PowerUpComponent : Component
     {
-        public PowerUpComponent()
-        {
-
-        }
+   
 
         public PowerUpComponent()
         {

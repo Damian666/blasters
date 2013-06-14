@@ -68,6 +68,7 @@
     <Compile Include="GameSession\GameSessionType.cs" />
     <Compile Include="GameSession\SessionEndStatistics.cs" />
     <Compile Include="Game\Component.cs" />
+    <Compile Include="Game\Components\PowerUpCollectionComponent.cs" />
     <Compile Include="Game\Components\PowerUp\BombCountModifierComponent.cs" />
     <Compile Include="Game\Components\PowerUp\RangeModifierComponent.cs" />
     <Compile Include="Game\Components\ExplosiveComponent.cs" />

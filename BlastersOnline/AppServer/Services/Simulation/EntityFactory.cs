@@ -66,7 +66,7 @@ namespace AppServer.Services.Simulation
 
         public static Entity CreateGenericPowerup(Vector2 location, Type powerupType)
         {
-            
+            return null;
         }
 
     }
