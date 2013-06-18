@@ -22,15 +22,12 @@ namespace BlastersShared.Game.Entities
         /// <summary>
         /// The unique ID for this given entity.
         /// </summary>
-        public ulong ID
-        {
-            get { return _id; }
-        }
+        public ulong ID { get; set; }
 
         public Entity()
         {
             // Assign the entity a unique ID internally
-            _id = _counter;
+            ID = _counter;
             _counter++;
 
             Components = new List<Component>();
