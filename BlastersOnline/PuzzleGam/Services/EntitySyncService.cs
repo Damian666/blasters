@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlastersGame.Components;
 using BlastersShared.Game.Components;
 using BlastersShared.Game.Components.PowerUp;
+using BlastersShared.Game.Entities;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.AppServer.BlastersShared.Network.Packets.AppServer;
+using BlastersShared.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BlastersGame;
@@ -20,7 +23,7 @@ namespace BlastersGame.Services
     {
         public override void Draw(SpriteBatch spriteBatch)
         {
-    
+
         }
 
         public override void Update(GameTime gameTime)
@@ -30,7 +33,7 @@ namespace BlastersGame.Services
 
         public override void HandleInput(InputState inputState)
         {
-          
+
         }
 
         public override void Initialize()
@@ -45,7 +48,7 @@ namespace BlastersGame.Services
             var entity = ServiceManager.RetrieveEntityByID(entityRemovePacket.EntityID);
 
 
-          // If an entity was removed, check if it's blow-up-able
+            // If an entity was removed, check if it's blow-up-able
             var explosiveComponent = (ExplosiveComponent)entity.GetComponent(typeof(ExplosiveComponent));
 
             // Get the owner
@@ -58,7 +61,55 @@ namespace BlastersGame.Services
 
             ServiceManager.RemoveEntityByID(entityRemovePacket.EntityID);
 
-            
+
+            HandleRemovalBehaviour(entity);
+
+
+        }
+
+        /// <summary>
+        /// This method handles behaviours for when an entity is being removed
+        /// </summary>
+        /// <param name="entity"></param>
+        private void HandleRemovalBehaviour(Entity entity)
+        {
+
+            // If thie entity had an eplosiv
+            var explosiveComponent = (ExplosiveComponent)entity.GetComponent(typeof(ExplosiveComponent));
+            var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
+
+            // Spawn an explosion
+            if (explosiveComponent != null)
+            {
+                var entitesToAdd = new List<Entity>();
+
+                // They're returned in order of up, down, left, right
+                var rectangles = DetonationHelper.GetBlastRadiusFrom(entity);
+                var up = Math.Ceiling((decimal)(rectangles[0].Height / 32));
+                var down = Math.Ceiling((decimal)(rectangles[1].Height / 32));
+                var left = Math.Ceiling((decimal)(rectangles[2].Width / 32));
+                var right = Math.Ceiling((decimal)(rectangles[3].Width / 32));
+
+                for (int i = 0; i < up - 1; i++)
+                {
+                    var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2(0, (i * 32 + 32)), ExplosiveType.Up);
+                    entitesToAdd.Add(x);
+                }
+
+                var topEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2(0, (float) (up * 32)), ExplosiveType.UpE);
+                entitesToAdd.Add(topEdge);
+
+                var y = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition, ExplosiveType.Center);
+                entitesToAdd.Add(y);
+
+
+                foreach (var add in entitesToAdd)
+                    ServiceManager.AddEntity(add);
+
+
+
+            }
+
 
 
 
@@ -71,7 +122,7 @@ namespace BlastersGame.Services
         /// <param name="entityAddPacket"></param>
         private void HandleEntityAdd(EntityAddPacket entityAddPacket)
         {
-            ServiceManager.AddEntity(entityAddPacket.Entity);     
+            ServiceManager.AddEntity(entityAddPacket.Entity);
         }
 
 

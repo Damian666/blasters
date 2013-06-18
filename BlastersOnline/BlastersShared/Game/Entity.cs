@@ -15,7 +15,7 @@ namespace BlastersShared.Game.Entities
     public class Entity
     {
 
-        private static ulong _counter;
+        public static ulong _counter;
         private ulong _id;
         public List<Component> Components { get; set; }
 

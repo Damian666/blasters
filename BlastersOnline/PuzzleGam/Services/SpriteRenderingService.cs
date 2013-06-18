@@ -74,7 +74,8 @@ namespace BlastersGame.Services
                 {
                     Texture =
                         ContentManager.GetTexture(_spriteDescriptorLookup[skinComponent.SpriteDescriptorName].SpritePath,
-                                                  ServiceManager.GraphicsDevice)           
+                                                  ServiceManager.GraphicsDevice)     ,
+                                                  SpriteDescriptor = _spriteDescriptorLookup[skinComponent.SpriteDescriptorName]
                 };
 
                 entity.AddComponent(spriteComponent);
@@ -90,6 +91,9 @@ namespace BlastersGame.Services
                 var spriteComponent = (SpriteComponent)entity.GetComponent(typeof(SpriteComponent));
                 var nameComponent = (NameComponent)entity.GetComponent(typeof(NameComponent));
                 var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
+                
+                if(spriteComponent.Texture.Width == 320)
+                    continue;
 
                 if (spriteComponent != null)
                 {

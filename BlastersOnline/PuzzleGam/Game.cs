@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using BlastersGame.Network;
 using BlastersGame.Screens;
+using BlastersShared.Game.Entities;
 using BlastersShared.Network.Packets.AppServer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -65,6 +66,9 @@ namespace BlastersGame
             screenManager = new ScreenManager(this);
             screenManager.Initialize();
             screenManager.AddScreen(new TitleScreen(),  null);
+
+            //HACK: Defintely don't want this here forever
+            Entity._counter = ulong.MaxValue - 10000;
 
             base.Initialize();
         }

@@ -43,7 +43,8 @@ namespace BlastersGame.Screens
             var mapRenderingService = new MapRenderingService();
             var spriteRenderingService = new SpriteRenderingService();
             var networkInputService = new NetworkInputService(_playerID);
-            
+            var explosionService = new ExplosionSpriteService();
+
             var movementService = new MovementService(_playerID);
             movementService.SpriteDescriptorLookup = spriteRenderingService.SpriteDescriptorLookup;
 
@@ -58,6 +59,7 @@ namespace BlastersGame.Screens
             _serviceContainer.AddService(entitySyncService);
             _serviceContainer.AddService(_debugService);
             _serviceContainer.AddService(interfaceRenderingService);
+            _serviceContainer.AddService(explosionService);
 
             base.LoadContent();
         }

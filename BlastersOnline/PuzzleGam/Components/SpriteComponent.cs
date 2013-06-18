@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BlastersShared.Game;
+using BlastersShared.Services.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BlastersGame.Components
@@ -18,6 +19,11 @@ namespace BlastersGame.Components
         /// The frame of animation that is assoicated with this component
         /// </summary>
         public byte AnimationFrame { get; set; }
+
+        /// <summary>
+        /// The descriptor object definiing this sprite
+        /// </summary>
+        public SpriteDescriptor SpriteDescriptor { get; set; } 
     }
 
 
