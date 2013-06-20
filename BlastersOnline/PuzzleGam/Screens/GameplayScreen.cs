@@ -58,8 +58,9 @@ namespace BlastersGame.Screens
             _serviceContainer.AddService(movementService);
             _serviceContainer.AddService(entitySyncService);
             _serviceContainer.AddService(_debugService);
-            _serviceContainer.AddService(interfaceRenderingService);
             _serviceContainer.AddService(explosionService);
+            _serviceContainer.AddService(interfaceRenderingService);
+
 
             base.LoadContent();
         }
