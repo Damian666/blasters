@@ -144,23 +144,27 @@ namespace BlastersGame.Services
             spriteBatch.End();
         }
 
-        private void UpdateAnimation() 
+        private void UpdateAnimation(GameTime gameTime) 
         {
             foreach (var entity in ServiceManager.Entities)
             {
+
                 var spriteComponent = (SpriteComponent)entity.GetComponent(typeof(SpriteComponent));
+
 
                 // Make sure the component exists
                 if (spriteComponent != null)
                 {
+
+                    spriteComponent.LastFrameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    _lastAnimationTimer = spriteComponent.LastFrameTime;
+
                     var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
                     var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
                     var descriptor = _spriteDescriptorLookup[skinComponent.SpriteDescriptorName];
 
                     // Total amount of frames
-                    var frameCount = ContentManager.GetTexture(
-                        _spriteDescriptorLookup[skinComponent.SpriteDescriptorName].SpritePath,
-                        ServiceManager.GraphicsDevice).Width / descriptor.FrameSize.X;
+                    var frameCount = spriteComponent.Texture.Width / descriptor.FrameSize.X;
 
                     // We don't need to animate if there's only one frame
                     if ((int)frameCount == 1)
@@ -169,27 +173,24 @@ namespace BlastersGame.Services
                     }
 
                     // Don't animate if the player isn't moving
-                    if ((int)transformComponent.Velocity.X != 0 | (int)transformComponent.Velocity.Y != 0)
+                    if (transformComponent.Velocity != Vector2.Zero || entity.GetComponent(typeof(PlayerComponent)) == null )
                     {
                         // Change animation frame every 1/4 of a second
                         if (_lastAnimationTimer >= .25)
                         {
-                            for (var i = 0; i <= frameCount - 1; i++)
-                            {
-                                if (spriteComponent.AnimationFrame < i)
-                                {
-                                    spriteComponent.AnimationFrame++;
-                                    break;
-                                }
+                            spriteComponent.AnimationFrame++;
 
-                                if (i == (int)frameCount - 1)
-                                {
-                                    spriteComponent.AnimationFrame = 0;
-                                    break;
-                                }
+                            if (spriteComponent.AnimationFrame > frameCount - 1)
+                            {
+                                spriteComponent.AnimationFrame = 0;
+                            
+                                // Check if this was a one shot deal
+                                if(entity.HasComponent(typeof(OneShotAnimationComponent)))
+                                    ServiceManager.RemoveEntity(entity);
+
                             }
-     
-                            _lastAnimationTimer = 0;
+
+                            spriteComponent.LastFrameTime  = 0;
                         }
                     }
                     else
@@ -201,10 +202,9 @@ namespace BlastersGame.Services
 
         public override void Update(GameTime gameTime)
         {
-            _lastAnimationTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Update animation frames
-            UpdateAnimation();
+            UpdateAnimation(gameTime);
 
             //throw new NotImplementedException();
         }

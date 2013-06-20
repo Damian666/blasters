@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastersShared", "BlastersS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlastersShared.Network", "BlastersShared.Network\BlastersShared.Network.csproj", "{3AF674AB-3F0C-46E3-97E0-0ACB4CCE201E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0E5A8A7F-9CF8-41C7-A58C-E6237DB04FD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_MockGame|Any CPU = Debug_MockGame|Any CPU

@@ -86,7 +86,7 @@ namespace BlastersGame.Services
                 // They're returned in order of up, down, left, right
                 var rectangles = DetonationHelper.GetBlastRadiusFrom(entity);
                 var up = Math.Ceiling((decimal)(rectangles[0].Height / 32));
-                var down = Math.Ceiling((decimal)(rectangles[1].Height / 32));
+                var down = Math.Ceiling((decimal)(rectangles[1].Height / 32));  
                 var left = Math.Ceiling((decimal)(rectangles[2].Width / 32));
                 var right = Math.Ceiling((decimal)(rectangles[3].Width / 32));
 
@@ -96,8 +96,42 @@ namespace BlastersGame.Services
                     entitesToAdd.Add(x);
                 }
 
+                for (int i = 0; i < down - 1; i++)
+                {
+                    var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2(0, (i * 32 + 32)), ExplosiveType.Down);
+                    entitesToAdd.Add(x);
+                }
+
+
+
+                for (int i = 0; i < right - 1; i++)
+                {
+                    var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2((i * 32 + 32), 0), ExplosiveType.Right);
+                    entitesToAdd.Add(x);
+                }
+
+
+
+
+                for (int i = 0; i < left - 1; i++)
+                {
+                    var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2((i * 32 + 32), 0), ExplosiveType.Left);
+                    entitesToAdd.Add(x);
+                }
+
+
+
+
+
                 var topEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2(0, (float) (up * 32)), ExplosiveType.UpE);
+                var bottomEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2(0, (float)(down * 32)), ExplosiveType.DownE);
+                var leftEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2((float)(down * 32), 0), ExplosiveType.LeftE);
+                var rightEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2((float)(down * 32), 0), ExplosiveType.RightE);
+
                 entitesToAdd.Add(topEdge);
+                entitesToAdd.Add(bottomEdge);
+                entitesToAdd.Add(leftEdge);
+                entitesToAdd.Add(rightEdge);
 
                 var y = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition, ExplosiveType.Center);
                 entitesToAdd.Add(y);

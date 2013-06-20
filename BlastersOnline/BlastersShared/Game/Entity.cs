@@ -42,6 +42,7 @@ namespace BlastersShared.Game.Entities
             Components.Add(component);
         }
 
+
         /// <summary>
         /// Removes a component of a given type from the entity.
         /// </summary>

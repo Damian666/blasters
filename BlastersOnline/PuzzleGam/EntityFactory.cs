@@ -28,6 +28,7 @@ namespace BlastersGame
             entity.AddComponent(transformComponent);
             entity.AddComponent(skinComponent);
             entity.AddComponent(explosiveSpriteComponent);
+            entity.AddComponent(new OneShotAnimationComponent());
 
             return entity;
 

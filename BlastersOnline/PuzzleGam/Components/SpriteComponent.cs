@@ -23,7 +23,9 @@ namespace BlastersGame.Components
         /// <summary>
         /// The descriptor object definiing this sprite
         /// </summary>
-        public SpriteDescriptor SpriteDescriptor { get; set; } 
+        public SpriteDescriptor SpriteDescriptor { get; set; }
+
+        public float LastFrameTime { get; set; }
     }
 
 
