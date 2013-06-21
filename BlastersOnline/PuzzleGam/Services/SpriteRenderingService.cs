@@ -176,7 +176,7 @@ namespace BlastersGame.Services
                     if (transformComponent.Velocity != Vector2.Zero || entity.GetComponent(typeof(PlayerComponent)) == null )
                     {
                         // Change animation frame every 1/4 of a second
-                        if (_lastAnimationTimer >= .25)
+                        if (_lastAnimationTimer >= spriteComponent.SpriteDescriptor.Animations[0].Speed )
                         {
                             spriteComponent.AnimationFrame++;
 

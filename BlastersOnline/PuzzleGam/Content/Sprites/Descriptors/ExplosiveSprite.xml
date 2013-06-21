@@ -22,63 +22,63 @@
     
     <SpriteDescriptorAnimation>
       <Name>Center</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.1</Speed>
       <FrameCount>1</FrameCount>
       <Row>0</Row>
     </SpriteDescriptorAnimation>
 
     <SpriteDescriptorAnimation>
       <Name>Left</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.1</Speed>
       <FrameCount>1</FrameCount>
       <Row>1</Row>
     </SpriteDescriptorAnimation>
 
     <SpriteDescriptorAnimation>
       <Name>Right</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.1</Speed>
       <FrameCount>1</FrameCount>
       <Row>2</Row>
     </SpriteDescriptorAnimation>
 
     <SpriteDescriptorAnimation>
       <Name>Up</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.1</Speed>
       <FrameCount>1</FrameCount>
       <Row>3</Row>
     </SpriteDescriptorAnimation>
 
     <SpriteDescriptorAnimation>
       <Name>Down</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.1</Speed>
       <FrameCount>1</FrameCount>
       <Row>4</Row>
     </SpriteDescriptorAnimation>
 
     <SpriteDescriptorAnimation>
       <Name>LeftE</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.15</Speed>
       <FrameCount>1</FrameCount>
       <Row>5</Row>
     </SpriteDescriptorAnimation>
 
     <SpriteDescriptorAnimation>
       <Name>RightE</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.1</Speed>
       <FrameCount>1</FrameCount>
       <Row>6</Row>
     </SpriteDescriptorAnimation>
 
     <SpriteDescriptorAnimation>
       <Name>UpE</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.1</Speed>
       <FrameCount>1</FrameCount>
       <Row>7</Row>
     </SpriteDescriptorAnimation>
 
     <SpriteDescriptorAnimation>
       <Name>DownE</Name>
-      <Speed>0.25</Speed>
+      <Speed>0.1</Speed>
       <FrameCount>1</FrameCount>
       <Row>8</Row>
     </SpriteDescriptorAnimation>
