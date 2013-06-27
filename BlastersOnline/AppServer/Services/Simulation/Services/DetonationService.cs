@@ -30,8 +30,8 @@ namespace AppServer.Services.Simulation.Services
                 if (explosiveComponent != null)
                 {
                     explosiveComponent.DetonationTime -= deltaTime;
-                    
-                    if(explosiveComponent.DetonationTime < 0f)
+
+                    if (explosiveComponent.DetonationTime < 0f)
                         DetonateEntity(entity);
 
                 }
@@ -62,10 +62,10 @@ namespace AppServer.Services.Simulation.Services
                     var y = playerTransformComponent.LocalPosition.Y;
                     var width = playerTransformComponent.Size.X;
                     var height = playerTransformComponent.Size.Y;
-                    
-                    Rectangle playerBoundingBox = new Rectangle((int) x, (int) y, (int) width, (int) height);
+
+                    Rectangle playerBoundingBox = new Rectangle((int)x, (int)y, (int)width, (int)height);
                     bool toDestroy = false;
-                        
+
                     foreach (var blastRectangle in blastBoxes)
                     {
                         if (playerBoundingBox.Intersects(blastRectangle))
@@ -75,7 +75,10 @@ namespace AppServer.Services.Simulation.Services
                     }
 
                     if (toDestroy)
+                    {
                         Logger.Instance.Log(Level.Debug, "{} has been bombed! TODO: Do something about it...");
+                        ServiceManager.RemoveEntity(player);
+                    }
 
 
                 }
@@ -100,13 +103,16 @@ namespace AppServer.Services.Simulation.Services
         /// <param name="entity"></param>
         void ServiceManager_EntityRemoved(Entity entity)
         {
-            var explosiveComponent = (ExplosiveComponent) entity.GetComponent(typeof (ExplosiveComponent));
+            var explosiveComponent = (ExplosiveComponent)entity.GetComponent(typeof(ExplosiveComponent));
 
-            // Get the owner
-            var owner = ServiceManager.RetrieveEntityByID(explosiveComponent.OwnerID);
-            var ownerBombModifier =
-                (BombCountModifierComponent) owner.GetComponent(typeof (BombCountModifierComponent));
-            ownerBombModifier.CurrentBombCount--;
+            if (explosiveComponent != null)
+            {
+                // Get the owner
+                var owner = ServiceManager.RetrieveEntityByID(explosiveComponent.OwnerID);
+                var ownerBombModifier =
+                    (BombCountModifierComponent)owner.GetComponent(typeof(BombCountModifierComponent));
+                ownerBombModifier.CurrentBombCount--;
+            }
 
         }
 

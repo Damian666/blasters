@@ -44,7 +44,6 @@ namespace AppServer.Services.Simulation.Services
                        case 1:
                        case 2:
                        case 3:
-                           EntityFactory.CreateBomb(Vector2.Zero, 0);
                            break;
                          
 

@@ -51,12 +51,14 @@ namespace BlastersGame.Services
             // If an entity was removed, check if it's blow-up-able
             var explosiveComponent = (ExplosiveComponent)entity.GetComponent(typeof(ExplosiveComponent));
 
-            // Get the owner
-            var owner = ServiceManager.RetrieveEntityByID(explosiveComponent.OwnerID);
-            var ownerBombModifier =
-                (BombCountModifierComponent)owner.GetComponent(typeof(BombCountModifierComponent));
-            ownerBombModifier.CurrentBombCount--;
-
+            if (explosiveComponent != null)
+            {
+                // Get the owner
+                var owner = ServiceManager.RetrieveEntityByID(explosiveComponent.OwnerID);
+                var ownerBombModifier =
+                    (BombCountModifierComponent) owner.GetComponent(typeof (BombCountModifierComponent));
+                ownerBombModifier.CurrentBombCount--;
+            }
 
 
             ServiceManager.RemoveEntityByID(entityRemovePacket.EntityID);

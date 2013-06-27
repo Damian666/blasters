@@ -33,6 +33,7 @@ namespace AppServer.Services.Simulation
             var skinComponent = new SkinComponent(user.SessionConfig.Skin);
             var playerComponent = new PlayerComponent();
             var bombModifier = new BombCountModifierComponent(1);
+            var rangeModifier = new RangeModifier();
 
 
             // Add modifier components to the sprite
@@ -45,17 +46,20 @@ namespace AppServer.Services.Simulation
             entity.AddComponent(skinComponent);
             entity.AddComponent(playerComponent);
             entity.AddComponent(bombModifier);
+            entity.AddComponent(rangeModifier);
 
             return entity;
         }
 
-        public static Entity CreateBomb(Vector2 location, ulong userID) 
+        public static Entity CreateBomb(Vector2 location, Entity user) 
         {
             var entity = new Entity();
 
+            var rangeModifier = (RangeModifier) user.GetComponent(typeof (RangeModifier));
+
             var transformComponent = new TransformComponent(location, new Vector2(32, 32));
             var skinComponent = new SkinComponent("BombSprite");
-            var explosiveComponent = new ExplosiveComponent(3f, 100, userID);
+            var explosiveComponent = new ExplosiveComponent(3f, rangeModifier.Amount, user.ID);
 
             entity.AddComponent(transformComponent);
             entity.AddComponent(skinComponent);

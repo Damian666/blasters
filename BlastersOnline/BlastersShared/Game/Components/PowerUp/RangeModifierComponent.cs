@@ -10,19 +10,17 @@ namespace BlastersShared.Game.Components.PowerUp
     /// </summary>
     public class RangeModifier : PowerUpComponent
     {
-        public RangeModifier()
-        {
 
-        }
-
-        public RangeModifier(byte amount)
-        {
-            Amount = amount;
-        }
-
+        const int IntRange = 32;
+        
         /// <summary>
-        /// The amount of range.
+        /// The amount of range this powerup additionally gives for having
         /// </summary>
-        public byte Amount { get; set; }
+        public int Amount
+        {
+           get { return Strength*32 + RangeModifier.IntRange ; }
+        }
+
+
     }
 }

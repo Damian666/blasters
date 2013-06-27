@@ -14,7 +14,7 @@ namespace BlastersShared.Game.Components.PowerUp
 
         public PowerUpComponent()
         {
-            Multiplier = 1;
+            Strength = 1;
             Duration = double.MaxValue;
         }
 
@@ -24,8 +24,8 @@ namespace BlastersShared.Game.Components.PowerUp
         public double Duration { get; set; }
 
         /// <summary>
-        /// How many times it can be stacked.
-        /// </summary>
-        public byte Multiplier { get; set; }
+        /// The strength of this given power up
+        /// 
+        public byte Strength { get; set; }
     }
 }

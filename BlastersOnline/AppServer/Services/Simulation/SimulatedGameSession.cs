@@ -82,7 +82,7 @@ namespace AppServer.Services.Simulation
             location = new Vector2(32 * (int)(location.X / 32), 32 * (int)(location.Y / 32));
             
 
-            var bomb = EntityFactory.CreateBomb(location, sender.ID);
+            var bomb = EntityFactory.CreateBomb(location, sender);
             AddEntity(bomb);
         }
 
@@ -116,6 +116,10 @@ namespace AppServer.Services.Simulation
         public void HandleMovement(NotifyMovementPacket notifyMovementPacket)
         {
             var sender = RetrieveSender(notifyMovementPacket);
+
+            if (sender == null)
+                return;
+
             var transformComponent = (TransformComponent)sender.GetComponent(typeof(TransformComponent));
 
             foreach (var player in _simulationState.Entities)
