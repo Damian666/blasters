@@ -102,22 +102,22 @@ namespace BlastersGame.Services
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
             
-            //foreach (var entity in ServiceManager.Entities)
-            //{
-            //    // Local players can be moved automatically, then report their status if needed
-            //    var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
-            //    // TODO: Make it so we can get the sprite descriptors from the sprite service.
-            //    var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
-            //    var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+            foreach (var entity in ServiceManager.Entities)
+            {
+                // Local players can be moved automatically, then report their status if needed
+                var skinComponent = (SkinComponent) entity.GetComponent(typeof (SkinComponent));
+                // TODO: Make it so we can get the sprite descriptors from the sprite service.
+                var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
+                var transformComponent = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
 
-            //    Rectangle bbox = new Rectangle(
-            //        (int) (transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X),
-            //        (int) (transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y),
-            //        spriteDescriptor.BoundingBox.Width,
-            //        spriteDescriptor.BoundingBox.Height);
-           
-            //    spriteBatch.DrawRectangle(bbox, Color.White, 2f);
-            //}
+                Rectangle bbox = new Rectangle(
+                    (int) (transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X),
+                    (int) (transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y),
+                    spriteDescriptor.BoundingBox.Width,
+                    spriteDescriptor.BoundingBox.Height);
+                
+                spriteBatch.DrawRectangle(bbox, Color.White, 2f);
+            }
 
             foreach (TmxLayer layer in ServiceManager.Map.Layers)
             {
@@ -181,13 +181,40 @@ namespace BlastersGame.Services
                 {
                     foreach (Entity e in ServiceManager.Entities)
                     {
-                        if (e != entity)
+                        if (e != entity && e.HasComponent(typeof(ExplosiveComponent)))
                         {
                             TransformComponent otherTransformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
 
                             Vector2 relativePosition = transformComponent.LocalPosition - otherTransformComponent.LocalPosition;
-                            relativePosition.Normalize();
-                            relativePosition /= new Vector2(Math.Abs(relativePosition.X), Math.Abs(relativePosition.Y));
+                            if (Math.Sign(relativePosition.X) != Math.Sign(transformComponent.Velocity.X) || Math.Sign(relativePosition.Y) != Math.Sign(transformComponent.Velocity.Y))
+                            {
+                                SkinComponent bombSprite = (SkinComponent)e.GetComponent(typeof(SkinComponent));
+                                SpriteDescriptor bombDescriptor = SpriteDescriptorLookup[bombSprite.SpriteDescriptorName];
+                                Rectangle bombRect = new Rectangle(
+                                    (int)otherTransformComponent.LocalPosition.X + bombDescriptor.BoundingBox.X,
+                                    (int)otherTransformComponent.LocalPosition.Y + bombDescriptor.BoundingBox.Y,
+                                    (int)bombDescriptor.BoundingBox.Width,
+                                    (int)bombDescriptor.BoundingBox.Height);
+
+                                Rectangle xBBox = new Rectangle((int)nextX,
+                                      (int)transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y,
+                                      (int)spriteDescriptor.BoundingBox.Width,
+                                      (int)spriteDescriptor.BoundingBox.Height);
+
+                                if (bombRect.Intersects(xBBox))
+                                {
+                                    nextX = transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X;
+                                }
+
+                                Rectangle yBBox = new Rectangle((int)nextX, (int)nextY,
+                                      (int)spriteDescriptor.BoundingBox.Width,
+                                      (int)spriteDescriptor.BoundingBox.Height);
+
+                                if (bombRect.Intersects(yBBox))
+                                {
+                                    nextY = transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y;
+                                }
+                            }
                         }
                     }
                 }
