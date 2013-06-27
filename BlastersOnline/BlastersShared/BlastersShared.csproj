@@ -89,6 +89,24 @@
     <Compile Include="Services\Service.cs" />
     <Compile Include="Services\ServiceContainer.cs" />
     <Compile Include="Services\Sprites\SpriteDescriptor.cs" />
+    <Compile Include="Tiled\Layer.cs" />
+    <Compile Include="Tiled\Map.cs" />
+    <Compile Include="Tiled\ObjectGroup.cs" />
+    <Compile Include="Tiled\TiledCore.cs" />
+    <Compile Include="Tiled\Tileset.cs" />
+    <Compile Include="Tiled\zlib\CRC32.cs" />
+    <Compile Include="Tiled\zlib\Deflate.cs" />
+    <Compile Include="Tiled\zlib\DeflateStream.cs" />
+    <Compile Include="Tiled\zlib\GZipStream.cs" />
+    <Compile Include="Tiled\zlib\Inflate.cs" />
+    <Compile Include="Tiled\zlib\InfTree.cs" />
+    <Compile Include="Tiled\zlib\ParallelDeflateOutputStream.cs" />
+    <Compile Include="Tiled\zlib\Tree.cs" />
+    <Compile Include="Tiled\zlib\Zlib.cs" />
+    <Compile Include="Tiled\zlib\ZlibBaseStream.cs" />
+    <Compile Include="Tiled\zlib\ZlibCodec.cs" />
+    <Compile Include="Tiled\zlib\ZlibConstants.cs" />
+    <Compile Include="Tiled\zlib\ZlibStream.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Utilities\DetonationHelper.cs" />
   </ItemGroup>
@@ -102,6 +120,8 @@
     <Content Include="config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Tiled\zlib\License.txt" />
+    <Content Include="Tiled\zlib\License.zlib.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

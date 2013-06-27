@@ -33,7 +33,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_MockGame|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug_MockGame\</OutputPath>
+    <OutputPath>..\DevClient\</OutputPath>
     <DefineConstants>TRACE;DEBUG;DEBUG_MOCK</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>

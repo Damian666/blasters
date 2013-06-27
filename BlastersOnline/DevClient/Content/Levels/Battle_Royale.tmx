@@ -78,4 +78,10 @@
    eJztlsEKgCAMhnczu5ndPHv23Pu/WBMmjBFSuXUIf/iYSM2/OWgBABbEK7ISAUnIhkRFdqLmzogjNOQYNXe52IeXUb5f6AwQz4545+vm34Gu/0bNnQY999Tu96nPu5Hfr4V4fSz88/pYSPa/dpz909fsn9k/I5r98//+yWxPQ/z//sX8w+s/+h1OrOV8qOVf1sdifvaU+wCb+TlS7hO/ERMa
   </data>
  </layer>
+ <objectgroup name="MapObjects" width="24" height="32">
+  <object name="PlayerSpawn" type="PlayerSpawn" x="160" y="160" width="32" height="32"/>
+  <object name="PlayerSpawn" type="PlayerSpawn" x="608" y="768" width="32" height="32"/>
+  <object name="PlayerSpawn" type="PlayerSpawn" x="96" y="768" width="32" height="32"/>
+  <object name="PlayerSpawn" type="PlayerSpawn" x="544" y="224" width="32" height="32"/>
+ </objectgroup>
 </map>
