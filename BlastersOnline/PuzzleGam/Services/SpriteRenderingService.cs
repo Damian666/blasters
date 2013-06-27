@@ -108,9 +108,10 @@ namespace BlastersGame.Services
                         (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), 
                         (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
 
-
-
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, descriptor.SpriteDepth);
+                    if (entity.HasComponent(typeof(ExplosiveComponent))) {
+                        spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, descriptor.SpriteDepth);
+                    }
 
                     // If this sprite has a name
                     if (nameComponent != null)

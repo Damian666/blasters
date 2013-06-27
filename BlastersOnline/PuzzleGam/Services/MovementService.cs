@@ -183,16 +183,16 @@ namespace BlastersGame.Services
                     {
                         if (e != entity && e.HasComponent(typeof(ExplosiveComponent)))
                         {
-                            TransformComponent otherTransformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
+                            TransformComponent bombTransform = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
 
-                            Vector2 relativePosition = transformComponent.LocalPosition - otherTransformComponent.LocalPosition;
+                            Vector2 relativePosition = transformComponent.LocalPosition - bombTransform.LocalPosition;
                             if (Math.Sign(relativePosition.X) != Math.Sign(transformComponent.Velocity.X) || Math.Sign(relativePosition.Y) != Math.Sign(transformComponent.Velocity.Y))
                             {
                                 SkinComponent bombSprite = (SkinComponent)e.GetComponent(typeof(SkinComponent));
                                 SpriteDescriptor bombDescriptor = SpriteDescriptorLookup[bombSprite.SpriteDescriptorName];
                                 Rectangle bombRect = new Rectangle(
-                                    (int)otherTransformComponent.LocalPosition.X + bombDescriptor.BoundingBox.X,
-                                    (int)otherTransformComponent.LocalPosition.Y + bombDescriptor.BoundingBox.Y,
+                                    (int)bombTransform.LocalPosition.X + bombDescriptor.BoundingBox.X,
+                                    (int)bombTransform.LocalPosition.Y + bombDescriptor.BoundingBox.Y,
                                     (int)bombDescriptor.BoundingBox.Width,
                                     (int)bombDescriptor.BoundingBox.Height);
 
