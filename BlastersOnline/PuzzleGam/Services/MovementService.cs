@@ -123,6 +123,8 @@ namespace BlastersGame.Services
             {
                 foreach (TmxLayerTile tile in layer.Tiles)
                 {
+                    
+
                     // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
                     if (tile.GID == 7)
                     {
@@ -227,7 +229,7 @@ namespace BlastersGame.Services
                         foreach (TmxLayerTile tile in layer.Tiles)
                         {
                             // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
-                            if (tile.GID == 7)
+                            if (ServiceManager.Map.IsSolid(tile.X, tile.Y))
                             {
                                 Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
 

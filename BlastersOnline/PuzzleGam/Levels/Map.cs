@@ -18,6 +18,8 @@ namespace BlastersGame.Levels
         private TmxMap _map;
         private string _levelID;
 
+
+
         /// <summary>
         /// Intiailizes a new level; automatically fetching the given level 
         /// </summary>
@@ -38,6 +40,8 @@ namespace BlastersGame.Levels
         {
             get { return _map.Tilesets; }
         }
+        
+
 
         public Vector2 WorldSizePixels
         {
@@ -76,7 +80,7 @@ namespace BlastersGame.Levels
                         {
                             foreach (var dict in set.Tiles)
                             {
-                                if (dict.Value.ContainsKey("solid"))
+                                if (dict.Value.ContainsKey("Blocked"))
                                 {
                                     return true;
                                 }
