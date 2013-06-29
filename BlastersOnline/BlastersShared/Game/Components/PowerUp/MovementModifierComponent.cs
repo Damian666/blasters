@@ -24,5 +24,10 @@ namespace BlastersShared.Game.Components.PowerUp
         /// How much movement speed is added.
         /// </summary>
         public float Bonus { get; set; }
+
+        public override string SkinName
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

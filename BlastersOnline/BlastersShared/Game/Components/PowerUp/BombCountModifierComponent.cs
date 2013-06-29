@@ -30,5 +30,10 @@ namespace BlastersShared.Game.Components.PowerUp
         /// </summary>
         public byte CurrentBombCount { get; set; }
 
+
+        public override string SkinName
+        {
+            get { return "RangeUp"; }
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace AppServer.Services.Simulation.Services
     public class PowerupService : SimulationService
     {
         private double _lastPowerupTime;
-        private const double _spawnTime = 25f;
+        private const double _spawnTime = 15f;
 
         public PowerupService()
         {
@@ -33,6 +33,9 @@ namespace AppServer.Services.Simulation.Services
                    _lastPowerupTime = _spawnTime;
 
                    Logger.Instance.Log(Level.Debug, "A powerup should be spawned now");
+
+                   var power = EntityFactory.CreateRangeModifierPowerupPackage(new Vector2(160, 96));
+                   ServiceManager.AddEntity(power);
 
                    // Get a random object
                    Random rand = new Random();                                     

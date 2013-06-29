@@ -66,6 +66,10 @@ namespace AppServer.Services.Simulation
         {
 
             var sender = RetrieveSender(request);
+
+            if (sender == null)
+                return;
+
             var transformComponent = (TransformComponent)sender.GetComponent(typeof(TransformComponent));
             var bombModifier = (BombCountModifierComponent)sender.GetComponent(typeof(BombCountModifierComponent));
 
@@ -78,9 +82,9 @@ namespace AppServer.Services.Simulation
             location = request.CurrentPosition;
             location += transformComponent.Size * new Vector2(0.5f, 0.875f);
             // TODO: Remove hardcoded 32s
-            
+
             location = new Vector2(32 * (int)(location.X / 32), 32 * (int)(location.Y / 32));
-            
+
 
             var bomb = EntityFactory.CreateBomb(location, sender);
             AddEntity(bomb);
@@ -108,6 +112,25 @@ namespace AppServer.Services.Simulation
             }
         }
 
+        private void NoSyncAddEntity(Entity entity)
+        {
+            var packet = new EntityAddPacket(entity);
+
+
+            foreach (var player in _simulationState.Entities)
+            {
+                // Grab the connection
+                var playerComponent = (PlayerComponent)player.GetComponent(typeof(PlayerComponent));
+
+                if (playerComponent == null)
+                    continue;
+
+                var connection = playerComponent.Connection;
+
+
+                ClientNetworkManager.Instance.SendPacket(packet, connection);
+            }
+        }
 
 
         /// <summary>
@@ -241,11 +264,17 @@ namespace AppServer.Services.Simulation
             _serviceContainer.AddService(powerupService);
 
             _serviceContainer.EntityRemoved += _serviceContainer_EntityRemoved;
+            _serviceContainer.EntityAdded += _serviceContainer_EntityAdded;
 
             // Start the game timer immediately
             //TODO: Don't start the timer until everyone is loaded
             _timer.Start();
 
+        }
+
+        void _serviceContainer_EntityAdded(Entity entity)
+        {
+            NoSyncAddEntity(entity);
         }
 
         void _serviceContainer_EntityRemoved(Entity entity)

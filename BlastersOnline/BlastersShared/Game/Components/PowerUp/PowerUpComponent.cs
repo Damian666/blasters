@@ -8,15 +8,18 @@ namespace BlastersShared.Game.Components.PowerUp
     /// <summary>
     /// The PowerUp component contains information about world power ups for an entity.
     /// </summary>
-    public class PowerUpComponent : Component
+    public abstract class PowerUpComponent : Component
     {
-   
+
+        public abstract string SkinName { get; }
 
         public PowerUpComponent()
         {
             Strength = 1;
             Duration = double.MaxValue;
         }
+
+
 
         /// <summary>
         /// How long the it lasts.
@@ -25,7 +28,7 @@ namespace BlastersShared.Game.Components.PowerUp
 
         /// <summary>
         /// The strength of this given power up
-        /// 
+        /// </summary>
         public byte Strength { get; set; }
     }
 }

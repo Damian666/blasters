@@ -22,5 +22,9 @@ namespace BlastersShared.Game.Components.PowerUp
         }
 
 
+        public override string SkinName
+        {
+            get { return "RangeUp"; }
+        }
     }
 }

@@ -51,11 +51,11 @@ namespace AppServer.Services.Simulation
             return entity;
         }
 
-        public static Entity CreateBomb(Vector2 location, Entity user) 
+        public static Entity CreateBomb(Vector2 location, Entity user)
         {
             var entity = new Entity();
 
-            var rangeModifier = (RangeModifier) user.GetComponent(typeof (RangeModifier));
+            var rangeModifier = (RangeModifier)user.GetComponent(typeof(RangeModifier));
 
             var transformComponent = new TransformComponent(location, new Vector2(32, 32));
             var skinComponent = new SkinComponent("BombSprite");
@@ -68,10 +68,25 @@ namespace AppServer.Services.Simulation
             return entity;
         }
 
-        public static Entity CreateGenericPowerup(Vector2 location, Type powerupType)
+        public static Entity CreateRangeModifierPowerupPackage(Vector2 locatione)
         {
-            return null;
+            var entity = new Entity();
+
+            var rangeModifier = new RangeModifier();
+            var list = new List<PowerUpComponent>();
+            var transform = new TransformComponent(locatione, new Vector2(32, 32));
+            list.Add(rangeModifier);
+            var powerupPackage = new PowerUpCollectionComponent(list);
+            var skinComponent = new SkinComponent(rangeModifier.SkinName);
+
+
+            entity.AddComponent(powerupPackage);
+            entity.AddComponent(skinComponent);
+            entity.AddComponent(transform);
+
+            return entity;
         }
+
 
     }
 }

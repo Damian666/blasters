@@ -10,10 +10,15 @@ namespace BlastersShared.Game.Components
     /// A powerup collection is just a collection of poweurps that a given entity may be containing.
     /// These collections can be collectied, unpacked and applies to a given entity.
     /// </summary>
-    public class PowerUpCollectionComponent
+    public class PowerUpCollectionComponent : Component
     {
 
-        public List<PowerUpComponent> PowerUps { get; set; } 
+        public List<PowerUpComponent> PowerUps { get; set; }
+
+        public PowerUpCollectionComponent()
+        {
+            
+        }
 
         public PowerUpCollectionComponent(List<PowerUpComponent> powerUpComponents )
         {

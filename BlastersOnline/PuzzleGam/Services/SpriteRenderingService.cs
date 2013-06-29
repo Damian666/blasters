@@ -52,7 +52,7 @@ namespace BlastersGame.Services
         {
             // It's much easier to grab all the descriptors in one go
             // Then, they're all available in memory and there's nothing to worry about
-            foreach (var file in Directory.GetFiles(PathUtility.SpriteDescriptorPath))
+            foreach (var file in Directory.GetFiles(PathUtility.SpriteDescriptorPath, "*.*", SearchOption.AllDirectories))
             {
                 var descriptor = SpriteDescriptor.FromFile(file);
                 _spriteDescriptorLookup.Add(descriptor.Name, descriptor);
@@ -169,9 +169,8 @@ namespace BlastersGame.Services
 
                     // We don't need to animate if there's only one frame
                     if ((int)frameCount == 1)
-                    {
-                        return;
-                    }
+                        continue;
+                    
 
                     // Don't animate if the player isn't moving
                     if (transformComponent.Velocity != Vector2.Zero || entity.GetComponent(typeof(PlayerComponent)) == null )
