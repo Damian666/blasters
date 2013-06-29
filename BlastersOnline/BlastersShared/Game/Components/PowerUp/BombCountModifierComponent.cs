@@ -15,15 +15,15 @@ namespace BlastersShared.Game.Components.PowerUp
 
         }
 
-        public BombCountModifierComponent(byte amount)
-        {
-            Amount = amount;            
-        }
+      
 
         /// <summary>
         /// The modifier for the maximum bomb count
         /// </summary>
-        public byte Amount { get; set; }
+        public byte Amount
+        {
+            get { return Strength; }
+        }
 
         /// <summary>
         /// The current total amount of bombs that are in play

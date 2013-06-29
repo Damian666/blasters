@@ -27,37 +27,50 @@ namespace AppServer.Services.Simulation.Services
 
         public override void Update(double deltaTime)
         {
-               if (_lastPowerupTime - _spawnTime > _spawnTime)
-               {
-                   // Reset
-                   _lastPowerupTime = _spawnTime;
-
-                   Logger.Instance.Log(Level.Debug, "A powerup should be spawned now");
-
-                   var power = EntityFactory.CreateRangeModifierPowerupPackage(new Vector2(160, 96));
-                   ServiceManager.AddEntity(power);
-
-                   // Get a random object
-                   Random rand = new Random();                                     
-                   var key = rand.Next(0, 4);
-
-                   switch (key)
-                   {
-                       case 0:
-                       case 1:
-                       case 2:
-                       case 3:
-                           break;
-                         
-
-                       default: 
-                           throw new Exception("Attempted to create a powerup that was not handled - possible poweurp was inherited but not handled in PowerupService!");
-                           break;
-                   }
+            if (_lastPowerupTime - _spawnTime > _spawnTime)
+            {
+                // Reset
+                _lastPowerupTime = _spawnTime;
 
 
+                // Get a random object
+                Random rand = new Random();
+                var key = rand.Next(0, 4);
 
-               }
+                var x = rand.Next(0, 22);
+                var y = rand.Next(0, 22);
+
+                var location = new Vector2(x*32, y*32);
+
+
+                switch (key)
+                {
+                    case 0:
+                        var xx = EntityFactory.CreateRangeModifierPowerupPackage(location);
+                        ServiceManager.AddEntity(xx);
+                        break;
+                    case 1:
+                        var yy = EntityFactory.CreateRangeModifierMaxPowerupPackage(location);
+                        ServiceManager.AddEntity(yy);
+                        break;
+                    case 2:
+                        var z = EntityFactory.CreateRangeModifierPowerupPackage(location);
+                        ServiceManager.AddEntity(z);
+                        break;
+                    case 3:
+                        var t = EntityFactory.CreateRangeModifierPowerupPackage(location);
+                        ServiceManager.AddEntity(t);
+                        break;
+
+
+                    default:
+                        throw new Exception("Attempted to create a powerup that was not handled - possible poweurp was inherited but not handled in PowerupService!");
+                        break;
+                }
+
+
+
+            }
 
 
             _lastPowerupTime += deltaTime;
@@ -69,7 +82,7 @@ namespace AppServer.Services.Simulation.Services
 
         public override void Initialize()
         {
-          
+
         }
 
 

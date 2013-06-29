@@ -145,6 +145,11 @@ namespace AppServer.Services.Simulation
 
             var transformComponent = (TransformComponent)sender.GetComponent(typeof(TransformComponent));
 
+
+            transformComponent.LastLocalPosition = transformComponent.LocalPosition;
+            transformComponent.LocalPosition = notifyMovementPacket.Location;
+            transformComponent.ServerPosition = notifyMovementPacket.Location;
+
             foreach (var player in _simulationState.Entities)
             {
 
@@ -167,11 +172,45 @@ namespace AppServer.Services.Simulation
                 }
 
 
+                foreach (var powerup in _simulationState.Entities)
+                {
+                    if (powerup.HasComponent(typeof (PowerUpCollectionComponent)))
+                    {
+
+                        var transformPoweurp = (TransformComponent) powerup.GetComponent(typeof(TransformComponent));
+
+                        Rectangle playerBox = new Rectangle((int) (transformComponent.LocalPosition.X + 13), (int) (transformComponent.LocalPosition.Y + 45), 24, 20);
+                        Rectangle powerupBox = new Rectangle((int) transformPoweurp.LocalPosition.X, (int) transformPoweurp.LocalPosition.Y, 32, 32);
+
+
+                        if (playerBox.Intersects(powerupBox))
+                        {
+                            // Kill thy entity
+                            _serviceContainer.RemoveEntity(powerup);
+
+                            // Increase bombs
+                            var power = (PowerUpCollectionComponent) powerup.GetComponent(typeof (PowerUpCollectionComponent));
+                            var playerPower = (BombCountModifierComponent) player.GetComponent(typeof(BombCountModifierComponent));
+
+                            playerPower.Strength += power.PowerUps[0].Strength;
+
+
+                        }
+
+
+                    }
+
+                }
+
+
             }
 
-            transformComponent.LastLocalPosition = transformComponent.LocalPosition;
-            transformComponent.LocalPosition = notifyMovementPacket.Location;
-            transformComponent.ServerPosition = notifyMovementPacket.Location;
+
+
+            // Now that you've moved, should check to see if any poweurps need to be awarded
+
+   
+
 
         }
 

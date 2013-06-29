@@ -73,14 +73,18 @@ namespace BlastersGame.Services
             if (inputState.PlaceBomb())
             {
 
+                //TODO: Real validation, for now it's ok
+
+                var packet = new RequestPlaceBombPacket(transformComponent.LocalPosition);
+                NetworkManager.Instance.SendPacket(packet);
+
                 // Don't do anything if they can't place any more bombs
                 if (bombModifier.Amount == bombModifier.CurrentBombCount)
                     return;
                 else
                     bombModifier.CurrentBombCount++;
 
-                var packet = new RequestPlaceBombPacket(transformComponent.LocalPosition);
-                NetworkManager.Instance.SendPacket(packet);
+
             }
 
 

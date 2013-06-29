@@ -32,7 +32,7 @@ namespace AppServer.Services.Simulation
             var nameComponent = new NameComponent(user.Name);
             var skinComponent = new SkinComponent(user.SessionConfig.Skin);
             var playerComponent = new PlayerComponent();
-            var bombModifier = new BombCountModifierComponent(1);
+            var bombModifier = new BombCountModifierComponent();
             var rangeModifier = new RangeModifier();
 
 
@@ -68,13 +68,13 @@ namespace AppServer.Services.Simulation
             return entity;
         }
 
-        public static Entity CreateRangeModifierPowerupPackage(Vector2 locatione)
+        public static Entity CreateRangeModifierPowerupPackage(Vector2 location)
         {
             var entity = new Entity();
 
             var rangeModifier = new RangeModifier();
             var list = new List<PowerUpComponent>();
-            var transform = new TransformComponent(locatione, new Vector2(32, 32));
+            var transform = new TransformComponent(location, new Vector2(32, 32));
             list.Add(rangeModifier);
             var powerupPackage = new PowerUpCollectionComponent(list);
             var skinComponent = new SkinComponent(rangeModifier.SkinName);
@@ -86,6 +86,28 @@ namespace AppServer.Services.Simulation
 
             return entity;
         }
+
+        public static Entity CreateRangeModifierMaxPowerupPackage(Vector2 location)
+        {
+            var entity = new Entity();
+
+            var rangeModifier = new RangeModifier();
+            rangeModifier.Strength = 50;
+            var list = new List<PowerUpComponent>();
+            var transform = new TransformComponent(location, new Vector2(32, 32));
+            list.Add(rangeModifier);
+            var powerupPackage = new PowerUpCollectionComponent(list);
+            var skinComponent = new SkinComponent(rangeModifier.SkinName.Replace("Up", "Max"));
+
+
+            entity.AddComponent(powerupPackage);
+            entity.AddComponent(skinComponent);
+            entity.AddComponent(transform);
+
+            return entity;
+        }
+
+
 
 
     }
