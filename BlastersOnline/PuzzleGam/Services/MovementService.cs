@@ -228,8 +228,15 @@ namespace BlastersGame.Services
                     {
                         foreach (TmxLayerTile tile in layer.Tiles)
                         {
+
+                            var set = (TmxTileset) ServiceManager.Map.Tilesets[0];
+                            PropertyDict dict;
+
+                            set.Tiles.TryGetValue((int) tile.GID, out dict);
+
+
                             // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
-                            if (ServiceManager.Map.IsSolid(tile.X, tile.Y))
+                            if (dict != null && dict.ContainsKey("blocked"))
                             {
                                 Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
 
