@@ -174,13 +174,13 @@ namespace AppServer.Services.Simulation
 
                 foreach (var powerup in _simulationState.Entities)
                 {
-                    if (powerup.HasComponent(typeof (PowerUpCollectionComponent)))
+                    if (powerup.HasComponent(typeof(PowerUpCollectionComponent)))
                     {
 
-                        var transformPoweurp = (TransformComponent) powerup.GetComponent(typeof(TransformComponent));
+                        var transformPoweurp = (TransformComponent)powerup.GetComponent(typeof(TransformComponent));
 
-                        Rectangle playerBox = new Rectangle((int) (transformComponent.LocalPosition.X + 13), (int) (transformComponent.LocalPosition.Y + 45), 24, 20);
-                        Rectangle powerupBox = new Rectangle((int) transformPoweurp.LocalPosition.X, (int) transformPoweurp.LocalPosition.Y, 32, 32);
+                        Rectangle playerBox = new Rectangle((int)(transformComponent.LocalPosition.X + 13), (int)(transformComponent.LocalPosition.Y + 45), 24, 20);
+                        Rectangle powerupBox = new Rectangle((int)transformPoweurp.LocalPosition.X, (int)transformPoweurp.LocalPosition.Y, 32, 32);
 
 
                         if (playerBox.Intersects(powerupBox))
@@ -189,10 +189,13 @@ namespace AppServer.Services.Simulation
                             _serviceContainer.RemoveEntity(powerup);
 
                             // Increase bombs
-                            var power = (PowerUpCollectionComponent) powerup.GetComponent(typeof (PowerUpCollectionComponent));
-                            var playerPower = (BombCountModifierComponent) player.GetComponent(typeof(BombCountModifierComponent));
+                            var power = (PowerUpCollectionComponent)powerup.GetComponent(typeof(PowerUpCollectionComponent));
+                            var powerType = power.PowerUps[0];
+                            var powerValue = power.PowerUps[0].Strength;
 
-                            playerPower.Strength += power.PowerUps[0].Strength;
+                            var playerPower = (PowerUpComponent) player.GetComponent(powerType.GetType());
+                            playerPower.Strength += powerValue;
+
 
 
                         }
@@ -209,7 +212,7 @@ namespace AppServer.Services.Simulation
 
             // Now that you've moved, should check to see if any poweurps need to be awarded
 
-   
+
 
 
         }
