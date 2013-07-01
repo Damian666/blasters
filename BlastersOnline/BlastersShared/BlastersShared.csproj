@@ -109,6 +109,8 @@
     <Compile Include="Tiled\zlib\ZlibStream.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Utilities\DetonationHelper.cs" />
+    <Compile Include="Utilities\Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Utilities\MapUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonoGame-develop\ThirdParty\Lidgren.Network\Lidgren.Network.Windows.csproj">

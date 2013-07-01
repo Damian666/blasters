@@ -56,7 +56,7 @@ namespace BlastersGame.Services
                 // Get the owner
                 var owner = ServiceManager.RetrieveEntityByID(explosiveComponent.OwnerID);
                 var ownerBombModifier =
-                    (BombCountModifierComponent) owner.GetComponent(typeof (BombCountModifierComponent));
+                    (BombCountModifierComponent)owner.GetComponent(typeof(BombCountModifierComponent));
                 ownerBombModifier.CurrentBombCount--;
             }
 
@@ -86,19 +86,19 @@ namespace BlastersGame.Services
                 var entitesToAdd = new List<Entity>();
 
                 // They're returned in order of up, down, left, right
-                var rectangles = DetonationHelper.GetBlastRadiusFrom(entity);
+                var rectangles = DetonationHelper.GetBlastRadiusFrom(ServiceManager.Map.TmxMap, entity);
                 var up = Math.Ceiling((decimal)(rectangles[0].Height / 32));
-                var down = Math.Ceiling((decimal)(rectangles[1].Height / 32));  
+                var down = Math.Ceiling((decimal)(rectangles[1].Height / 32));
                 var left = Math.Ceiling((decimal)(rectangles[2].Width / 32));
                 var right = Math.Ceiling((decimal)(rectangles[3].Width / 32));
 
-                for (int i = 0; i < up - 1; i++)
+                for (int i = 0; i < up - 2; i++)
                 {
                     var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2(0, (i * 32 + 32)), ExplosiveType.Up);
                     entitesToAdd.Add(x);
                 }
 
-                for (int i = 0; i < down - 1; i++)
+                for (int i = 0; i < down - 2; i++)
                 {
                     var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2(0, (i * 32 + 32)), ExplosiveType.Down);
                     entitesToAdd.Add(x);
@@ -106,7 +106,7 @@ namespace BlastersGame.Services
 
 
 
-                for (int i = 0; i < right - 1; i++)
+                for (int i = 0; i < right - 2; i++)
                 {
                     var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2((i * 32 + 32), 0), ExplosiveType.Right);
                     entitesToAdd.Add(x);
@@ -115,7 +115,7 @@ namespace BlastersGame.Services
 
 
 
-                for (int i = 0; i < left - 1; i++)
+                for (int i = 0; i < left - 2; i++)
                 {
                     var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2((i * 32 + 32), 0), ExplosiveType.Left);
                     entitesToAdd.Add(x);
@@ -124,16 +124,38 @@ namespace BlastersGame.Services
 
 
 
+                Entity topEdge = null;
+                if (up != 1)
+                    topEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2(0, (float)(up * 32) - 32), ExplosiveType.UpE);
 
-                var topEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2(0, (float) (up * 32)), ExplosiveType.UpE);
-                var bottomEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2(0, (float)(down * 32)), ExplosiveType.DownE);
-                var leftEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2((float)(down * 32), 0), ExplosiveType.LeftE);
-                var rightEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2((float)(down * 32), 0), ExplosiveType.RightE);
 
-                entitesToAdd.Add(topEdge);
-                entitesToAdd.Add(bottomEdge);
-                entitesToAdd.Add(leftEdge);
-                entitesToAdd.Add(rightEdge);
+
+
+                Entity bottomEdge = null;
+                if (down != 1)
+                    bottomEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2(0, (float)(down * 32) - 32), ExplosiveType.DownE);
+
+                Entity leftEdge = null;
+
+                if (left != 1)
+                    leftEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2((float)(left * 32) - 32, 0), ExplosiveType.LeftE);
+
+                Entity rightEdge = null;
+                if (right != 1)
+                    rightEdge = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition + new Vector2((float)(right * 32) - 32, 0), ExplosiveType.RightE);
+
+                if (topEdge != null)
+                    entitesToAdd.Add(topEdge);
+
+
+                if (bottomEdge != null)
+                    entitesToAdd.Add(bottomEdge);
+
+                if (leftEdge != null)
+                    entitesToAdd.Add(leftEdge);
+
+                if(rightEdge != null)
+                    entitesToAdd.Add(rightEdge);
 
                 var y = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition, ExplosiveType.Center);
                 entitesToAdd.Add(y);

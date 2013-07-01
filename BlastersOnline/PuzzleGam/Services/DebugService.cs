@@ -32,6 +32,8 @@ namespace BlastersGame.Services
 
             if(!Visible)
                 return;
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null,
+                              ServiceManager.Camera.GetTransformation());
 
             foreach (var entity in ServiceManager.Entities)
             {
@@ -39,19 +41,22 @@ namespace BlastersGame.Services
 
                 if (explosiveComponent != null)
                 {
-                    var explosiveRectangles = DetonationHelper.GetBlastRadiusFrom(entity);
+                    var explosiveRectangles = DetonationHelper.GetBlastRadiusFrom(ServiceManager.Map.TmxMap,entity);
 
-                    spriteBatch.Begin();
+                  
 
                     foreach (var explosiveRectangle in explosiveRectangles)
                     {
                         spriteBatch.DrawRectangle(explosiveRectangle, Color.Red, 4f);
                     }
 
-                    spriteBatch.End();
+               
                 }
 
-            } 
+            }
+
+            spriteBatch.End();
+
         }
 
         public override void Update(GameTime gameTime)

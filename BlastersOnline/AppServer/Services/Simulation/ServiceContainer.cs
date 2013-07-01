@@ -9,6 +9,7 @@ using BlastersShared.Network.Packets.AppServer.BlastersShared.Network.Packets.Ap
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using TiledSharp;
 
 namespace AppServer.Services.Simulation
 {
@@ -30,6 +31,19 @@ namespace AppServer.Services.Simulation
         public ServiceContainer(SimulationState simulationState)
         {
             _simulationState = simulationState;
+
+            // Create our map stuff
+            _map = new TmxMap(string.Format(@"Content\Levels\{0}.tmx", _simulationState.MapName));
+
+        }
+
+
+        /// <summary>
+        /// The map object 
+        /// </summary>
+        public TmxMap Map
+        {
+            get { return _map; }
         }
 
 
@@ -82,7 +96,8 @@ namespace AppServer.Services.Simulation
             OnEntityAdded(entity);
         }
 
-        private List<Entity> _toRemove = new List<Entity>(); 
+        private List<Entity> _toRemove = new List<Entity>();
+        private TmxMap _map;
 
         /// <summary>
         /// Removes an entity from the server container, also fires off an event to notify.

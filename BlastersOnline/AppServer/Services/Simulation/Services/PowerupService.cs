@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BlastersShared;
@@ -17,13 +18,27 @@ namespace AppServer.Services.Simulation.Services
     public class PowerupService : SimulationService
     {
         private double _lastPowerupTime;
-        private const double _spawnTime = 15f;
+        private double _spawnTime = 15f;
+        private List<Type> _powerUpTypes;  
+
+        // This is our lookup of types
 
         public PowerupService()
         {
             // Set the current time to the spawn time
             _lastPowerupTime = _spawnTime;
+
+            // Generate a list of types that can be used
+            _powerUpTypes =  FindDerivedTypes(GetType().Assembly, typeof(PowerUpComponent)).ToList();
+
+
         }
+
+        public IEnumerable<Type> FindDerivedTypes(Assembly assembly, Type baseType)
+        {
+            return assembly.GetTypes().Where(baseType.IsAssignableFrom);
+        }
+
 
         public override void Update(double deltaTime)
         {
@@ -32,6 +47,7 @@ namespace AppServer.Services.Simulation.Services
                 // Reset
                 _lastPowerupTime = _spawnTime;
 
+                _spawnTime = 2f;
 
                 // Get a random object
                 Random rand = new Random();
@@ -40,7 +56,9 @@ namespace AppServer.Services.Simulation.Services
                 var x = rand.Next(0, 22);
                 var y = rand.Next(0, 22);
 
-                var location = new Vector2(x*32, y*32);
+                var location = new Vector2(x * 32, y * 32);
+
+
 
 
                 switch (key)
@@ -54,11 +72,11 @@ namespace AppServer.Services.Simulation.Services
                         ServiceManager.AddEntity(yy);
                         break;
                     case 2:
-                        var z = EntityFactory.CreateRangeModifierPowerupPackage(location);
+                        var z = EntityFactory.CreateBombCountUpPackage(location);
                         ServiceManager.AddEntity(z);
                         break;
                     case 3:
-                        var t = EntityFactory.CreateRangeModifierPowerupPackage(location);
+                        var t = EntityFactory.CreateBombCountMaxPackage(location);
                         ServiceManager.AddEntity(t);
                         break;
 

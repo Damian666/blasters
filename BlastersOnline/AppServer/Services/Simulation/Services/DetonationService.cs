@@ -46,7 +46,7 @@ namespace AppServer.Services.Simulation.Services
         private void DetonateEntity(Entity entity)
         {
 
-            var blastBoxes = DetonationHelper.GetBlastRadiusFrom(entity);
+            var blastBoxes = DetonationHelper.GetBlastRadiusFrom(ServiceManager.Map, entity);
 
 
             // Detonate and hurt players

@@ -87,6 +87,48 @@ namespace AppServer.Services.Simulation
             return entity;
         }
 
+
+        public static Entity CreateBombCountUpPackage(Vector2 location)
+        {
+            var entity = new Entity();
+
+            var rangeModifier = new BombCountModifierComponent();
+            var list = new List<PowerUpComponent>();
+            var transform = new TransformComponent(location, new Vector2(32, 32));
+            list.Add(rangeModifier);
+            var powerupPackage = new PowerUpCollectionComponent(list);
+            var skinComponent = new SkinComponent(rangeModifier.SkinName);
+
+
+            entity.AddComponent(powerupPackage);
+            entity.AddComponent(skinComponent);
+            entity.AddComponent(transform);
+
+            return entity;
+        }
+
+        public static Entity CreateBombCountMaxPackage(Vector2 location)
+        {
+            var entity = new Entity();
+
+            var rangeModifier = new BombCountModifierComponent();
+            rangeModifier.Strength = 50;
+            var list = new List<PowerUpComponent>();
+            var transform = new TransformComponent(location, new Vector2(32, 32));
+            list.Add(rangeModifier);
+            var powerupPackage = new PowerUpCollectionComponent(list);
+            var skinComponent = new SkinComponent(rangeModifier.SkinName.Replace("Up", "Max"));
+
+
+            entity.AddComponent(powerupPackage);
+            entity.AddComponent(skinComponent);
+            entity.AddComponent(transform);
+
+            return entity;
+        }
+
+
+
         public static Entity CreateRangeModifierMaxPowerupPackage(Vector2 location)
         {
             var entity = new Entity();

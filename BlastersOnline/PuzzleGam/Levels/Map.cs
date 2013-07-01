@@ -30,6 +30,10 @@ namespace BlastersGame.Levels
             _levelID = levelID;
         }
 
+        public TmxMap TmxMap
+        {
+            get { return _map; }
+        }
 
         public string LevelID
         {
@@ -40,7 +44,7 @@ namespace BlastersGame.Levels
         {
             get { return _map.Tilesets; }
         }
-        
+
 
 
         public Vector2 WorldSizePixels
@@ -59,38 +63,23 @@ namespace BlastersGame.Levels
         /// <returns></returns>
         public bool IsSolid(int x, int y)
         {
-            if (x < 0 || y < 0 || x > _map.Width - 1 || y > _map.Height - 1)
-                return true;
-
-            var gid = y * _map.Height + x;
-
-            //Get tile at ALL layers
-            // TODO: Link tile GIDs to tilesets, this needs to be abstracted into the wind
-            var set = (TmxTileset) _map.Tilesets[0];
+            var set = (TmxTileset)Tilesets[0];
+            PropertyDict dict = null;
 
             foreach (TmxLayer layer in _map.Layers)
             {
-                foreach (var tb in layer.Tiles)
-                {
-                    if (tb.X == x && tb.Y == y)
-                    {
-                        var tile = tb;
-
-                        if (set.Tiles.ContainsKey((int) tile.GID - 1))
-                        {
-                            foreach (var dict in set.Tiles)
-                            {
-                                if (dict.Value.ContainsKey("Blocked"))
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
+                return true;
             }
 
-            return false;
+           // set.Tiles.TryGetValue((int)tile.GID, out dict);
+
+
+            // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
+            if (dict != null && dict.ContainsKey("blocked"))
+            {
+            }
+
+            return true;
 
         }
 
@@ -107,10 +96,12 @@ namespace BlastersGame.Levels
         /// </summary>
         public Vector2 PlayerPosition
         {
-            get { var o = ((TmxObjectGroup) _map.ObjectGroups[0]);
-                var playerObject = (TmxObjectGroup.TmxObject) o.Objects["player"];
-                return  new Vector2(playerObject.X, playerObject.Y);
-            }           
+            get
+            {
+                var o = ((TmxObjectGroup)_map.ObjectGroups[0]);
+                var playerObject = (TmxObjectGroup.TmxObject)o.Objects["player"];
+                return new Vector2(playerObject.X, playerObject.Y);
+            }
         }
 
         /// <summary>
