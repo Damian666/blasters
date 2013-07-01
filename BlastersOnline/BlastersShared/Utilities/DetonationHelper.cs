@@ -171,6 +171,8 @@ namespace BlastersShared.Utilities
 
             var upTile = MapUtility.GetSolidBlock(map, rectangles[0].X/32, rectangles[0].Y/32 - 1);
             var downTile = MapUtility.GetSolidBlock(map, rectangles[1].X/32, rectangles[1].Y/32 + 1);
+            var leftTile = MapUtility.GetSolidBlock(map, rectangles[2].X / 32 - 1, rectangles[1].Y / 32);
+            var rightTile = MapUtility.GetSolidBlock(map, rectangles[3].X / 32 + 1, rectangles[1].Y / 32);
 
             List<TmxLayerTile> _layerTiles = new List<TmxLayerTile>();
 
@@ -185,6 +187,21 @@ namespace BlastersShared.Utilities
                 downTile.GID = 0;
                 _layerTiles.Add(downTile);
             }
+
+            if (leftTile != null)
+            {
+                leftTile.GID = 0;
+            _layerTiles.Add(leftTile);
+            }
+
+            if (rightTile != null)
+            {
+                rightTile.GID = 0;
+                _layerTiles.Add(rightTile);
+            }
+
+
+
 
             return _layerTiles;
 
