@@ -157,5 +157,39 @@ namespace BlastersShared.Utilities
             blastBoxes.Add(blastRightRectangle);
             return blastBoxes;
         }
+    
+        public static List<TmxLayerTile> GetDetonatedTiles(TmxMap map, Entity entity, List<Rectangle> rectangles)
+        {
+            var up = Math.Ceiling((decimal)(rectangles[0].Height)) - 32;
+            var down = Math.Ceiling((decimal)(rectangles[1].Height)) + 32;
+            var left = Math.Ceiling((decimal)(rectangles[2].Width)) - 32;
+            var right = Math.Ceiling((decimal)(rectangles[3].Width)) + 32;
+
+            up = up/32;
+
+            var transform = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
+
+            var upTile = MapUtility.GetSolidBlock(map, rectangles[0].X/32, rectangles[0].Y/32 - 1);
+            var downTile = MapUtility.GetSolidBlock(map, rectangles[1].X/32, rectangles[1].Y/32 + 1);
+
+            List<TmxLayerTile> _layerTiles = new List<TmxLayerTile>();
+
+            if (upTile != null)
+            {
+                upTile.GID = 0;
+                _layerTiles.Add(upTile);
+            }
+
+            if (downTile != null)
+            {
+                downTile.GID = 0;
+                _layerTiles.Add(downTile);
+            }
+
+            return _layerTiles;
+
+        }
+
+    
     }
 }

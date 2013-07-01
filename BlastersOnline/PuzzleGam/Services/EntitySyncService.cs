@@ -92,6 +92,20 @@ namespace BlastersGame.Services
                 var left = Math.Ceiling((decimal)(rectangles[2].Width / 32));
                 var right = Math.Ceiling((decimal)(rectangles[3].Width / 32));
 
+                // Do damage
+                var list = DetonationHelper.GetDetonatedTiles(ServiceManager.Map.TmxMap, entity,rectangles);
+
+                foreach (var tile in list)
+                {
+                    var location = new Vector2(tile.X * 32, tile.Y * 32);
+                    var n = EntityFactory.CreateBreakingBlock(location, "StandardBlock");
+                    ServiceManager.AddEntity(n);
+                }
+
+                    
+                
+
+
                 for (int i = 0; i < up - 2; i++)
                 {
                     var x = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition - new Vector2(0, (i * 32 + 32)), ExplosiveType.Up);

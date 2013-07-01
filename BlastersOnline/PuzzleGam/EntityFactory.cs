@@ -34,5 +34,21 @@ namespace BlastersGame
 
         }
 
+        public static Entity CreateBreakingBlock(Vector2 position, string spriteName)
+        {
+            var entity = new Entity();
+
+            var transformComponent = new TransformComponent(position, new Vector2(32, 32));
+            var skinComponent = new SkinComponent("StandardBlock");
+
+            entity.AddComponent(transformComponent);
+            entity.AddComponent(skinComponent);
+            entity.AddComponent(new OneShotAnimationComponent());
+
+            return entity;
+        }
+
+
+
     }
 }
