@@ -197,7 +197,7 @@ namespace BlastersGame.Services
                             Vector2 bombOrigin = bombTransform.LocalPosition + new Vector2(bombDescriptor.BoundingBox.X, bombDescriptor.BoundingBox.Y) + new Vector2(bombDescriptor.BoundingBox.Width, bombDescriptor.BoundingBox.Height) / 2;
 
                             Vector2 relativePosition = transformOrigin - bombOrigin;
-                            if (Math.Sign(relativePosition.X) != Math.Sign(transformComponent.Velocity.X) || Math.Sign(relativePosition.Y) != Math.Sign(transformComponent.Velocity.Y))
+                            if ((Math.Sign(transformComponent.Velocity.X) != 0 && Math.Sign(relativePosition.X) != Math.Sign(transformComponent.Velocity.X)) || (Math.Sign(transformComponent.Velocity.Y) != 0 && Math.Sign(relativePosition.Y) != Math.Sign(transformComponent.Velocity.Y)))
                             {
                                 Rectangle bombRect = new Rectangle(
                                     (int)bombTransform.LocalPosition.X + bombDescriptor.BoundingBox.X,
