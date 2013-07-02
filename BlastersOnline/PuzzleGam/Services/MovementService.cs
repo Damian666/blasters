@@ -100,7 +100,7 @@ namespace BlastersGame.Services
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            return;
+            //return;
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
             
@@ -185,15 +185,20 @@ namespace BlastersGame.Services
                 {
                     foreach (Entity e in ServiceManager.Entities)
                     {
+                        // TODO: Bugfix! Currently 2 arrow keys are needed to get off of bombs. Fix it bitches.
                         if (e != entity && e.HasComponent(typeof(ExplosiveComponent)))
                         {
-                            TransformComponent bombTransform = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
+                            SkinComponent bombSprite = (SkinComponent)e.GetComponent(typeof(SkinComponent));
+                            SpriteDescriptor bombDescriptor = SpriteDescriptorLookup[bombSprite.SpriteDescriptorName];
 
-                            Vector2 relativePosition = transformComponent.LocalPosition - bombTransform.LocalPosition;
+                            TransformComponent bombTransform = (TransformComponent)e.GetComponent(typeof(TransformComponent));
+
+                            Vector2 transformOrigin = transformComponent.LocalPosition + new Vector2(spriteDescriptor.BoundingBox.X, spriteDescriptor.BoundingBox.Y) + new Vector2(spriteDescriptor.BoundingBox.Width, spriteDescriptor.BoundingBox.Height) / 2;
+                            Vector2 bombOrigin = bombTransform.LocalPosition + new Vector2(bombDescriptor.BoundingBox.X, bombDescriptor.BoundingBox.Y) + new Vector2(bombDescriptor.BoundingBox.Width, bombDescriptor.BoundingBox.Height) / 2;
+
+                            Vector2 relativePosition = transformOrigin - bombOrigin;
                             if (Math.Sign(relativePosition.X) != Math.Sign(transformComponent.Velocity.X) || Math.Sign(relativePosition.Y) != Math.Sign(transformComponent.Velocity.Y))
                             {
-                                SkinComponent bombSprite = (SkinComponent)e.GetComponent(typeof(SkinComponent));
-                                SpriteDescriptor bombDescriptor = SpriteDescriptorLookup[bombSprite.SpriteDescriptorName];
                                 Rectangle bombRect = new Rectangle(
                                     (int)bombTransform.LocalPosition.X + bombDescriptor.BoundingBox.X,
                                     (int)bombTransform.LocalPosition.Y + bombDescriptor.BoundingBox.Y,

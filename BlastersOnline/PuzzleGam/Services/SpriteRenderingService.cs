@@ -110,7 +110,7 @@ namespace BlastersGame.Services
 
                     spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, descriptor.SpriteDepth);
                     if (entity.HasComponent(typeof(ExplosiveComponent))) {
-                        spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, descriptor.SpriteDepth);
+                        //spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, descriptor.SpriteDepth);
                     }
 
                     // If this sprite has a name
