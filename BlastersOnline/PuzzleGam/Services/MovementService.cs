@@ -154,31 +154,31 @@ namespace BlastersGame.Services
         private void ProcessLocalPlayer(Entity entity, GameTime gameTime)
         {
             // Local players can be moved automatically, then report their status if needed
-            var transformComponent = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
-            var movementModifierComponent = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
+            var playerTransform = (TransformComponent)entity.GetComponent(typeof(TransformComponent));
+            var playerMovementModifier = (MovementModifierComponent)entity.GetComponent(typeof(MovementModifierComponent));
 
             // Get the skin information so we can calculate bounding box collisions
-            var skinComponent = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
-            var spriteDescriptor = SpriteDescriptorLookup[skinComponent.SpriteDescriptorName];
+            var playerSkin = (SkinComponent)entity.GetComponent(typeof(SkinComponent));
+            var playerDescriptor = SpriteDescriptorLookup[playerSkin.SpriteDescriptorName];
             
             // Move the camera
             ServiceManager.Camera.Move(-lastTransformVector);
 
             // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
-            if (movementModifierComponent != null)
-                movementBonus = movementModifierComponent.Bonus;
+            if (playerMovementModifier != null)
+                movementBonus = playerMovementModifier.Bonus;
 
             // Apply the multiplier to the velocity and move the position
-            Vector2 nextPosition = transformComponent.LocalPosition;
-            nextPosition += transformComponent.Velocity * movementBonus;
+            Vector2 nextPosition = playerTransform.LocalPosition;
+            nextPosition += playerTransform.Velocity * movementBonus;
 
             // Clamp the x and y so the player won't keep walking offscreen
-            float nextX = MathHelper.Clamp(nextPosition.X + spriteDescriptor.BoundingBox.X, 0, ServiceManager.Map.WorldSizePixels.X / 2 - spriteDescriptor.BoundingBox.Width);
-            float nextY = MathHelper.Clamp(nextPosition.Y + spriteDescriptor.BoundingBox.Y, 0, ServiceManager.Map.WorldSizePixels.Y / 2 - spriteDescriptor.BoundingBox.Height);
+            float nextX = MathHelper.Clamp(nextPosition.X + playerDescriptor.BoundingBox.X, 0, ServiceManager.Map.WorldSizePixels.X / 2 - playerDescriptor.BoundingBox.Width);
+            float nextY = MathHelper.Clamp(nextPosition.Y + playerDescriptor.BoundingBox.Y, 0, ServiceManager.Map.WorldSizePixels.Y / 2 - playerDescriptor.BoundingBox.Height);
 
             // TODO: This is shitty. Needs to be redone.
-            if (transformComponent.Velocity.LengthSquared() != 0)
+            if (playerTransform.Velocity.LengthSquared() != 0)
             {
                 // Check Entity Collision
                 if (ServiceManager.Entities != null && ServiceManager.Entities.Count() > 0)
@@ -188,16 +188,15 @@ namespace BlastersGame.Services
                         // TODO: Bugfix! Currently 2 arrow keys are needed to get off of bombs. Fix it bitches.
                         if (e != entity && e.HasComponent(typeof(ExplosiveComponent)))
                         {
-                            SkinComponent bombSprite = (SkinComponent)e.GetComponent(typeof(SkinComponent));
-                            SpriteDescriptor bombDescriptor = SpriteDescriptorLookup[bombSprite.SpriteDescriptorName];
-
                             TransformComponent bombTransform = (TransformComponent)e.GetComponent(typeof(TransformComponent));
+                            SkinComponent bombSkin = (SkinComponent)e.GetComponent(typeof(SkinComponent));
+                            SpriteDescriptor bombDescriptor = SpriteDescriptorLookup[bombSkin.SpriteDescriptorName];
 
-                            Vector2 transformOrigin = transformComponent.LocalPosition + new Vector2(spriteDescriptor.BoundingBox.X, spriteDescriptor.BoundingBox.Y) + new Vector2(spriteDescriptor.BoundingBox.Width, spriteDescriptor.BoundingBox.Height) / 2;
+                            Vector2 playerOrigin = playerTransform.LocalPosition + new Vector2(playerDescriptor.BoundingBox.X, playerDescriptor.BoundingBox.Y) + new Vector2(playerDescriptor.BoundingBox.Width, playerDescriptor.BoundingBox.Height) / 2;
                             Vector2 bombOrigin = bombTransform.LocalPosition + new Vector2(bombDescriptor.BoundingBox.X, bombDescriptor.BoundingBox.Y) + new Vector2(bombDescriptor.BoundingBox.Width, bombDescriptor.BoundingBox.Height) / 2;
 
-                            Vector2 relativePosition = transformOrigin - bombOrigin;
-                            if ((Math.Sign(transformComponent.Velocity.X) != 0 && Math.Sign(relativePosition.X) != Math.Sign(transformComponent.Velocity.X)) || (Math.Sign(transformComponent.Velocity.Y) != 0 && Math.Sign(relativePosition.Y) != Math.Sign(transformComponent.Velocity.Y)))
+                            Vector2 relativePosition = playerOrigin - bombOrigin;
+                            if ((Math.Sign(playerTransform.Velocity.X) != 0 && Math.Sign(relativePosition.X) != Math.Sign(playerTransform.Velocity.X)) || (Math.Sign(playerTransform.Velocity.Y) != 0 && Math.Sign(relativePosition.Y) != Math.Sign(playerTransform.Velocity.Y)))
                             {
                                 Rectangle bombRect = new Rectangle(
                                     (int)bombTransform.LocalPosition.X + bombDescriptor.BoundingBox.X,
@@ -206,22 +205,22 @@ namespace BlastersGame.Services
                                     (int)bombDescriptor.BoundingBox.Height);
 
                                 Rectangle xBBox = new Rectangle((int)nextX,
-                                      (int)transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y,
-                                      (int)spriteDescriptor.BoundingBox.Width,
-                                      (int)spriteDescriptor.BoundingBox.Height);
+                                      (int)playerTransform.LocalPosition.Y + playerDescriptor.BoundingBox.Y,
+                                      (int)playerDescriptor.BoundingBox.Width,
+                                      (int)playerDescriptor.BoundingBox.Height);
 
                                 if (bombRect.Intersects(xBBox))
                                 {
-                                    nextX = transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X;
+                                    nextX = playerTransform.LocalPosition.X + playerDescriptor.BoundingBox.X;
                                 }
 
                                 Rectangle yBBox = new Rectangle((int)nextX, (int)nextY,
-                                      (int)spriteDescriptor.BoundingBox.Width,
-                                      (int)spriteDescriptor.BoundingBox.Height);
+                                      (int)playerDescriptor.BoundingBox.Width,
+                                      (int)playerDescriptor.BoundingBox.Height);
 
                                 if (bombRect.Intersects(yBBox))
                                 {
-                                    nextY = transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y;
+                                    nextY = playerTransform.LocalPosition.Y + playerDescriptor.BoundingBox.Y;
                                 }
                             }
                         }
@@ -248,22 +247,22 @@ namespace BlastersGame.Services
                                 Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
 
                                 Rectangle xBBox = new Rectangle((int)nextX,
-                                      (int)transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y,
-                                      (int)spriteDescriptor.BoundingBox.Width,
-                                      (int)spriteDescriptor.BoundingBox.Height);
+                                      (int)playerTransform.LocalPosition.Y + playerDescriptor.BoundingBox.Y,
+                                      (int)playerDescriptor.BoundingBox.Width,
+                                      (int)playerDescriptor.BoundingBox.Height);
 
                                 if (tileRect.Intersects(xBBox))
                                 {
-                                    nextX = transformComponent.LocalPosition.X + spriteDescriptor.BoundingBox.X;
+                                    nextX = playerTransform.LocalPosition.X + playerDescriptor.BoundingBox.X;
                                 }
 
                                 Rectangle yBBox = new Rectangle((int)nextX, (int)nextY,
-                                      (int)spriteDescriptor.BoundingBox.Width,
-                                      (int)spriteDescriptor.BoundingBox.Height);
+                                      (int)playerDescriptor.BoundingBox.Width,
+                                      (int)playerDescriptor.BoundingBox.Height);
 
                                 if (tileRect.Intersects(yBBox))
                                 {
-                                    nextY = transformComponent.LocalPosition.Y + spriteDescriptor.BoundingBox.Y;
+                                    nextY = playerTransform.LocalPosition.Y + playerDescriptor.BoundingBox.Y;
                                 }
                             }
                         }
@@ -271,13 +270,13 @@ namespace BlastersGame.Services
                 }
             }
 
-            transformComponent.LocalPosition = new Vector2(nextX - spriteDescriptor.BoundingBox.X, nextY - spriteDescriptor.BoundingBox.Y);
+            playerTransform.LocalPosition = new Vector2(nextX - playerDescriptor.BoundingBox.X, nextY - playerDescriptor.BoundingBox.Y);
 
-            float transformX = transformComponent.LocalPosition.X;
-            float transformY = transformComponent.LocalPosition.Y;
+            float transformX = playerTransform.LocalPosition.X;
+            float transformY = playerTransform.LocalPosition.Y;
 
-            float offsetX = spriteDescriptor.BoundingBox.Left + spriteDescriptor.BoundingBox.Width / 2;
-            float offsetY = spriteDescriptor.BoundingBox.Bottom;
+            float offsetX = playerDescriptor.BoundingBox.Left + playerDescriptor.BoundingBox.Width / 2;
+            float offsetY = playerDescriptor.BoundingBox.Bottom;
 
             transformX = Math.Max(transformX - 319 + offsetX, 0);
             transformX = Math.Min(transformX, ServiceManager.Map.WorldSizePixels.X / 2 - 638);
@@ -288,29 +287,29 @@ namespace BlastersGame.Services
             lastTransformVector = new Vector2(transformX, transformY);
             ServiceManager.Camera.Move(lastTransformVector);
 
-            if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
+            if (playerTransform.Velocity.X != playerTransform.Velocity.Y)
             {
-                if (transformComponent.Velocity.X < 0)
-                    transformComponent.DirectionalCache = DirectionalCache.Left;
+                if (playerTransform.Velocity.X < 0)
+                    playerTransform.DirectionalCache = DirectionalCache.Left;
                 
-                if (transformComponent.Velocity.X > 0)
-                    transformComponent.DirectionalCache = DirectionalCache.Right;
+                if (playerTransform.Velocity.X > 0)
+                    playerTransform.DirectionalCache = DirectionalCache.Right;
                 
-                if (transformComponent.Velocity.Y > 0)
-                    transformComponent.DirectionalCache = DirectionalCache.Down;
+                if (playerTransform.Velocity.Y > 0)
+                    playerTransform.DirectionalCache = DirectionalCache.Down;
                 
-                if (transformComponent.Velocity.Y < 0)
-                    transformComponent.DirectionalCache = DirectionalCache.Up;
+                if (playerTransform.Velocity.Y < 0)
+                    playerTransform.DirectionalCache = DirectionalCache.Up;
             }
 
-            var directionalChange = (transformComponent.Velocity != transformComponent.LastVelocity &&
-                                     transformComponent.Velocity != Vector2.Zero);
+            var directionalChange = (playerTransform.Velocity != playerTransform.LastVelocity &&
+                                     playerTransform.Velocity != Vector2.Zero);
             directionalChange = false;
 
-            if ((_lastReaction > MovementRate && transformComponent.Velocity != Vector2.Zero) ||  directionalChange)
+            if ((_lastReaction > MovementRate && playerTransform.Velocity != Vector2.Zero) ||  directionalChange)
             {
                 // Alert the server out this change in events if needed
-                var packet = new NotifyMovementPacket(transformComponent.Velocity, transformComponent.LocalPosition);
+                var packet = new NotifyMovementPacket(playerTransform.Velocity, playerTransform.LocalPosition);
                 NetworkManager.Instance.SendPacket(packet);
 
                 // Reset reaction timer
