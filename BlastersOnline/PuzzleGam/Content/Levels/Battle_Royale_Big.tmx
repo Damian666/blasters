@@ -44,6 +44,11 @@
     <property name="Destoryable" value="1"/>
    </properties>
   </tile>
+  <tile id="15">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
   <tile id="16">
    <properties>
     <property name="Blocked" value="1"/>
@@ -51,6 +56,11 @@
    </properties>
   </tile>
   <tile id="17">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
+  <tile id="23">
    <properties>
     <property name="Blocked" value="1"/>
    </properties>
@@ -65,12 +75,47 @@
     <property name="Blocked" value="1"/>
    </properties>
   </tile>
+  <tile id="31">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
   <tile id="35">
    <properties>
     <property name="Blocked" value="1"/>
    </properties>
   </tile>
   <tile id="37">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="Blocked" value="1"/>
+   </properties>
+  </tile>
+  <tile id="48">
    <properties>
     <property name="Blocked" value="1"/>
    </properties>
@@ -83,7 +128,7 @@
  </layer>
  <layer name="Blocks" width="29" height="21">
   <data encoding="base64" compression="zlib">
-   eJzFlclqBDEMRHXtzU1y64Rchvn/b0wCLnhTKZG5TYORXLJs7V31mm+Za4D/XcfPWrHfJq2JFzA/4/cs0KX+ZTj5O/bD5MuUu47v1wYfAZf9K7AbZGtzXu9c4Z29HmMh+VnZb73tb7kfnq+98TPpup3y4ZiUtskWv/PW2M8aIT2a813uaGNXH5IpR3s4I1wxeJ90rRwz+iqbGb8j6HiOlJt0ZtSjfV0dPIu5PMWzk3vvbeAVB+WTdSzM6+It6LveMN3kxxf2bqPwYdhe/8fnM8jSHCCve1PvO93qb2/Jx9PuZnwdo54+5uZszns+Or6CP5yl9NfzlGaubLvqsVcUD69B3bs1MqecHSleaSZ0+WJ+OLuJdXOZtnB20Gfv+/T/6Sjj92zPi5feB7BhMvqb5pL0WWvsD/Y9c+f/OPYO7+jmR+Jf9X0DrmIN9g==
+   eJy9lslOxDAMhn1tmoblRAeNBCMuLBfe/+VIpVh8+bGB00Sy7DjxHrt9NrO3Du9XgI8Otx1eOywDGugDtg4F+3VgG3wDT+8U0eP0w7Dp8jt0mtAv2Dc5X8a5yui+wCb5Lbjv/hfwLjgryX23s4PvNqvN+fHzG4vjdttqq8hdrVdN4lTZKO8ewzYwfWMtuS4SJ3VR1vFmcbxZ7ZhLlaPNxb5rVCVGXw28e9ypuKP5N/jMN7QFMhH+z9mxsncQ5TbrE54zJuexd5gb7b3V5v5kP/Mda4/7ugNdErkmslGcZ/irPhp0cFX7Oz+P2LvNaA6Qdr2et2gGOF5tfreOvd8ZJ/Nr9jOf+k5W0NqfkbzGmc0E53OWarxLck99223uFc9H1A/F5m+HxkLM2RHlK5oJWZ1YH85u8rK5TF84b9lT+p3Suf0b3i332+monoz3BF6TM8ar+t3vk81vrdlcT9fH2uk3jr1D3dn8iOjD5qdd93/oqcMXBoUcVw==
   </data>
  </layer>
  <layer name="Beams" width="29" height="21">

@@ -83,7 +83,7 @@
  </layer>
  <layer name="Blocks" width="19" height="17">
   <data encoding="base64" compression="zlib">
-   eJytUkEOwzAIy7XJksNuabXLVPX/T2yRQLMsN9mhSChADbhASs/K4trADjXJ/haPZX8r4QLboS73GcWxF8cb2F/wF/dn+S/BVXHJ4nsmHOdgj1Fthatgx9x2kWuzPwR2xos5jeIF7Pjn2Hnchsnn0velG/Tl25jxKiJ2F8cZRa1OGN4b1kHsjNchOFjtXWCxp+XgjO56qHvjPKyLd7+m396a+6ruPzb66tZMOvXHHeNdBN9KOL4H3tETcgJ93QYp
+   eJytVMsKwjAQ3GuaB+LJKoJKEcST//9zJpDByXbTeOjCkGTMTvZV7yLy3gGHjFeGq0i0B4pNdfWVm+oa6d6pauGukP9DnXs83oIW80law9kpXr8PraBy0jFa/vgd+VpxsYWB9kz3oBWJL7Z0fH1dn8YbW3HpmLZ4L20fnfx6jtkods04ZlwoBj0bo7i8wfX4ONASWffN0pk7caH+qK32hfZi8NAqPlwj2D/zBj/rG9JzHzq8U3urXtif1VnznH+SNkf0mOcC8Ubyd7KeB9TrI/v8f90yvkPgD/4=
   </data>
  </layer>
  <layer name="Beams" width="19" height="17">
@@ -91,7 +91,7 @@
    <property name="Fringed" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgF1AAiOMTFyDBLBoe4HBlm0QKIotEDDXCFMa44wQdwhTGuOBkFwwcAAKzSAPM=
+   eJxjYBgFlAIRAvJiJJglQ0BejgSzaAVE0eiBBITCllDcIANCYUsobkbB0AYArNIA8w==
   </data>
  </layer>
  <objectgroup name="PlayerSpawn" width="19" height="17">
