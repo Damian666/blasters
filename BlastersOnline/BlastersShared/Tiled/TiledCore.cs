@@ -77,7 +77,7 @@ namespace TiledSharp
             
             foreach (var p in xmlProp.Elements("property"))
             {
-                var pname = p.Attribute("name").Value;
+                var pname = p.Attribute("name").Value.ToLower();
                 var pval = p.Attribute("value").Value.ToLower();
                 Add(pname, pval);
             }

@@ -100,7 +100,6 @@ namespace BlastersGame.Services
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //return;
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
             
