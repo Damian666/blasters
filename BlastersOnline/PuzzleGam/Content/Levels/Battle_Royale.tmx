@@ -1,91 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="24" height="32" tilewidth="32" tileheight="32">
- <properties>
-  <property name="DeathType" value="0"/>
- </properties>
- <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32">
-  <image source="Tileset.png" width="320" height="192"/>
-  <tile id="6">
-   <properties>
-    <property name="Blocked" value="1"/>
-    <property name="Destroyable" value="StandardBlock"/>
-   </properties>
-  </tile>
-  <tile id="7">
-   <properties>
-    <property name="blocked" value="1"/>
-   </properties>
-  </tile>
+<map version="1.0" orientation="orthogonal" width="29" height="21" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Tileset_Forest" tilewidth="32" tileheight="32">
+  <image source="Tileset_Forest.png" width="256" height="256"/>
   <tile id="8">
    <properties>
-    <property name="blocked" value="1"/>
+    <property name="Blocked" value="1"/>
+    <property name="Destroyable" value="1"/>
    </properties>
   </tile>
   <tile id="9">
    <properties>
-    <property name="blocked" value="1"/>
+    <property name="Blocked" value="1"/>
+    <property name="Destroyable" value="1"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Blocked" value="1"/>
+    <property name="Destroyable" value="1"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Blocked" value="1"/>
+    <property name="Destroyable" value="1"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="Blocked" value="1"/>
+    <property name="Destroyable" value="1"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="Blocked" value="1"/>
+    <property name="Destroyable" value="1"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="Blocked" value="1"/>
+    <property name="Destoryable" value="1"/>
    </properties>
   </tile>
   <tile id="16">
    <properties>
-    <property name="blocked" value="1"/>
+    <property name="Blocked" value="1"/>
+    <property name="Destroyable" value="1"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="Blocked" value="1"/>
    </properties>
   </tile>
   <tile id="26">
    <properties>
-    <property name="blocked" value="1"/>
-   </properties>
-  </tile>
-  <tile id="27">
-   <properties>
-    <property name="blocked" value="1"/>
+    <property name="Blocked" value="1"/>
    </properties>
   </tile>
   <tile id="28">
    <properties>
-    <property name="blocked" value="1"/>
+    <property name="Blocked" value="1"/>
    </properties>
   </tile>
-  <tile id="36">
+  <tile id="35">
    <properties>
-    <property name="blocked" value="1"/>
+    <property name="Blocked" value="1"/>
    </properties>
   </tile>
   <tile id="37">
    <properties>
-    <property name="blocked" value="1"/>
-   </properties>
-  </tile>
-  <tile id="38">
-   <properties>
-    <property name="blocked" value="1"/>
-   </properties>
-  </tile>
-  <tile id="46">
-   <properties>
-    <property name="blocked" value="1"/>
-   </properties>
-  </tile>
-  <tile id="56">
-   <properties>
-    <property name="blocked" value="1"/>
+    <property name="Blocked" value="1"/>
    </properties>
   </tile>
  </tileset>
- <layer name="Ground" width="24" height="32">
+ <layer name="Ground" width="29" height="21">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYAJiZiBmAWJWNDa6HCl8NiDmBmJxGmEBIBalsfnyNDRfCog1aWi+Co3dr0dj94+G/2j4Uxr+tCwf9GgcPgI0Dh8pGrtfhcbuHw3/gQ3/oe7+4VC+jcbv8I5fYyA2AWJTIDYDYnMK+chsCyAGALnESA4=
+   eJztw0ENAAAMA6Grf9NzsRckrJqqqq8PYG0CYg==
   </data>
  </layer>
- <layer name="Mask 1" width="24" height="32">
+ <layer name="Blocks" width="29" height="21">
   <data encoding="base64" compression="zlib">
-   eJztlsEKgCAMhnczu5ndPHv23Pu/WBMmjBFSuXUIf/iYSM2/OWgBABbEK7ISAUnIhkRFdqLmzogjNOQYNXe52IeXUb5f6AwQz4545+vm34Gu/0bNnQY999Tu96nPu5Hfr4V4fSz88/pYSPa/dpz909fsn9k/I5r98//+yWxPQ/z//sX8w+s/+h1OrOV8qOVf1sdifvaU+wCb+TlS7hO/ERMa
+   eJzFlclqBDEMRHXtzU1y64Rchvn/b0wCLnhTKZG5TYORXLJs7V31mm+Za4D/XcfPWrHfJq2JFzA/4/cs0KX+ZTj5O/bD5MuUu47v1wYfAZf9K7AbZGtzXu9c4Z29HmMh+VnZb73tb7kfnq+98TPpup3y4ZiUtskWv/PW2M8aIT2a813uaGNXH5IpR3s4I1wxeJ90rRwz+iqbGb8j6HiOlJt0ZtSjfV0dPIu5PMWzk3vvbeAVB+WTdSzM6+It6LveMN3kxxf2bqPwYdhe/8fnM8jSHCCve1PvO93qb2/Jx9PuZnwdo54+5uZszns+Or6CP5yl9NfzlGaubLvqsVcUD69B3bs1MqecHSleaSZ0+WJ+OLuJdXOZtnB20Gfv+/T/6Sjj92zPi5feB7BhMvqb5pL0WWvsD/Y9c+f/OPYO7+jmR+Jf9X0DrmIN9g==
   </data>
  </layer>
- <objectgroup name="MapObjects" width="24" height="32">
-  <object name="PlayerSpawn" type="PlayerSpawn" x="160" y="160" width="32" height="32"/>
-  <object name="PlayerSpawn" type="PlayerSpawn" x="608" y="768" width="32" height="32"/>
-  <object name="PlayerSpawn" type="PlayerSpawn" x="96" y="768" width="32" height="32"/>
-  <object name="PlayerSpawn" type="PlayerSpawn" x="544" y="224" width="32" height="32"/>
+ <layer name="Beams" width="29" height="21">
+  <properties>
+   <property name="Fringed" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYCAOiBCQFyPSHFKADAF5ORrYOQpGwSgYWCBKI3OFaWQutQGxZSmhMpkUQGxZSqhMHgWjYBSQBgC35wDx
+  </data>
+ </layer>
+ <objectgroup name="PlayerSpawn" width="29" height="21">
+  <object name="Player 1" type="PlayerSpawn" x="64" y="544" width="64" height="64"/>
+  <object name="Player 2" type="PlayerSpawn" x="800" y="544" width="64" height="64"/>
+  <object name="Player 3" type="PlayerSpawn" x="800" y="64" width="64" height="64"/>
+  <object name="Player 4" type="PlayerSpawn" x="64" y="64" width="64" height="64"/>
  </objectgroup>
 </map>
