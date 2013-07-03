@@ -293,7 +293,9 @@
     <None Include="Content\Levels\Battle_Royale.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Levels\Battle_Royale_Big.tmx" />
+    <None Include="Content\Levels\Battle_Royale_Big.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ReferenceDependencies\awesomium_process">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
