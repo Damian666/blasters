@@ -36,6 +36,21 @@ namespace BlastersShared.GameSession
         public List<User> Users { get; set; }
 
 
+        /// <summary>
+        /// Returns the leader of this room. This is the person who is authornized to make configuraiton changes
+        /// via the network and control various settings. This is the first person who entered the room. Typically,
+        /// that is the person who created the room. However, if this person disconnects it becomes the 2nd. 
+        /// </summary>
+        public User RoomLeader
+        {
+            get
+            {
+                if (Users.Count == 0)
+                    return null;
+                else
+                    return Users[0];
+            }
+        }
 
         /// <summary>
         /// A unique ID to this session, automatically created and generated during construction

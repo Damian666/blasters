@@ -20,12 +20,21 @@ namespace BlastersShared.Game
         public UserSessionConfig(string skin)
         {
             Skin = skin;
+            TeamID = 0;
+            Ready = false;
         }
 
         /// <summary>
         /// A chosen skin for a player; this is variable per match and thus is sent down as a seperate object.
         /// </summary>
         public string Skin { get; set;  }
+
+        /// <summary>
+        /// The team ID this user is on
+        /// </summary>
+        public byte TeamID { get; set; }
+
+        public bool Ready { get; set; }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 using BlastersShared;
@@ -156,6 +157,29 @@ namespace LobbyServer
             // Register network callbacks
             PacketService.RegisterPacket<SessionJoinRequestPacket>(ProcessSessionJoinRequest);
             PacketService.RegisterPacket<SessionEndedLobbyPacket>(ProcessSessionEnded);
+            PacketService.RegisterPacket<SessionCreateRequestPacket>(ProcessSessionCreate);
+
+        }
+
+        private void ProcessSessionCreate(SessionCreateRequestPacket obj)
+        {
+            // Retrieve the user that wants to enter
+            var user = ServiceContainer.Users[obj.Sender];
+
+            if(user.CurrentSession != null)
+                throw new AuthenticationException("The user requesting this is not authorized to create a session. They are currently in one.");
+
+            // Generate a new session
+            var generatedSession = CreateSession();
+            Sessions.Add(generatedSession);
+
+            // Update all the sessions
+            foreach (var x in ServiceContainer.Users.Values)
+                SendUserSessions(x);
+
+            // Add the user into the session
+            AddToSession(user, generatedSession);
+
 
         }
 
