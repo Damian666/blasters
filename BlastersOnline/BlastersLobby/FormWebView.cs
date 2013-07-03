@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppServer.Network;
 using BlastersLobby.Views;
+using BlastersShared.Audio;
 using BlastersShared.Network.Packets.ClientLobby;
 
 namespace BlastersLobby
@@ -31,7 +32,9 @@ namespace BlastersLobby
 
         private void FormWebView_Load(object sender, EventArgs e)
         {
-
+            // Start playing music
+            AudioManager audioManager = new AudioManager();
+            audioManager.Play(@"Content/Audio/Music/lobby.mp3");
 
 
             // Initalize our flow controller

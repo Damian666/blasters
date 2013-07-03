@@ -60,7 +60,7 @@ namespace BlastersLobby.Views
             NetworkManager.Instance.SendPacket(packet);
 
             // Wait a moment
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
 
             // Change the view
             FlowController.ChangeView(new RoomSelectView());

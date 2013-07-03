@@ -54,6 +54,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Graphics.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio">
+      <HintPath>..\..\References\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -63,6 +66,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="Audio\csogg\Buffer.cs" />
+    <Compile Include="Audio\csogg\Packet.cs" />
+    <Compile Include="Audio\csogg\Page.cs" />
+    <Compile Include="Audio\csogg\StreamState.cs" />
+    <Compile Include="Audio\csogg\SyncState.cs" />
+    <Compile Include="Audio\csvorbis\AllocChain.cs" />
+    <Compile Include="Audio\csvorbis\Block.cs" />
+    <Compile Include="Audio\csvorbis\CodeBook.cs" />
+    <Compile Include="Audio\csvorbis\Comment.cs" />
+    <Compile Include="Audio\csvorbis\csorbisException.cs" />
+    <Compile Include="Audio\csvorbis\Drft.cs" />
+    <Compile Include="Audio\csvorbis\DspState.cs" />
+    <Compile Include="Audio\csvorbis\EncodeAuxNearestMatch.cs" />
+    <Compile Include="Audio\csvorbis\EncodeAuxThreshMatch.cs" />
+    <Compile Include="Audio\csvorbis\Floor0.cs" />
+    <Compile Include="Audio\csvorbis\Floor1.cs" />
+    <Compile Include="Audio\csvorbis\FuncFloor.cs" />
+    <Compile Include="Audio\csvorbis\FuncMapping.cs" />
+    <Compile Include="Audio\csvorbis\FuncResidue.cs" />
+    <Compile Include="Audio\csvorbis\FuncTime.cs" />
+    <Compile Include="Audio\csvorbis\Info.cs" />
+    <Compile Include="Audio\csvorbis\InfoMode.cs" />
+    <Compile Include="Audio\csvorbis\Lookup.cs" />
+    <Compile Include="Audio\csvorbis\Lpc.cs" />
+    <Compile Include="Audio\csvorbis\Lsp.cs" />
+    <Compile Include="Audio\csvorbis\Mapping0.cs" />
+    <Compile Include="Audio\csvorbis\Mdct.cs" />
+    <Compile Include="Audio\csvorbis\PsyInfo.cs" />
+    <Compile Include="Audio\csvorbis\PsyLook.cs" />
+    <Compile Include="Audio\csvorbis\Residue0.cs" />
+    <Compile Include="Audio\csvorbis\Residue1.cs" />
+    <Compile Include="Audio\csvorbis\Residue2.cs" />
+    <Compile Include="Audio\csvorbis\StaticCodeBook.cs" />
+    <Compile Include="Audio\csvorbis\Time0.cs" />
+    <Compile Include="Audio\csvorbis\VorbisFile.cs" />
+    <Compile Include="Audio\LoopStream.cs" />
+    <Compile Include="Audio\OggFileReader.cs" />
     <Compile Include="GameSession\GameSession.cs" />
     <Compile Include="GameSession\GameSessionConfig.cs" />
     <Compile Include="GameSession\GameSessionType.cs" />
@@ -124,6 +165,10 @@
     </Content>
     <Content Include="Tiled\zlib\License.txt" />
     <Content Include="Tiled\zlib\License.zlib.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Audio\csogg\ChangeLog" />
+    <None Include="Audio\csvorbis\ChangeLog" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
