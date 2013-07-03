@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="19" height="17" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="29" height="21" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="Tileset_Forest" tilewidth="32" tileheight="32">
   <image source="Tileset_Forest.png" width="256" height="256"/>
   <tile id="8">
@@ -76,28 +76,28 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Ground" width="19" height="17">
+ <layer name="Ground" width="29" height="21">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYBzFo3gUj+IRjgE20QFE
+   eJztw0ENAAAMA6Grf9NzsRckrJqqqq8PYG0CYg==
   </data>
  </layer>
- <layer name="Blocks" width="19" height="17">
+ <layer name="Blocks" width="29" height="21">
   <data encoding="base64" compression="zlib">
-   eJytUkEOwzAIy7XJksNuabXLVPX/T2yRQLMsN9mhSChADbhASs/K4trADjXJ/haPZX8r4QLboS73GcWxF8cb2F/wF/dn+S/BVXHJ4nsmHOdgj1Fthatgx9x2kWuzPwR2xos5jeIF7Pjn2Hnchsnn0velG/Tl25jxKiJ2F8cZRa1OGN4b1kHsjNchOFjtXWCxp+XgjO56qHvjPKyLd7+m396a+6ruPzb66tZMOvXHHeNdBN9KOL4H3tETcgJ93QYp
+   eJzFlclqBDEMRHXtzU1y64Rchvn/b0wCLnhTKZG5TYORXLJs7V31mm+Za4D/XcfPWrHfJq2JFzA/4/cs0KX+ZTj5O/bD5MuUu47v1wYfAZf9K7AbZGtzXu9c4Z29HmMh+VnZb73tb7kfnq+98TPpup3y4ZiUtskWv/PW2M8aIT2a813uaGNXH5IpR3s4I1wxeJ90rRwz+iqbGb8j6HiOlJt0ZtSjfV0dPIu5PMWzk3vvbeAVB+WTdSzM6+It6LveMN3kxxf2bqPwYdhe/8fnM8jSHCCve1PvO93qb2/Jx9PuZnwdo54+5uZszns+Or6CP5yl9NfzlGaubLvqsVcUD69B3bs1MqecHSleaSZ0+WJ+OLuJdXOZtnB20Gfv+/T/6Sjj92zPi5feB7BhMvqb5pL0WWvsD/Y9c+f/OPYO7+jmR+Jf9X0DrmIN9g==
   </data>
  </layer>
- <layer name="Beams" width="19" height="17">
+ <layer name="Beams" width="29" height="21">
   <properties>
    <property name="Fringed" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgF1AAiOMTFyDBLBoe4HBlm0QKIotEDDXCFMa44wQdwhTGuOBkFwwcAAKzSAPM=
+   eJxjYCAOiBCQFyPSHFKADAF5ORrYOQpGwSgYWCBKI3OFaWQutQGxZSmhMpkUQGxZSqhMHgWjYBSQBgC35wDx
   </data>
  </layer>
- <objectgroup name="PlayerSpawn" width="19" height="17">
-  <object name="Player 1" type="PlayerSpawn" x="64" y="416" width="64" height="64"/>
-  <object name="Player 2" type="PlayerSpawn" x="480" y="416" width="64" height="64"/>
-  <object name="Player 3" type="PlayerSpawn" x="480" y="64" width="64" height="64"/>
+ <objectgroup name="PlayerSpawn" width="29" height="21">
+  <object name="Player 1" type="PlayerSpawn" x="64" y="544" width="64" height="64"/>
+  <object name="Player 2" type="PlayerSpawn" x="800" y="544" width="64" height="64"/>
+  <object name="Player 3" type="PlayerSpawn" x="800" y="64" width="64" height="64"/>
   <object name="Player 4" type="PlayerSpawn" x="64" y="64" width="64" height="64"/>
  </objectgroup>
 </map>
