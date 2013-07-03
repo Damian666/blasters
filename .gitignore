@@ -14,7 +14,6 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
-DevClient/*
 DevClient/
 BlastersOnline/DevClient/
 
