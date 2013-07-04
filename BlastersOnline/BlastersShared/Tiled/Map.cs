@@ -19,6 +19,19 @@ namespace TiledSharp
         public TmxList Layers {get; private set;}
         public TmxList ObjectGroups {get; private set;}
         public PropertyDict Properties {get; private set;}
+
+
+        /// <summary>
+        /// Retrieves a given value from a property if it exists, null otherwise.
+        /// </summary>
+        /// <param name="key">The key to search for</param>
+        /// <returns></returns>
+        public string RetrieveProperty(string key)
+        {
+            if (Properties.ContainsKey(key))
+                return Properties[key];
+            return null;
+        }
         
         public TmxMap(string filename)
         {

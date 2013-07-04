@@ -18,8 +18,9 @@ namespace AppServer.Services.Simulation.Services
     public class PowerupService : SimulationService
     {
         private double _lastPowerupTime;
+
         private double _spawnTime = 15f;
-        private List<Type> _powerUpTypes;  
+        private List<Type> _powerUpTypes;
 
         // This is our lookup of types
 
@@ -29,8 +30,9 @@ namespace AppServer.Services.Simulation.Services
             _lastPowerupTime = _spawnTime;
 
             // Generate a list of types that can be used
-            _powerUpTypes =  FindDerivedTypes(GetType().Assembly, typeof(PowerUpComponent)).ToList();
+            _powerUpTypes = FindDerivedTypes(GetType().Assembly, typeof(PowerUpComponent)).ToList();
 
+   
 
         }
 
@@ -46,8 +48,6 @@ namespace AppServer.Services.Simulation.Services
             {
                 // Reset
                 _lastPowerupTime = _spawnTime;
-
-                _spawnTime = 2f;
 
                 // Get a random object
                 Random rand = new Random();
@@ -100,7 +100,17 @@ namespace AppServer.Services.Simulation.Services
 
         public override void Initialize()
         {
+            // Retreieve the spawn time value off the map
+            var spawnTimeString = ServiceManager.Map.RetrieveProperty("spawntime");
 
+            if (spawnTimeString != null)
+            {
+                int parsedTime = 15;
+                var result = int.TryParse(spawnTimeString, out parsedTime);
+
+                if (result)
+                    _spawnTime = parsedTime;
+            }
         }
 
 

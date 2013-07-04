@@ -64,8 +64,8 @@ namespace BlastersGame.Services
 
             var mapName = "Untitled Map";
 
-            if (properties.ContainsKey("Name"))
-                mapName = properties["Name"];
+            if (properties.ContainsKey("name"))
+                mapName = properties["name"];
 
             _awesomiumUi.CallJavascript("document.getElementById(\"room\").innerHTML = 'The Elite'");
             _awesomiumUi.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + mapName + "'");
