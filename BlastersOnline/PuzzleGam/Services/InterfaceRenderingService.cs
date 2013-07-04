@@ -60,8 +60,15 @@ namespace BlastersGame.Services
 
         private void OnDocumentCompleted()
         {
+            var properties = ServiceManager.Map.TmxMap.Properties;
+
+            var mapName = "Untitled Map";
+
+            if (properties.ContainsKey("Name"))
+                mapName = properties["Name"];
+
             _awesomiumUi.CallJavascript("document.getElementById(\"room\").innerHTML = 'The Elite'");
-            _awesomiumUi.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + ServiceManager.Map.LevelID + "'");
+            _awesomiumUi.CallJavascript("document.getElementById(\"gamemap\").innerHTML = '" + mapName + "'");
 
             string[] names = { "", "", "", "Seth", "Robbie", "Vaughan", "Justin", "Rory" };
             SetSidebarInfo(names);
