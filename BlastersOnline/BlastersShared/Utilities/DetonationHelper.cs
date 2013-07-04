@@ -35,21 +35,12 @@ namespace BlastersShared.Utilities
                                                           (int)transformComponent.LocalPosition.Y, BLAST_WIDTH, 32);
 
 
-            // Construct the range on the blasts
-            blastUpRectangle.Height += explosiveComponent.Range;
-            blastLeftRectangle.Width += explosiveComponent.Range;
 
-            blastUpRectangle.Y -= explosiveComponent.Range;
-            blastLeftRectangle.X = (int) transformComponent.LocalPosition.X;
-
-
-            blastDownRectangle.Height += explosiveComponent.Range;
-            blastRightRectangle.Width += explosiveComponent.Range;
 
 
             // Trim left
             var count = -1;
-            for (int i = 0;  i > -(explosiveComponent.Range/32); i--)
+            for (int i = 0;  i >= -(explosiveComponent.Range/32); i--)
             {
                 var x = transformComponent.LocalPosition.X + (32 * i);
                 var y = transformComponent.LocalPosition.Y;
@@ -76,7 +67,7 @@ namespace BlastersShared.Utilities
             // Trim the right
             count = -1;
 
-            for (int i = 0; i < (explosiveComponent.Range / 32); i++)
+            for (int i = 0; i <= (explosiveComponent.Range / 32); i++)
             {
                 var x = transformComponent.LocalPosition.X + (32 * i);
                 var y = transformComponent.LocalPosition.Y;
@@ -100,7 +91,7 @@ namespace BlastersShared.Utilities
             // Trim the bottom
             count = -1;
 
-            for (int i = 0; i < (explosiveComponent.Range / 32); i++)
+            for (int i = 0; i <= (explosiveComponent.Range / 32); i++)
             {
                 var x = transformComponent.LocalPosition.X;
                 var y = transformComponent.LocalPosition.Y + (32 * i);
@@ -124,7 +115,7 @@ namespace BlastersShared.Utilities
 
             count = -1;
 
-            for (int i = 0; i > -(explosiveComponent.Range / 32); i--)
+            for (int i = 0; i >= -(explosiveComponent.Range / 32); i--)
             {
                 var x = transformComponent.LocalPosition.X;
                 var y = transformComponent.LocalPosition.Y + (32 * i);
@@ -170,9 +161,9 @@ namespace BlastersShared.Utilities
             var transform = (TransformComponent) entity.GetComponent(typeof (TransformComponent));
 
             var upTile = MapUtility.GetSolidBlock(map, rectangles[0].X/32, rectangles[0].Y/32 - 1);
-            var downTile = MapUtility.GetSolidBlock(map, rectangles[1].X/32, rectangles[1].Y/32 + 1);
+            var downTile = MapUtility.GetSolidBlock(map, rectangles[1].X/32, (rectangles[1].Y + rectangles[1].Height - 32) /32 + 1);
             var leftTile = MapUtility.GetSolidBlock(map, rectangles[2].X / 32 - 1, rectangles[1].Y / 32);
-            var rightTile = MapUtility.GetSolidBlock(map, rectangles[3].X / 32 + 1, rectangles[1].Y / 32);
+            var rightTile = MapUtility.GetSolidBlock(map, (rectangles[3].X + rectangles[3].Width - 32)  / 32 + 1, rectangles[1].Y / 32);
 
             List<TmxLayerTile> _layerTiles = new List<TmxLayerTile>();
 

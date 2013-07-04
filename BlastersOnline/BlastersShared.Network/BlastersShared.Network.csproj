@@ -65,6 +65,7 @@
     <Compile Include="Packets\ChatPacket.cs" />
     <Compile Include="Packets\ClientLobby\SessionCreateRequestPacket.cs" />
     <Compile Include="Packets\ClientLobby\SessionJoinRequestPacket.cs" />
+    <Compile Include="Packets\ClientLobby\SessionLeaveRequest.cs" />
     <Compile Include="Packets\ClientLobby\SessionListRequestPacket.cs" />
     <Compile Include="Packets\ClientLobby\LoginRequestPacket.cs" />
     <Compile Include="Packets\Client\NotifyLoadedGamePacket.cs" />

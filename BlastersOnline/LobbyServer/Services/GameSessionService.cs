@@ -158,7 +158,13 @@ namespace LobbyServer
             PacketService.RegisterPacket<SessionJoinRequestPacket>(ProcessSessionJoinRequest);
             PacketService.RegisterPacket<SessionEndedLobbyPacket>(ProcessSessionEnded);
             PacketService.RegisterPacket<SessionCreateRequestPacket>(ProcessSessionCreate);
+            PacketService.RegisterPacket<SessionLeaveRequest>(ProcessSessionLeave);
 
+        }
+
+        private void ProcessSessionLeave(SessionLeaveRequest obj)
+        {
+            throw new NotImplementedException();
         }
 
         private void ProcessSessionCreate(SessionCreateRequestPacket obj)

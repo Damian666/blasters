@@ -77,7 +77,7 @@ namespace AppServer.Services.Simulation.Services
                     if (toDestroy)
                     {
                         Logger.Instance.Log(Level.Debug, "{} has been bombed! TODO: Do something about it...");
-                        ServiceManager.RemoveEntity(player);
+                        //ServiceManager.RemoveEntity(player);
                     }
 
 

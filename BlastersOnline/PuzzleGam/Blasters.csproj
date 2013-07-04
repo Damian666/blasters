@@ -188,6 +188,7 @@
     </Content>
     <Content Include="ReferenceDependencies\Awesomium.Core.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="ReferenceDependencies\awesomium.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
