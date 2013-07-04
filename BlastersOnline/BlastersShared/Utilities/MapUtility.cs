@@ -31,14 +31,13 @@ namespace BlastersShared.Utilities
                 return true;
 
 
-
             var tileset = (TmxTileset)map.Tilesets[0];
 
             foreach (TmxLayer layer in map.Layers)
             {
                 PropertyDict dict;
                 var tile = layer.Tiles[gid];
-                tileset.Tiles.TryGetValue((int)tile.GID, out dict);
+                tileset.Tiles.TryGetValue((int)tile.GID - 1, out dict);
                 if (dict != null && dict.ContainsKey("blocked"))
                     return true;
             }

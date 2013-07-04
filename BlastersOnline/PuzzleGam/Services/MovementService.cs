@@ -7,6 +7,7 @@ using BlastersShared.Game.Components;
 using BlastersShared.Game.Entities;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.Client;
+using BlastersShared.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BlastersGame;
@@ -127,7 +128,7 @@ namespace BlastersGame.Services
                     
 
                     // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
-                    if (tile.GID == 7)
+                    if (MapUtility.IsSolid(ServiceManager.Map.TmxMap, tile.X, tile.Y))
                     {
                         Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
                         spriteBatch.DrawRectangle(tileRect, Color.Red, 2f);
@@ -241,7 +242,7 @@ namespace BlastersGame.Services
 
 
                             // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
-                            if (dict != null && dict.ContainsKey("blocked"))
+                            if(MapUtility.IsSolid(ServiceManager.Map.TmxMap, tile.X, tile.Y))
                             {
                                 Rectangle tileRect = new Rectangle(tile.X * 32, tile.Y * 32, 32, 32);
 
