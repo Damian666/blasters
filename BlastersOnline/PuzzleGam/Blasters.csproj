@@ -123,7 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Levels\Tileset_Forest.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Blocks\StandardBlock.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -292,19 +292,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Levels\Battle_Royale.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Levels\Battle_Royale_Big.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Levels\Battle_Royale_Big_Test.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Levels\Battle_Royale_Test.tmx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Levels\Tileset_Forest.tsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReferenceDependencies\awesomium_process">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
