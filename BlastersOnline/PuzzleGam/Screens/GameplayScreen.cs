@@ -26,6 +26,7 @@ namespace BlastersGame.Screens
 
         private ServiceContainer _serviceContainer;
         private DebugService _debugService;
+        MapRenderingService _mapRenderingService;
 
         public GameplayScreen(SimulationState simulationState, ulong playerID)
         {
@@ -40,7 +41,8 @@ namespace BlastersGame.Screens
             _serviceContainer.Camera = new Camera2D(new Viewport(0, 0, 638, 566), (int)_serviceContainer.Map.WorldSizePixels.X, (int)_serviceContainer.Map.WorldSizePixels.Y, 1.0f);
             _serviceContainer.Camera.Move(new Vector2(319, 248));
 
-            var mapRenderingService = new MapRenderingService();
+ 
+            _mapRenderingService = new MapRenderingService();
             var spriteRenderingService = new SpriteRenderingService();
             var networkInputService = new NetworkInputService(_playerID);
             var explosionService = new ExplosionSpriteService();
@@ -52,7 +54,7 @@ namespace BlastersGame.Screens
             var interfaceRenderingService = new InterfaceRenderingService();
             _debugService = new DebugService();
 
-            _serviceContainer.AddService(mapRenderingService);
+            _serviceContainer.AddService(_mapRenderingService);
             _serviceContainer.AddService(spriteRenderingService);
             _serviceContainer.AddService(networkInputService);
             _serviceContainer.AddService(movementService);
@@ -81,6 +83,7 @@ namespace BlastersGame.Screens
             var spriteBatch = ScreenManager.SpriteBatch;
 
             _serviceContainer.Draw(spriteBatch);
+           _mapRenderingService.DrawAfter(spriteBatch);
 
             base.Draw(gameTime);
         }

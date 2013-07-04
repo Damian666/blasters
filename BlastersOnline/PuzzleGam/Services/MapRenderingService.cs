@@ -23,6 +23,10 @@ namespace BlastersGame.Services
             // Draw tiles
             foreach (TmxLayer layer in ServiceManager.Map.Layers)
             {
+
+                if(layer.Properties.ContainsKey("fringed"))
+                    continue;
+
                 foreach (var tile in layer.Tiles)
                 {
                     // Ignore empty tiles
@@ -39,6 +43,35 @@ namespace BlastersGame.Services
 
             spriteBatch.End();
         }
+
+        public void DrawAfter(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, ServiceManager.Camera.GetTransformation());
+
+            // Draw tiles
+            foreach (TmxLayer layer in ServiceManager.Map.Layers)
+            {
+
+                if (!layer.Properties.ContainsKey("fringed"))
+                    continue;
+
+                foreach (var tile in layer.Tiles)
+                {
+                    // Ignore empty tiles
+                    if (tile.GID < 1)
+                        continue;
+
+                    var tileset = _tilesets[tile.GID];
+                    spriteBatch.Draw(tileset.Texture,
+                        new Vector2(tile.X, tile.Y) * tileset.TileSize,
+                        tileset.GetTileRectangle(tile),
+                        Color.White);
+                }
+            }
+
+            spriteBatch.End();
+        }
+
 
         public override void Initialize()
         {
