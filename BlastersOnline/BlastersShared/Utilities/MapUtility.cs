@@ -68,7 +68,7 @@ namespace BlastersShared.Utilities
             {
                 PropertyDict dict;
                 var tile = layer.Tiles[gid];
-                tileset.Tiles.TryGetValue((int)tile.GID, out dict);
+                tileset.Tiles.TryGetValue((int)tile.GID - 1, out dict);
                 if (dict != null && dict.ContainsKey("destroyable"))
                     return tile;
             }
