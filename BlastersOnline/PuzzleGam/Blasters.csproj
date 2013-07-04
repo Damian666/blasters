@@ -297,10 +297,10 @@
     <None Include="Content\Levels\Battle_Royale_Big.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Levels\Test\Battle_Royale.tmx">
+    <None Include="Content\Levels\Battle_Royale_Big_Test.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Levels\Test\Battle_Royale_Big.tmx">
+    <None Include="Content\Levels\Battle_Royale_Test.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Levels\Tileset_Forest.tsx">
