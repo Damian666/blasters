@@ -9,7 +9,6 @@ namespace BlastersShared.Network.Packets.AppServer
 {
     public class MovementRecievedPacket : Packet
     {
-
          /// <summary>
         /// The velocity this entity is moving in at the current snapshot
         /// </summary>
@@ -44,10 +43,8 @@ namespace BlastersShared.Network.Packets.AppServer
             return netOutgoingMessage;
         }
 
-
         public new static Packet FromNetBuffer(NetIncomingMessage incomingMessage)
         {
-
             // Read values back in
             var velocity = new Vector2(incomingMessage.ReadFloat(), incomingMessage.ReadFloat());
             var location = new Vector2(incomingMessage.ReadFloat(), incomingMessage.ReadFloat());

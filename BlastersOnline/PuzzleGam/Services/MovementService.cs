@@ -46,6 +46,7 @@ namespace BlastersGame.Services
         {
             // Hook into networks events
             PacketService.RegisterPacket<MovementRecievedPacket>(MovementRecieved);
+            PacketService.RegisterPacket<PowerupRecievedPacket>(PowerupReceived);
 
             // Query for the players we don't want
             foreach (var entity in ServiceManager.Entities)
@@ -99,6 +100,11 @@ namespace BlastersGame.Services
             interpolator.ResetProgress(obj.Location);
         }
 
+        private void PowerupReceived(PowerupRecievedPacket obj)
+        {
+            
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
 
@@ -125,8 +131,6 @@ namespace BlastersGame.Services
             {
                 foreach (TmxLayerTile tile in layer.Tiles)
                 {
-                    
-
                     // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
                     if (MapUtility.IsSolid(ServiceManager.Map.TmxMap, tile.X, tile.Y))
                     {
@@ -166,8 +170,9 @@ namespace BlastersGame.Services
 
             // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
+
             if (playerMovementModifier != null)
-                movementBonus = playerMovementModifier.Bonus;
+                movementBonus += (float)playerMovementModifier.Amount;
 
             // Apply the multiplier to the velocity and move the position
             Vector2 nextPosition = playerTransform.LocalPosition;

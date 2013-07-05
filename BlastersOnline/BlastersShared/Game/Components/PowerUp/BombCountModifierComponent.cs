@@ -15,8 +15,6 @@ namespace BlastersShared.Game.Components.PowerUp
 
         }
 
-      
-
         /// <summary>
         /// The modifier for the maximum bomb count
         /// </summary>
@@ -29,7 +27,6 @@ namespace BlastersShared.Game.Components.PowerUp
         /// The current total amount of bombs that are in play
         /// </summary>
         public byte CurrentBombCount { get; set; }
-
 
         public override string SkinName
         {

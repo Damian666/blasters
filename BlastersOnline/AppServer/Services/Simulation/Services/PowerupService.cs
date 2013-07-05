@@ -4,9 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using AppServer.Network;
 using BlastersShared;
 using BlastersShared.Game.Components.PowerUp;
 using BlastersShared.Game.Entities;
+using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Services;
 using Microsoft.Xna.Framework;
 
@@ -23,7 +25,6 @@ namespace AppServer.Services.Simulation.Services
         private List<Type> _powerUpTypes;
 
         // This is our lookup of types
-
         public PowerupService()
         {
             // Set the current time to the spawn time
@@ -31,9 +32,6 @@ namespace AppServer.Services.Simulation.Services
 
             // Generate a list of types that can be used
             _powerUpTypes = FindDerivedTypes(GetType().Assembly, typeof(PowerUpComponent)).ToList();
-
-   
-
         }
 
         public IEnumerable<Type> FindDerivedTypes(Assembly assembly, Type baseType)
@@ -41,62 +39,59 @@ namespace AppServer.Services.Simulation.Services
             return assembly.GetTypes().Where(baseType.IsAssignableFrom);
         }
 
-
         public override void Update(double deltaTime)
         {
             if (_lastPowerupTime - _spawnTime > _spawnTime)
             {
                 // Reset
-                _lastPowerupTime = _spawnTime;
+                _lastPowerupTime = 15;
 
                 // Get a random object
-                Random rand = new Random();
-                var key = rand.Next(0, 4);
+                var rand = new Random();
+                var key = rand.Next(0, 5);
 
                 var x = rand.Next(0, 22);
                 var y = rand.Next(0, 22);
 
                 var location = new Vector2(x * 32, y * 32);
 
-
-
-
                 switch (key)
                 {
+                    // Gas Flask
                     case 0:
                         var xx = EntityFactory.CreateRangeModifierPowerupPackage(location);
                         ServiceManager.AddEntity(xx);
                         break;
+                    // Ultra Flask
                     case 1:
                         var yy = EntityFactory.CreateRangeModifierMaxPowerupPackage(location);
                         ServiceManager.AddEntity(yy);
                         break;
+                    // Extra Bomb
                     case 2:
                         var z = EntityFactory.CreateBombCountUpPackage(location);
                         ServiceManager.AddEntity(z);
                         break;
+                    // Bomb Bag
                     case 3:
                         var t = EntityFactory.CreateBombCountMaxPackage(location);
                         ServiceManager.AddEntity(t);
                         break;
-
+                    // Hermes Shoes
+                    case 4:
+                        var m = EntityFactory.CreateMovementModifierPackage(location);
+                        ServiceManager.AddEntity(m);
+                        break;
 
                     default:
                         throw new Exception("Attempted to create a powerup that was not handled - possible poweurp was inherited but not handled in PowerupService!");
-                        break;
                 }
 
-
-
             }
-
 
             _lastPowerupTime += deltaTime;
 
         }
-
-
-
 
         public override void Initialize()
         {
@@ -112,8 +107,6 @@ namespace AppServer.Services.Simulation.Services
                     _spawnTime = parsedTime;
             }
         }
-
-
 
     }
 }

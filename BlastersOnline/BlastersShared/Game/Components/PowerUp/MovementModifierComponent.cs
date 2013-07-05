@@ -12,22 +12,20 @@ namespace BlastersShared.Game.Components.PowerUp
     {
         public MovementModifierComponent()
         {
-            Bonus = 1.0f;
-        }
-
-        public MovementModifierComponent(float bonus)
-        {
-            Bonus = bonus;
+            Strength = 0;
         }
 
         /// <summary>
-        /// How much movement speed is added.
+        /// The modifier for the maximum movement speed count
         /// </summary>
-        public float Bonus { get; set; }
+        public double Amount
+        {
+            get { return (Strength * 0.25); }
+        }
 
         public override string SkinName
         {
-            get { throw new NotImplementedException(); }
+            get { return "MovementUp"; }
         }
     }
 }
