@@ -52,8 +52,10 @@ namespace BlastersGame.Services
             if (playerToPowerup != null)
             {
                 var toPoweurp =
-                    (MovementModifierComponent) playerToPowerup.GetComponent(typeof (MovementModifierComponent));
-                toPoweurp.Strength += obj.Powerup.Strength;
+                    (MovementModifierComponent)playerToPowerup.GetComponent(typeof(MovementModifierComponent));
+
+                if (recievType == typeof(MovementModifierComponent))
+                    toPoweurp.Strength += obj.Powerup.Strength;
             }
 
 
@@ -113,7 +115,7 @@ namespace BlastersGame.Services
                 var right = Math.Ceiling((decimal)(rectangles[3].Width / 32));
 
                 // Do damage
-                var list = DetonationHelper.GetDetonatedTiles(ServiceManager.Map.TmxMap, entity,rectangles);
+                var list = DetonationHelper.GetDetonatedTiles(ServiceManager.Map.TmxMap, entity, rectangles);
 
                 foreach (var tile in list)
                 {
@@ -122,8 +124,8 @@ namespace BlastersGame.Services
                     ServiceManager.AddEntity(n);
                 }
 
-                    
-                
+
+
 
 
                 for (int i = 0; i < up - 2; i++)
@@ -188,7 +190,7 @@ namespace BlastersGame.Services
                 if (leftEdge != null)
                     entitesToAdd.Add(leftEdge);
 
-                if(rightEdge != null)
+                if (rightEdge != null)
                     entitesToAdd.Add(rightEdge);
 
                 var y = EntityFactory.CreateExplosionSprite(transformComponent.LocalPosition, ExplosiveType.Center);
