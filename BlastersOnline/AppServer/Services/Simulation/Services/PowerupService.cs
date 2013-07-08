@@ -21,7 +21,7 @@ namespace AppServer.Services.Simulation.Services
     {
         private double _lastPowerupTime;
 
-        private double _spawnTime = 10f;
+        private double _spawnTime = 15f;
         private List<Type> _powerUpTypes;
 
         // This is our lookup of types
@@ -46,7 +46,7 @@ namespace AppServer.Services.Simulation.Services
                 // Reset
                 _lastPowerupTime = _spawnTime;
 
-                _spawnTime = 2f;
+                _spawnTime = 15f;
 
                 // Get a random object
                 var rand = new Random();

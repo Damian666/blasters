@@ -59,7 +59,6 @@
     <Compile Include="Network\ClientNetworkManager.cs" />
     <Compile Include="Network\LobbyServerNetworkManager.cs" />
     <Compile Include="Network\PacketProcessor.cs" />
-    <Compile Include="Network\Packets.cs" />
     <Compile Include="Network\PacketService.cs" />
     <Compile Include="AppServerMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
