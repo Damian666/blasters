@@ -30,7 +30,7 @@ namespace BlastersShared.Game.Components.PowerUp
 
         public object Clone()
         {
-            
+            return null;
         }
     }
 }
