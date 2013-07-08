@@ -46,7 +46,6 @@ namespace BlastersGame.Services
         {
             // Hook into networks events
             PacketService.RegisterPacket<MovementRecievedPacket>(MovementRecieved);
-            PacketService.RegisterPacket<PowerupRecievedPacket>(PowerupReceived);
 
             // Query for the players we don't want
             foreach (var entity in ServiceManager.Entities)
@@ -100,11 +99,7 @@ namespace BlastersGame.Services
             interpolator.ResetProgress(obj.Location);
         }
 
-        private void PowerupReceived(PowerupRecievedPacket obj)
-        {
-            
-        }
-
+    
         public override void Draw(SpriteBatch spriteBatch)
         {
 

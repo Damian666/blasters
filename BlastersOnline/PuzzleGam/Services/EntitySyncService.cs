@@ -40,6 +40,26 @@ namespace BlastersGame.Services
         {
             PacketService.RegisterPacket<EntityAddPacket>(HandleEntityAdd);
             PacketService.RegisterPacket<EntityRemovePacket>(HandleEntityRemove);
+            PacketService.RegisterPacket<PowerupRecievedPacket>(HandlePowerupObtain);
+        }
+
+        private void HandlePowerupObtain(PowerupRecievedPacket obj)
+        {
+            var playerToPowerup = ServiceManager.RetrieveEntityByID(obj.EntityID);
+            var recievType = obj.Powerup.GetType();
+
+            // Check if the player is null
+            if (playerToPowerup != null)
+            {
+                var toPoweurp =
+                    (MovementModifierComponent) playerToPowerup.GetComponent(typeof (MovementModifierComponent));
+                toPoweurp.Strength += obj.Powerup.Strength;
+            }
+
+
+
+
+
         }
 
         private void HandleEntityRemove(EntityRemovePacket entityRemovePacket)

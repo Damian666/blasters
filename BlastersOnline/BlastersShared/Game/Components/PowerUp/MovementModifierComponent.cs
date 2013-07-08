@@ -20,7 +20,7 @@ namespace BlastersShared.Game.Components.PowerUp
         /// </summary>
         public double Amount
         {
-            get { return (Strength * 0.25); }
+            get { return ( Math.Min(Strength * 0.25, 1)); }
         }
 
         public override string SkinName
