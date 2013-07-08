@@ -8,7 +8,7 @@ namespace BlastersShared.Game.Components.PowerUp
     /// <summary>
     /// The PowerUp component contains information about world power ups for an entity.
     /// </summary>
-    public abstract class PowerUpComponent : Component
+    public abstract class PowerUpComponent : Component, ICloneable
     {
 
         public abstract string SkinName { get; }
@@ -30,5 +30,10 @@ namespace BlastersShared.Game.Components.PowerUp
         /// The strength of this given power up
         /// </summary>
         public byte Strength { get; set; }
+
+        public object Clone()
+        {
+            
+        }
     }
 }

@@ -70,6 +70,7 @@
     <Compile Include="Services\Simulation\ServiceContainer.cs" />
     <Compile Include="Services\Simulation\Services\DetonationService.cs" />
     <Compile Include="Services\Simulation\Services\PowerupService.cs" />
+    <Compile Include="Services\Simulation\Services\Powerup\PowerupSpawnNode.cs" />
     <Compile Include="Services\Simulation\SimulatedGameSession.cs" />
     <Compile Include="Services\Simulation\SimulationStateFactory.cs" />
     <Compile Include="Services\Simulation\UserRoutingTable.cs" />
