@@ -10,16 +10,13 @@ namespace BlastersShared.Game.Components.PowerUp
     /// </summary>
     public abstract class PowerUpComponent : Component, ICloneable
     {
-
         public abstract string SkinName { get; }
 
-        public PowerUpComponent()
+        protected PowerUpComponent()
         {
             Strength = 1;
             Duration = double.MaxValue;
         }
-
-
 
         /// <summary>
         /// How long the it lasts.

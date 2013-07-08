@@ -196,6 +196,9 @@ namespace AppServer.Services.Simulation
                             var playerPower = (PowerUpComponent) player.GetComponent(powerType.GetType());
                             playerPower.Strength += powerValue;
 
+                            // Notify the player of their new powerup
+                            var packet = new PowerupRecievedPacket(powerType, player.ID);
+                            ClientNetworkManager.Instance.SendPacket(packet, notifyMovementPacket.Sender);
 
 
                         }

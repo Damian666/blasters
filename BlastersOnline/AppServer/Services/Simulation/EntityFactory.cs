@@ -17,8 +17,6 @@ namespace AppServer.Services.Simulation
     /// </summary>
     public static class EntityFactory
     {
-
-
         /// <summary>
         /// Creates a player from a given user object - this is an entity ready to be sent into a simulation game.
         /// </summary>
@@ -33,8 +31,8 @@ namespace AppServer.Services.Simulation
             var skinComponent = new SkinComponent(user.SessionConfig.Skin);
             var playerComponent = new PlayerComponent();
             var bombModifier = new BombCountModifierComponent();
-            var rangeModifier = new RangeModifier();
-
+            var rangeModifier = new RangeModifierComponent();
+            var movementModifier = new MovementModifierComponent();
 
             // Add modifier components to the sprite
 
@@ -47,6 +45,7 @@ namespace AppServer.Services.Simulation
             entity.AddComponent(playerComponent);
             entity.AddComponent(bombModifier);
             entity.AddComponent(rangeModifier);
+            entity.AddComponent(movementModifier);
 
             return entity;
         }
@@ -55,7 +54,7 @@ namespace AppServer.Services.Simulation
         {
             var entity = new Entity();
 
-            var rangeModifier = (RangeModifier)user.GetComponent(typeof(RangeModifier));
+            var rangeModifier = (RangeModifierComponent)user.GetComponent(typeof(RangeModifierComponent));
 
             var transformComponent = new TransformComponent(location, new Vector2(32, 32));
             var skinComponent = new SkinComponent("BombSprite");
@@ -72,13 +71,12 @@ namespace AppServer.Services.Simulation
         {
             var entity = new Entity();
 
-            var rangeModifier = new RangeModifier();
+            var rangeModifier = new RangeModifierComponent();
             var list = new List<PowerUpComponent>();
             var transform = new TransformComponent(location, new Vector2(32, 32));
             list.Add(rangeModifier);
             var powerupPackage = new PowerUpCollectionComponent(list);
             var skinComponent = new SkinComponent(rangeModifier.SkinName);
-
 
             entity.AddComponent(powerupPackage);
             entity.AddComponent(skinComponent);
@@ -99,7 +97,6 @@ namespace AppServer.Services.Simulation
             var powerupPackage = new PowerUpCollectionComponent(list);
             var skinComponent = new SkinComponent(rangeModifier.SkinName);
 
-
             entity.AddComponent(powerupPackage);
             entity.AddComponent(skinComponent);
             entity.AddComponent(transform);
@@ -119,7 +116,6 @@ namespace AppServer.Services.Simulation
             var powerupPackage = new PowerUpCollectionComponent(list);
             var skinComponent = new SkinComponent(rangeModifier.SkinName.Replace("Up", "Max"));
 
-
             entity.AddComponent(powerupPackage);
             entity.AddComponent(skinComponent);
             entity.AddComponent(transform);
@@ -127,13 +123,11 @@ namespace AppServer.Services.Simulation
             return entity;
         }
 
-
-
         public static Entity CreateRangeModifierMaxPowerupPackage(Vector2 location)
         {
             var entity = new Entity();
 
-            var rangeModifier = new RangeModifier();
+            var rangeModifier = new RangeModifierComponent();
             rangeModifier.Strength = 50;
             var list = new List<PowerUpComponent>();
             var transform = new TransformComponent(location, new Vector2(32, 32));
@@ -141,7 +135,6 @@ namespace AppServer.Services.Simulation
             var powerupPackage = new PowerUpCollectionComponent(list);
             var skinComponent = new SkinComponent(rangeModifier.SkinName.Replace("Up", "Max"));
 
-
             entity.AddComponent(powerupPackage);
             entity.AddComponent(skinComponent);
             entity.AddComponent(transform);
@@ -149,8 +142,25 @@ namespace AppServer.Services.Simulation
             return entity;
         }
 
+        public static Entity CreateMovementModifierPackage(Vector2 location)
+        {
+            var entity = new Entity();
 
+            var movementModifier = new MovementModifierComponent();
+            movementModifier.Strength = 1;
 
+            var list = new List<PowerUpComponent>();
+            var transform = new TransformComponent(location, new Vector2(32, 32));
+            list.Add(movementModifier);
+            var movementPackage = new PowerUpCollectionComponent(list);
+            var skinComponent = new SkinComponent(movementModifier.SkinName);
+
+            entity.AddComponent(movementPackage);
+            entity.AddComponent(skinComponent);
+            entity.AddComponent(transform);
+
+            return entity;
+        }
 
     }
 }

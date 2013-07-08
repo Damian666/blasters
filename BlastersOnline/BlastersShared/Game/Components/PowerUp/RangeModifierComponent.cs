@@ -8,9 +8,8 @@ namespace BlastersShared.Game.Components.PowerUp
     /// <summary>
     /// The RangeModifier component contains information about how much range an object has.
     /// </summary>
-    public class RangeModifier : PowerUpComponent
+    public class RangeModifierComponent : PowerUpComponent
     {
-
         const int IntRange = 32;
         
         /// <summary>
@@ -18,7 +17,7 @@ namespace BlastersShared.Game.Components.PowerUp
         /// </summary>
         public int Amount
         {
-           get { return Math.Min(Strength*32 + RangeModifier.IntRange, 8 * 32); }
+           get { return Math.Min(Strength* 32 + RangeModifierComponent.IntRange, 8 * 32); }
         }
 
 

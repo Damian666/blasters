@@ -99,6 +99,7 @@ namespace BlastersGame.Services
             interpolator.ResetProgress(obj.Location);
         }
 
+    
         public override void Draw(SpriteBatch spriteBatch)
         {
 
@@ -125,8 +126,6 @@ namespace BlastersGame.Services
             {
                 foreach (TmxLayerTile tile in layer.Tiles)
                 {
-                    
-
                     // TODO: Sucks. Temporary, incomplete code. Needs to get fixed.
                     if (MapUtility.IsSolid(ServiceManager.Map.TmxMap, tile.X, tile.Y))
                     {
@@ -166,8 +165,9 @@ namespace BlastersGame.Services
 
             // Determine the movement bonus multiplier
             float movementBonus = 1.0f;
+
             if (playerMovementModifier != null)
-                movementBonus = playerMovementModifier.Bonus;
+                movementBonus += (float)playerMovementModifier.Amount;
 
             // Apply the multiplier to the velocity and move the position
             Vector2 nextPosition = playerTransform.LocalPosition;
