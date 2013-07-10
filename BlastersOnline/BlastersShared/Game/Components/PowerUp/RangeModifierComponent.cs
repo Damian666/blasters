@@ -17,7 +17,7 @@ namespace BlastersShared.Game.Components.PowerUp
         /// </summary>
         public int Amount
         {
-           get { return Math.Min(Strength* 32 + RangeModifierComponent.IntRange, 8 * 32); }
+           get { return Math.Min(Strength * 32 + IntRange, 7 * 32); }
         }
 
 

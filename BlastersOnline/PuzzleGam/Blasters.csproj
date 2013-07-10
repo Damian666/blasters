@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>BOMB ICON.ico</ApplicationIcon>
+    <ApplicationIcon>Bomb Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_MockGame|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -202,7 +202,7 @@
     <Content Include="ReferenceDependencies\BitFactory.Logging.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BOMB ICON.ico" />
+    <Content Include="Bomb Icon.ico" />
     <Content Include="Content\background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

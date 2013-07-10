@@ -20,7 +20,7 @@ namespace BlastersShared.Game.Components.PowerUp
         /// </summary>
         public byte Amount
         {
-            get { return Strength; }
+            get { return (byte)Math.Min((int)Strength, 10); }
         }
 
         /// <summary>
