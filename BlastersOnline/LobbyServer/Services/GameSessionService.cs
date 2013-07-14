@@ -117,12 +117,12 @@ namespace LobbyServer
         private void CheckCompletion(GameSession gameSession)
         {
 
-            if (!gameSession.IsFull)
+            if (gameSession.IsFull)
                 return;
 
                 // We wait, and then tell everyone it's OK to enter again
 
-            Sessions.Remove(gameSession);
+            //Sessions.Remove(gameSession);
 
             gameSession.InProgress = true;
 
@@ -248,6 +248,9 @@ namespace LobbyServer
                 ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
             }
 
+            Thread.Sleep(1500);
+
+
             CheckCompletion(session.FirstOrDefault());
 
         }
@@ -274,5 +277,10 @@ namespace LobbyServer
 
         }
 
+
+        internal void ActivateSession(GameSession demoSession)
+        {
+           CheckCompletion(demoSession);
+        }
     }
 }

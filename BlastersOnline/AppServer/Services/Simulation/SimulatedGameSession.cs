@@ -316,6 +316,8 @@ namespace AppServer.Services.Simulation
             //TODO: Don't start the timer until everyone is loaded
             _timer.Start();
 
+            _serviceContainer.PlayersAlive = Session.Users.Count;
+
         }
 
         void _serviceContainer_EntityAdded(Entity entity)
@@ -354,7 +356,7 @@ namespace AppServer.Services.Simulation
             _totalThen = _timer.Elapsed.TotalSeconds;
 
             // Check to see if the timer is expired
-            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 125)
+            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 999 || (_serviceContainer.PlayersAlive == 1 && _timer.Elapsed.TotalSeconds > 10f) )
                 TerminateSession();
 
             // If the game has started, run the simulation
@@ -372,6 +374,8 @@ namespace AppServer.Services.Simulation
 
             //TODO: Implement a solver for finding out the winner of the match effectively
             // In most cases, this is the last player standing but not always
+
+ 
 
             // Let subscribers know this game is finished
             var result = new SessionEndStatistics(Session.Users[0], _timer.Elapsed.TotalSeconds);

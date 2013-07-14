@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using AppServer.Network;
 using Awesomium.Core;
 using BlastersLobby.Controllers;
 using BlastersLobby.Models;
 using BlastersLobby.Network;
 using BlastersShared.Network.Packets;
+using BlastersShared.Network.Packets.AppServer;
+using BlastersShared.Network.Packets.Lobby;
 
 namespace BlastersLobby.Views
 {
@@ -30,6 +34,8 @@ namespace BlastersLobby.Views
 
 
             PacketService.RegisterPacket<ChatPacket>(ProcessChatPacket);
+            PacketService.RegisterPacket<SessionBeginNotificationPacket>(Handler);
+            PacketService.RegisterPacket<SessionEndedLobbyPacket>(Handler);
 
             _model = new RoomSelectModel();
           
@@ -37,6 +43,29 @@ namespace BlastersLobby.Views
 
             FlowController.WebControl.DocumentReady += WebControlOnDocumentReady;
 
+        }
+
+        private void Handler(SessionEndedLobbyPacket sessionEndedLobbyPacket)
+        {
+
+            //MessageBox.Show("The winner was " + sessionEndedLobbyPacket.SessionStatistics.Winner);
+        }
+
+        private void Handler(SessionBeginNotificationPacket sessionBeginNotificationPacket)
+        {
+            var args = sessionBeginNotificationPacket.SecureToken + " " + sessionBeginNotificationPacket.RemoteEndpoint + " " + sessionBeginNotificationPacket.SessionID;
+         
+            var proc = Process.Start("BlastersGame.exe", args);
+            proc.Exited += proc_Exited;
+
+
+            FlowController.WebControl.Enabled = false;
+
+        }
+
+        void proc_Exited(object sender, EventArgs e)
+        {
+            FlowController.WebControl.Enabled = true;
         }
 
         private void ProcessChatPacket(ChatPacket obj)

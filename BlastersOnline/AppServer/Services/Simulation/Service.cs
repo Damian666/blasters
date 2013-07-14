@@ -26,6 +26,7 @@ namespace AppServer.Services.Simulation
         public ServiceContainer ServiceManager { get; set; }
 
 
+
         /// <summary>
         /// This method is called when the service is added and laoded succesfully. 
         /// </summary>

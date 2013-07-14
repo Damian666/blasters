@@ -132,7 +132,11 @@ namespace AppServer.Services
             // Remove from the router table and notify game is over
             foreach (var user in session.Session.Users)
             {
-                _routingTable.Remove(user.Connection);
+
+                if (user.Connection != null)
+                    _routingTable.Remove(user.Connection);
+                else
+                    return;
 
                 // Send the packet
                 var userPacket = new SessionEndedLobbyPacket(session.Session.SessionID, e);
