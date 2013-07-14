@@ -11,6 +11,7 @@ using BlastersShared.Game.Entities;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Services;
 using Microsoft.Xna.Framework;
+using BlastersShared.Utilities;
 
 namespace AppServer.Services.Simulation.Services
 {
@@ -54,6 +55,12 @@ namespace AppServer.Services.Simulation.Services
 
                 var x = rand.Next(0, 22);
                 var y = rand.Next(0, 22);
+
+                while (MapUtility.IsSolid(ServiceManager.Map, x, y))
+                {
+                    x = rand.Next(0, 22);
+                    y = rand.Next(0, 22);
+                }
 
                 var location = new Vector2(x * 32, y * 32);
 
