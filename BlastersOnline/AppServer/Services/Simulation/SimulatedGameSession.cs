@@ -34,6 +34,8 @@ namespace AppServer.Services.Simulation
         // A stopwatch is useful for timing the match
         Stopwatch _timer = new Stopwatch();
 
+        private bool hasAnyoneLoaded = false;
+
         /// <summary>
         /// The total amount of time that had happened then
         /// </summary>
@@ -256,6 +258,8 @@ namespace AppServer.Services.Simulation
 
                 ulong id = FindUser(obj);
 
+                hasAnyoneLoaded = true;
+
                 // Once a player has loaded, it's okay to send them them the game state
                 var packet = new SessionSendSimulationStatePacket(_simulationState, id);
                 ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
@@ -351,6 +355,9 @@ namespace AppServer.Services.Simulation
         /// </summary>
         public void PerformUpdate()
         {
+
+            if (!hasAnyoneLoaded)
+                return;
 
             double deltaTime = (_timer.Elapsed.TotalSeconds - _totalThen);
             _totalThen = _timer.Elapsed.TotalSeconds;
