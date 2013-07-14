@@ -303,12 +303,6 @@
     <None Include="Content\Levels\Battle_Royale_Big.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Levels\Battle_Royale_Big_Test.tmx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\Levels\Battle_Royale_Test.tmx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Content\Levels\Tileset_Forest.tsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
