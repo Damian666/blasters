@@ -128,15 +128,15 @@
  </layer>
  <layer name="Blocks" width="29" height="21">
   <data encoding="base64" compression="zlib">
-   eJy9lslOxDAMhn1tmoblRAeNBCMuLBfe/+VIpVh8+bGB00Sy7DjxHrt9NrO3Du9XgI8Otx1eOywDGugDtg4F+3VgG3wDT+8U0eP0w7Dp8jt0mtAv2Dc5X8a5yui+wCb5Lbjv/hfwLjgryX23s4PvNqvN+fHzG4vjdttqq8hdrVdN4lTZKO8ewzYwfWMtuS4SJ3VR1vFmcbxZ7ZhLlaPNxb5rVCVGXw28e9ypuKP5N/jMN7QFMhH+z9mxsncQ5TbrE54zJuexd5gb7b3V5v5kP/Mda4/7ugNdErkmslGcZ/irPhp0cFX7Oz+P2LvNaA6Qdr2et2gGOF5tfreOvd8ZJ/Nr9jOf+k5W0NqfkbzGmc0E53OWarxLck99223uFc9H1A/F5m+HxkLM2RHlK5oJWZ1YH85u8rK5TF84b9lT+p3Suf0b3i332+monoz3BF6TM8ar+t3vk81vrdlcT9fH2uk3jr1D3dn8iOjD5qdd93/oqcMXBoUcVw==
+   eJy9lsluwzAMRHm17KjLqU4RoA166XLp//9cFUCDPg0oHxOAkMx9SIrte0R8Nfq+A/00emz02WjpVHG/0alRwffaz+j8AM91ivnR/aXHlP0On2H3D3xXky9d7jb+XRCT/JroK/8C3hWyMtFXnB18xdxirI/kD5HjVmyPVUzX+7VNcLptVndhOPWTubGXzOdqOOnLdTkDjnfWO9bS7Rhzif8ebYZRvwreM3Q26Hj9AzlzhmY1UhzPOTuJJ/MjHnFm8++5aw7CZLT12kh+q/ca4/tkDzjH/sb1e8K9HNgtkb8V+rpAz2ekJrwt8ppI/9VkiilfjkX3Lca6ZTtA52q4dOq9ZzhX6Pk7y/Qi8plxe9WNMbM9IH3uUse7TPRmGBSTfM+3xDgPjoUnd8fMp++EWZ/YH+5u8mZ7mblw33Kn+jv1vX107gd5ZzjJl90ZvGoy4p3trnOMs1Zj7Kf8sXf+N45vh75n+yO732L+xn3/H3pr9AfswByz
   </data>
  </layer>
- <layer name="Beams" width="29" height="21">
+ <layer name="Beams" width="29" height="21" opacity="0.9">
   <properties>
    <property name="Fringed" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYCAOiBCQFyPSHFKADAF5ORrYOQpGwSgYWCBKI3OFaWQutQGxZSmhMpkUQGxZSqhMHgWjYBSQBgC35wDx
+   eJxjYCAOiBCQFyPSHFKADAF5ORrYOQpGwSgYeCA8yM2jJSC2LCVUJpMCiC1LCZXJo2AUjALSAACuBwDv
   </data>
  </layer>
  <objectgroup name="PlayerSpawn" width="29" height="21">
@@ -144,5 +144,7 @@
   <object name="Player 2" type="PlayerSpawn" x="800" y="544" width="64" height="64"/>
   <object name="Player 3" type="PlayerSpawn" x="800" y="64" width="64" height="64"/>
   <object name="Player 4" type="PlayerSpawn" x="64" y="64" width="64" height="64"/>
+  <object name="Player 3" type="PlayerSpawn" x="800" y="320" width="64" height="64"/>
+  <object name="Player 3" type="PlayerSpawn" x="64" y="320" width="64" height="64"/>
  </objectgroup>
 </map>
