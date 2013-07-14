@@ -128,7 +128,8 @@ namespace AppServer.Services.Simulation
                 var connection = playerComponent.Connection;
 
 
-                ClientNetworkManager.Instance.SendPacket(packet, connection);
+                if (connection != null)
+                    ClientNetworkManager.Instance.SendPacket(packet, connection);
             }
         }
 
@@ -193,7 +194,7 @@ namespace AppServer.Services.Simulation
                             var powerType = power.PowerUps[0];
                             var powerValue = power.PowerUps[0].Strength;
 
-                            var playerPower = (PowerUpComponent) player.GetComponent(powerType.GetType());
+                            var playerPower = (PowerUpComponent)player.GetComponent(powerType.GetType());
                             playerPower.Strength += powerValue;
 
                             // Notify the player of their new powerup

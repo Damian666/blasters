@@ -30,6 +30,7 @@ namespace BlastersLobby.Views
         public void ChangeView(View view)
         {
 
+
             // Assign the flow controller
             view.FlowController = this;
 
