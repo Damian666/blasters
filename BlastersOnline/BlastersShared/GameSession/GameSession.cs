@@ -21,7 +21,7 @@ namespace BlastersShared.GameSession
         /// </summary>
         public bool IsFull
         {
-            get { return Configuration.MaxPlayers == Users.Count; }
+            get{ return Configuration.MaxPlayers == Users.Count; }
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace BlastersShared.GameSession
         {
             var rUID = new Random().Next(45345435);
             var session = new GameSession(null);
-            session.Configuration = new GameSessionConfig("Deathmatch Game #" + session.SessionID, 2, GameSessionType.Normal);
+            session.Configuration = new GameSessionConfig("Deathmatch Game #" + session.SessionID, 4, GameSessionType.Normal);
             return session;
         }
 

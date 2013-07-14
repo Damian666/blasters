@@ -1,0 +1,251 @@
+/*********** Body ************/
+
+* { margin:0; padding:0; }
+
+body
+{ 
+	font:14px Trebuchet MS, Tahoma, Tw Cen MT, Arial;
+	background-color: #001b3e;
+}
+
+A:link {text-decoration: none; color: #FFF;}
+A:visited {text-decoration: none; color: #FFF;}
+A:active {text-decoration: none; color: #FFF;}
+A:hover {text-decoration: none; color: #FFF;}
+
+.clear {clear:both;}
+
+#mainbody {
+	width: 801px; height: 600px;
+	margin: 0 auto;
+	margin: 0 0 0 0;
+	background: url('images/background.png') no-repeat;
+	border: 1px solid black;
+}
+
+/*********** News ************/
+
+#news {
+	color: white;
+	margin: 7px 0 0 250px;
+	width: 550px;
+	overflow: hidden;
+	height: 20px;
+}
+
+/*********** Room ************/
+
+#room_title {
+	color: white;
+	font: 14px 'Franklin Gothic Heavy';
+	text-shadow: 1px 1px 2px #000000;
+	margin: 20px 0 0 20px;
+	height: 26px;
+}
+
+#room_container {
+	width: 515px; height: 485px;
+	float: left;
+	margin: 0 0 0 16px;
+	padding: 4px 0 0 2px;
+}
+
+.area {height: 78px; width: 114px;}
+
+.ready {
+	width: 119px; height: 143px;
+	background: url('images/readybg.png') no-repeat;
+	padding: 8px 0 0 8px;
+	float: left;
+}
+
+	.readyname {
+		width: 114px; height: 24px;
+		background: url('images/ready_area.png') no-repeat;
+		text-align: center;
+		color: white;
+		font: 14px 'Franklin Gothic Heavy';
+		text-shadow: 0px 0px 5px #000000;
+		padding: 4px 0 0 0;
+	}
+
+	.readynotify {
+		width: 114px; height: 24px;
+		background: url('images/ready_area.png') no-repeat;
+		text-align: center;
+		color: white;
+		font: 14px 'Franklin Gothic Heavy';
+		text-shadow: 0px 0px 5px #000000;
+		padding: 4px 0 0 0;
+		text-transform: uppercase;
+	}
+
+.notready {
+	width: 119px; height: 143px;
+	background: url('images/notreadybg.png') no-repeat;
+	padding: 8px 0 0 8px;
+	float: left;
+}
+
+	.notreadyname {
+		width: 114px; height: 24px;
+		background: url('images/notready_area.png') no-repeat;
+		text-align: center;
+		color: white;
+		font: 14px 'Franklin Gothic Heavy';
+		text-shadow: 0px 0px 5px #000000;
+		padding: 4px 0 0 0;
+	}
+
+	.notreadynotify {
+		width: 114px; height: 24px;
+		background: url('images/notready_area.png') no-repeat;
+		text-align: center;
+		color: white;
+		font: 14px 'Franklin Gothic Heavy';
+		text-shadow: 0px 0px 5px #000000;
+		padding: 4px 0 0 0;
+		text-transform: uppercase;
+	}
+
+#autoready {
+	text-transform: uppercase;
+	color: white;
+	font: 14px 'Franklin Gothic Heavy';
+	text-shadow: 0px 0px 5px #000000;
+	float: right;
+	margin: 5px 5px 0 0;
+}
+	
+	.temp {float: right; margin: -22px 0 0 2px;}
+
+#chat {
+	width: 514px; height: 145px;
+	background: url('images/chatbg.png') no-repeat;
+    	font: 12px 'Calibri';
+}
+
+	#chatarea {
+		color: white;
+		font: 12px 'Calibri';
+		line-height: 13px;
+		text-shadow: 0px 0px 5px #000000;
+		padding: 12px 0 0 13px;
+		width: 490px; height: 96px;
+		overflow: hidden;
+	}
+
+	.avatar {float: right; padding: 2px;}
+
+	#chatinput {
+		color: white;
+		line-height: 13px;
+		text-shadow: 0px 0px 5px #000000;
+		width: 490px; height: 20px;
+		padding: 10px 0 0 13px;
+        	font: 12px 'Calibri';
+                background-color: transparent;
+    outline: none;
+    border: 0px none;
+	}
+
+/*********** Sidebar ************/
+
+#sidebar {
+	float: right;
+	width: 261px;
+	color: white;
+	font: 14px 'Franklin Gothic Heavy';
+	text-shadow: 0px 0px 5px #000000;
+	text-transform: uppercase;
+	padding: 4px 0 0 0;
+}
+
+.chatmessage {
+		color: white;
+		font: 12px 'Calibri';
+    width: 98%;
+    background-color: transparent;
+    outline: none;
+    border: 0px none;
+}
+
+.chatlog {
+		color: white;
+		font: 12px 'Calibri';
+    width: 98%;
+    background-color: transparent;
+    outline: none;
+    border: 0px none;
+    resize: none
+}
+
+
+.sidearea {height: 86px;}
+
+#gamemode {
+
+}
+
+	#gamemodebox {
+		width: 229px; height: 124px;
+		background: url('images/gameselection.png') no-repeat;
+		padding: 0 8px 0 8px;
+		margin-left: -3px;
+	}
+
+	#gametitle {
+		width: 181px; height: 23px;
+		background: url('images/game_title.png') no-repeat;
+		display: inline-block;
+		text-align: center;
+		float: left;
+		padding: 5px 0 0 0;
+		margin: 0 -5px 0 -5px;
+	}
+
+#gamemap {
+
+}
+
+	#gamemapbox {
+		width: 229px; height: 124px;
+		background: url('images/map.png') no-repeat;
+		padding: 0 8px 0 8px;
+		margin-left: -3px;
+	}
+
+	#maptitle {
+		width: 181px; height: 23px;
+		background: url('images/map_title.png') no-repeat;
+		display: inline-block;
+		text-align: center;
+		float: left;
+		padding: 5px 0 0 0;
+		margin: 0 -5px 0 -5px;
+	}
+
+#gamemap {
+	color: white;
+	font: 14px 'Franklin Gothic Heavy';
+	text-shadow: 0px 0px 5px #000000;
+	text-transform: uppercase;
+}
+
+#team {margin: 3px 0 0 0;}
+#team img {margin: 3px -3px 0 0;}
+
+/*********** Footer ************/
+
+#footer {
+	padding: 7px 5px 0 5px;
+}
+
+#footer ul li {
+	list-style-type: none;
+	display: inline-block;
+	float: left;
+}
+
+#btm_left {float: left;}
+#btm_right {float: right;}

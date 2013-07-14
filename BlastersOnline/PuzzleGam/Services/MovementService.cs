@@ -196,31 +196,34 @@ namespace BlastersGame.Services
                             Vector2 bombOrigin = bombTransform.LocalPosition + new Vector2(bombDescriptor.BoundingBox.X, bombDescriptor.BoundingBox.Y) + new Vector2(bombDescriptor.BoundingBox.Width, bombDescriptor.BoundingBox.Height) / 2;
 
                             Vector2 relativePosition = playerOrigin - bombOrigin;
-                            if ((Math.Sign(playerTransform.Velocity.X) != 0 && Math.Sign(relativePosition.X) != Math.Sign(playerTransform.Velocity.X)) || (Math.Sign(playerTransform.Velocity.Y) != 0 && Math.Sign(relativePosition.Y) != Math.Sign(playerTransform.Velocity.Y)))
+                            if (Math.Abs(relativePosition.X) >= (bombDescriptor.BoundingBox.Width / 2) || Math.Abs(relativePosition.Y) >= (bombDescriptor.BoundingBox.Height / 2))
                             {
-                                Rectangle bombRect = new Rectangle(
-                                    (int)bombTransform.LocalPosition.X + bombDescriptor.BoundingBox.X,
-                                    (int)bombTransform.LocalPosition.Y + bombDescriptor.BoundingBox.Y,
-                                    (int)bombDescriptor.BoundingBox.Width,
-                                    (int)bombDescriptor.BoundingBox.Height);
-
-                                Rectangle xBBox = new Rectangle((int)nextX,
-                                      (int)playerTransform.LocalPosition.Y + playerDescriptor.BoundingBox.Y,
-                                      (int)playerDescriptor.BoundingBox.Width,
-                                      (int)playerDescriptor.BoundingBox.Height);
-
-                                if (bombRect.Intersects(xBBox))
+                                if ((Math.Sign(playerTransform.Velocity.X) != 0 && Math.Sign(relativePosition.X) != Math.Sign(playerTransform.Velocity.X)) || (Math.Sign(playerTransform.Velocity.Y) != 0 && Math.Sign(relativePosition.Y) != Math.Sign(playerTransform.Velocity.Y)))
                                 {
-                                    nextX = playerTransform.LocalPosition.X + playerDescriptor.BoundingBox.X;
-                                }
+                                    Rectangle bombRect = new Rectangle(
+                                        (int)bombTransform.LocalPosition.X + bombDescriptor.BoundingBox.X,
+                                        (int)bombTransform.LocalPosition.Y + bombDescriptor.BoundingBox.Y,
+                                        (int)bombDescriptor.BoundingBox.Width,
+                                        (int)bombDescriptor.BoundingBox.Height);
 
-                                Rectangle yBBox = new Rectangle((int)nextX, (int)nextY,
-                                      (int)playerDescriptor.BoundingBox.Width,
-                                      (int)playerDescriptor.BoundingBox.Height);
+                                    Rectangle xBBox = new Rectangle((int)nextX,
+                                          (int)playerTransform.LocalPosition.Y + playerDescriptor.BoundingBox.Y,
+                                          (int)playerDescriptor.BoundingBox.Width,
+                                          (int)playerDescriptor.BoundingBox.Height);
 
-                                if (bombRect.Intersects(yBBox))
-                                {
-                                    nextY = playerTransform.LocalPosition.Y + playerDescriptor.BoundingBox.Y;
+                                    if (bombRect.Intersects(xBBox))
+                                    {
+                                        nextX = playerTransform.LocalPosition.X + playerDescriptor.BoundingBox.X;
+                                    }
+
+                                    Rectangle yBBox = new Rectangle((int)nextX, (int)nextY,
+                                          (int)playerDescriptor.BoundingBox.Width,
+                                          (int)playerDescriptor.BoundingBox.Height);
+
+                                    if (bombRect.Intersects(yBBox))
+                                    {
+                                        nextY = playerTransform.LocalPosition.Y + playerDescriptor.BoundingBox.Y;
+                                    }
                                 }
                             }
                         }

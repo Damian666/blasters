@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using AppServer.Network;
 using Awesomium.Core;
 using BlastersLobby.Controllers;
 using BlastersLobby.Models;
 using BlastersLobby.Network;
-using BlastersShared.Network.Packets.ClientLobby;
+using BlastersShared.Network.Packets;
+using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.Lobby;
 
 namespace BlastersLobby.Views
@@ -16,10 +19,10 @@ namespace BlastersLobby.Views
     /// <summary>
     /// The room select view is used 
     /// </summary>
-    public class RoomSelectView : View
+    public class InRoomView : View
     {
-        private const string VIEW_PATH_HTML = @"Content\LobbyBridge\RoomSelectView\index.html";
-        private const string VIEW_PATH_JS = @"Content\LobbyBridge\RoomSelectView\functions.js";
+        private const string VIEW_PATH_HTML = @"Content\LobbyBridge\GameReadyView\index.html";
+        private const string VIEW_PATH_JS = @"Content\LobbyBridge\GameReadyView\functions.js";
 
         // The model and controller are here
         private RoomSelectController _controller;
@@ -29,45 +32,73 @@ namespace BlastersLobby.Views
         {
             FlowController.WebControl.Source = new Uri(Environment.CurrentDirectory + @"\" + VIEW_PATH_HTML);
 
-            PacketService.RegisterPacket<SessionJoinResultPacket>(ProcessJoinResult);
 
+            PacketService.RegisterPacket<ChatPacket>(ProcessChatPacket);
+            PacketService.RegisterPacket<SessionBeginNotificationPacket>(Handler);
+            PacketService.RegisterPacket<SessionEndedLobbyPacket>(Handler);
 
             _model = new RoomSelectModel();
-            _controller = new RoomSelectController(_model, this);
+          
 
 
             FlowController.WebControl.DocumentReady += WebControlOnDocumentReady;
 
         }
 
-        private void ProcessJoinResult(SessionJoinResultPacket obj)
+        private void Handler(SessionEndedLobbyPacket sessionEndedLobbyPacket)
         {
-            if (obj.Result == SessionJoinResultPacket.SessionJoinResult.Succesful)
-            {
-                // Change the view
-                FlowController.WebControl.DocumentReady -= WebControlOnDocumentReady;
-                FlowController.ChangeView(new InRoomView());
-            }
 
+            //MessageBox.Show("The winner was " + sessionEndedLobbyPacket.SessionStatistics.Winner);
+        }
+
+        private void Handler(SessionBeginNotificationPacket sessionBeginNotificationPacket)
+        {
+            var args = sessionBeginNotificationPacket.SecureToken + " " + sessionBeginNotificationPacket.RemoteEndpoint + " " + sessionBeginNotificationPacket.SessionID;
+         
+            var proc = Process.Start("BlastersGame.exe", args);
+            proc.Exited += proc_Exited;
+
+
+            FlowController.WebControl.Enabled = false;
+
+        }
+
+        void proc_Exited(object sender, EventArgs e)
+        {
+            FlowController.WebControl.Enabled = true;
+        }
+
+        private void ProcessChatPacket(ChatPacket obj)
+        {
+            var js = "document.getElementById('chatarea').innerHTML +=' " + obj.Message + "';";
+            FlowController.WebControl.ExecuteJavascript(js);
         }
 
         private void WebControlOnDocumentReady(object sender, UrlEventArgs urlEventArgs)
         {
+
+
             JSObject jsobject = FlowController.WebControl.CreateGlobalJavascriptObject("hook");
-            jsobject.Bind("incrementRoom", false, IncrementRoom);
-            jsobject.Bind("deincrementRoom", false, DeIncrementRoom);
-            jsobject.Bind("enterRoom", false, EnterRoom);
-         
+
+            jsobject.Bind("sendchat", false, Handler);
+
+
+            return;
 
             // Updates the view immediately
             UpdateView();
         }
 
-        private void EnterRoom(object sender, JavascriptMethodEventArgs e)
+        private void Handler(object sender, JavascriptMethodEventArgs javascriptMethodEventArgs)
         {
-            // Join the first match
-            var packet = new SessionJoinRequestPacket(0);
+
+            var chatid = "chatinputs";
+
+            var chattext = FlowController.WebControl.ExecuteJavascriptWithResult("document.getElementById('chatinputs').value;");
+
+            var packet = new ChatPacket(chattext);
             NetworkManager.Instance.SendPacket(packet);
+
 
 
         }

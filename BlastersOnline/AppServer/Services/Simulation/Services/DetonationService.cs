@@ -58,10 +58,10 @@ namespace AppServer.Services.Simulation.Services
                 // If is a player, attempt to detonate
                 if (playerComponent != null)
                 {
-                    var x = playerTransformComponent.LocalPosition.X;
-                    var y = playerTransformComponent.LocalPosition.Y;
-                    var width = playerTransformComponent.Size.X;
-                    var height = playerTransformComponent.Size.Y;
+                    var x = playerTransformComponent.LocalPosition.X + 13;
+                    var y = playerTransformComponent.LocalPosition.Y + 45;
+                    var width = 24;
+                    var height = 20;
 
                     Rectangle playerBoundingBox = new Rectangle((int)x, (int)y, (int)width, (int)height);
                     bool toDestroy = false;
@@ -77,7 +77,8 @@ namespace AppServer.Services.Simulation.Services
                     if (toDestroy)
                     {
                         Logger.Instance.Log(Level.Debug, "{} has been bombed! TODO: Do something about it...");
-                        //ServiceManager.RemoveEntity(player);
+                        ServiceManager.RemoveEntity(player);
+                        ServiceManager.PlayersAlive--;
                     }
 
 

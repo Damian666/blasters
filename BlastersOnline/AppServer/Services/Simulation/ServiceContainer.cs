@@ -24,6 +24,11 @@ namespace AppServer.Services.Simulation
         private SimulationState _simulationState;
 
         /// <summary>
+        /// Players alive thus far
+        /// </summary>
+        public int PlayersAlive { get; set; }
+
+        /// <summary>
         /// A read-only copy of the simulation state which can be used to access game state specific things.
         /// </summary>
         public SimulationState SimulationState { get { return _simulationState; } }

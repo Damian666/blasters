@@ -34,6 +34,8 @@ namespace AppServer.Services.Simulation
         // A stopwatch is useful for timing the match
         Stopwatch _timer = new Stopwatch();
 
+        private bool hasAnyoneLoaded = false;
+
         /// <summary>
         /// The total amount of time that had happened then
         /// </summary>
@@ -128,7 +130,8 @@ namespace AppServer.Services.Simulation
                 var connection = playerComponent.Connection;
 
 
-                ClientNetworkManager.Instance.SendPacket(packet, connection);
+                if (connection != null)
+                    ClientNetworkManager.Instance.SendPacket(packet, connection);
             }
         }
 
@@ -193,7 +196,7 @@ namespace AppServer.Services.Simulation
                             var powerType = power.PowerUps[0];
                             var powerValue = power.PowerUps[0].Strength;
 
-                            var playerPower = (PowerUpComponent) player.GetComponent(powerType.GetType());
+                            var playerPower = (PowerUpComponent)player.GetComponent(powerType.GetType());
                             playerPower.Strength += powerValue;
 
                             // Notify the player of their new powerup
@@ -255,6 +258,8 @@ namespace AppServer.Services.Simulation
 
                 ulong id = FindUser(obj);
 
+                hasAnyoneLoaded = true;
+
                 // Once a player has loaded, it's okay to send them them the game state
                 var packet = new SessionSendSimulationStatePacket(_simulationState, id);
                 ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
@@ -315,6 +320,8 @@ namespace AppServer.Services.Simulation
             //TODO: Don't start the timer until everyone is loaded
             _timer.Start();
 
+            _serviceContainer.PlayersAlive = Session.Users.Count;
+
         }
 
         void _serviceContainer_EntityAdded(Entity entity)
@@ -349,11 +356,14 @@ namespace AppServer.Services.Simulation
         public void PerformUpdate()
         {
 
+            if (!hasAnyoneLoaded)
+                return;
+
             double deltaTime = (_timer.Elapsed.TotalSeconds - _totalThen);
             _totalThen = _timer.Elapsed.TotalSeconds;
 
             // Check to see if the timer is expired
-            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 125)
+            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 999 || (_serviceContainer.PlayersAlive == 1 && _timer.Elapsed.TotalSeconds > 10f) )
                 TerminateSession();
 
             // If the game has started, run the simulation
@@ -371,6 +381,8 @@ namespace AppServer.Services.Simulation
 
             //TODO: Implement a solver for finding out the winner of the match effectively
             // In most cases, this is the last player standing but not always
+
+ 
 
             // Let subscribers know this game is finished
             var result = new SessionEndStatistics(Session.Users[0], _timer.Elapsed.TotalSeconds);

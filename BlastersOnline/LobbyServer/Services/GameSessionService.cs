@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using BlastersShared;
 using BlastersShared.Game;
@@ -92,46 +93,9 @@ namespace LobbyServer
 
 
             //TODO; Don't auto start the game; check for wait flags. This will suffice for now, though
-            if (gameSession.IsFull || true)
+            if (gameSession.IsFull)
             {
-                Sessions.Remove(gameSession);
 
-                gameSession.InProgress = true;
-
-                // We generate a secure token for each user
-                foreach (var cUser in gameSession.Users)
-                {
-                    cUser.SecureToken = Guid.NewGuid();
-                    //TODO: Take this parameter from the client
-                    // We should also validate it's even legal as it comes from the client
-                    cUser.SessionConfig = new UserSessionConfig("FemaleSheet1");
-                }
-
-#if DEBUG_MOCK
-                foreach (var cUser in gameSession.Users)
-                    cUser.SecureToken = Guid.Empty;
-#endif
-
-                var appServerService = (AppServerService)ServiceContainer.GetService(typeof(AppServerService));
-                var server = appServerService.GetAvailableServer();
-
-                // Notify the app server
-                var appServerNotifyPacket = new NotifySessionBeginAppServerPacket(gameSession);
-                ClientNetworkManager.Instance.SendPacket(appServerNotifyPacket, server.Connection);
-
-                var endpointInfo = server.Connection.RemoteEndpoint.ToString();
-
-                // We generate a secure token for each user
-                foreach (var cUser in gameSession.Users)
-                {
-                    var packet = new SessionBeginNotificationPacket(cUser.SecureToken, endpointInfo,
-                                                                    gameSession.SessionID);
-                    ClientNetworkManager.Instance.SendPacket(packet, cUser.Connection);
-                }
-
-
-                Logger.Instance.Log(Level.Info, "The match " + gameSession + " is now underway.");
-                Logger.Instance.Log(Level.Info, "The simulation is being completed on: " + server.Name);
 
             }
 
@@ -148,6 +112,54 @@ namespace LobbyServer
 
             return true;
 
+        }
+
+        private void CheckCompletion(GameSession gameSession)
+        {
+
+            if (gameSession.IsFull)
+                return;
+
+                // We wait, and then tell everyone it's OK to enter again
+
+            //Sessions.Remove(gameSession);
+
+            gameSession.InProgress = true;
+
+            // We generate a secure token for each user
+            foreach (var cUser in gameSession.Users)
+            {
+                cUser.SecureToken = Guid.NewGuid();
+                //TODO: Take this parameter from the client
+                // We should also validate it's even legal as it comes from the client
+                cUser.SessionConfig = new UserSessionConfig("FemaleSheet1");
+            }
+
+#if DEBUG_MOCK
+                foreach (var cUser in gameSession.Users)
+                    cUser.SecureToken = Guid.Empty;
+#endif
+
+            var appServerService = (AppServerService) ServiceContainer.GetService(typeof (AppServerService));
+            var server = appServerService.GetAvailableServer();
+
+            // Notify the app server
+            var appServerNotifyPacket = new NotifySessionBeginAppServerPacket(gameSession);
+            ClientNetworkManager.Instance.SendPacket(appServerNotifyPacket, server.Connection);
+
+            var endpointInfo = server.Connection.RemoteEndpoint.ToString();
+
+            // We generate a secure token for each user
+            foreach (var cUser in gameSession.Users)
+            {
+                var packet = new SessionBeginNotificationPacket(cUser.SecureToken, endpointInfo,
+                                                                gameSession.SessionID);
+                ClientNetworkManager.Instance.SendPacket(packet, cUser.Connection);
+            }
+
+
+            Logger.Instance.Log(Level.Info, "The match " + gameSession + " is now underway.");
+            Logger.Instance.Log(Level.Info, "The simulation is being completed on: " + server.Name);
         }
 
         public GameSessionService()
@@ -209,6 +221,12 @@ namespace LobbyServer
                                 "The winner was " + obj.SessionStatistics.Winner.Name + "; lasting " +
                                 obj.SessionStatistics.MatchDuration + "s.");
 
+            Thread.Sleep(1500);
+
+            // See if we should play again
+
+            CheckCompletion(gameSession);
+        
         }
 
         private void ProcessSessionJoinRequest(SessionJoinRequestPacket obj)
@@ -230,6 +248,10 @@ namespace LobbyServer
                 ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
             }
 
+            Thread.Sleep(1500);
+
+
+            CheckCompletion(session.FirstOrDefault());
 
         }
 
@@ -255,5 +277,10 @@ namespace LobbyServer
 
         }
 
+
+        internal void ActivateSession(GameSession demoSession)
+        {
+           CheckCompletion(demoSession);
+        }
     }
 }
