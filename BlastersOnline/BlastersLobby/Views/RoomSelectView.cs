@@ -89,6 +89,8 @@ namespace BlastersLobby.Views
         public override void UpdateView()
         {
 
+            return;
+
             ExecuteJavascriptViaString("setPlayerNames", _model.OnlineUsers);
             var list = new List<string>();
             list.Add(_model.News);
