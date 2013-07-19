@@ -77,6 +77,8 @@ namespace BlastersGame.Services
             if (player != null)
             {
                 var transformComponent = (TransformComponent)player.GetComponent(typeof(TransformComponent));
+                transformComponent.Velocity = obj.Velocity;
+
 
                 if (transformComponent.Velocity.X != transformComponent.Velocity.Y)
                 {
