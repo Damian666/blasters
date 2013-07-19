@@ -110,9 +110,14 @@ namespace AppServer.Services.Simulation.Services
             {
                 // Get the owner
                 var owner = ServiceManager.RetrieveEntityByID(explosiveComponent.OwnerID);
-               var ownerBombModifier =
-                    (BombCountModifierComponent)owner.GetComponent(typeof(BombCountModifierComponent));
-                ownerBombModifier.CurrentBombCount--;
+
+                if(owner != null)
+                {
+                    var ownerBombModifier =
+                        (BombCountModifierComponent) owner.GetComponent(typeof (BombCountModifierComponent));
+                    ownerBombModifier.CurrentBombCount--;
+                }
+
             }
 
         }

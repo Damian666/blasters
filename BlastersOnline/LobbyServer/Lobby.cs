@@ -91,11 +91,12 @@ namespace LobbyServer
                 var _client = new NetClient(new NetPeerConfiguration("Inspire"));
                _client.Start();
                 _client.Connect("localhost", 8787);
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 var user = new User(_client.ServerConnection, "Vaughan");
                 _authenticationService.AddUser(user);
 
                 var demoSession = _gameSessionService.CreateSession();
+                demoSession.Configuration.MaxPlayers = 1;
 
 
                 _gameSessionService.AddToSession(user, demoSession);

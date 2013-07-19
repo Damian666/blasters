@@ -117,7 +117,7 @@ namespace LobbyServer
         private void CheckCompletion(GameSession gameSession)
         {
 
-            if (gameSession.IsFull)
+            if (!gameSession.IsFull)
                 return;
 
                 // We wait, and then tell everyone it's OK to enter again
@@ -148,6 +148,8 @@ namespace LobbyServer
             ClientNetworkManager.Instance.SendPacket(appServerNotifyPacket, server.Connection);
 
             var endpointInfo = server.Connection.RemoteEndpoint.ToString();
+            
+            //endpointInfo = "99.235.224.52:7798";
 
             // We generate a secure token for each user
             foreach (var cUser in gameSession.Users)

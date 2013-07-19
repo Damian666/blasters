@@ -109,8 +109,8 @@ namespace AppServer.Services.Simulation
 
                 var connection = playerComponent.Connection;
 
-
-                ClientNetworkManager.Instance.SendPacket(packet, connection);
+                if (connection != null)
+                    ClientNetworkManager.Instance.SendPacket(packet, connection);
             }
         }
 
@@ -170,7 +170,8 @@ namespace AppServer.Services.Simulation
                     var broadcastPacket = new MovementRecievedPacket(notifyMovementPacket.Velocity,
                                                                      notifyMovementPacket.Location, sender.ID);
 
-                    ClientNetworkManager.Instance.SendPacket(broadcastPacket, connection);
+                    if (connection != null)
+                        ClientNetworkManager.Instance.SendPacket(broadcastPacket, connection);
 
                 }
 
@@ -344,8 +345,8 @@ namespace AppServer.Services.Simulation
 
                 var connection = playerComponent.Connection;
 
-
-                ClientNetworkManager.Instance.SendPacket(packet, connection);
+                if (connection != null)
+                    ClientNetworkManager.Instance.SendPacket(packet, connection);
             }
 
         }
@@ -363,8 +364,10 @@ namespace AppServer.Services.Simulation
             _totalThen = _timer.Elapsed.TotalSeconds;
 
             // Check to see if the timer is expired
-            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 999 || (_serviceContainer.PlayersAlive == 1 && _timer.Elapsed.TotalSeconds > 10f) )
+#if !DEBUG_MOCK
+            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 999 || (_serviceContainer.PlayersAlive == 1 && _timer.Elapsed.TotalSeconds > 10f))
                 TerminateSession();
+#endif
 
             // If the game has started, run the simulation
             if (_timer.IsRunning)
@@ -382,7 +385,7 @@ namespace AppServer.Services.Simulation
             //TODO: Implement a solver for finding out the winner of the match effectively
             // In most cases, this is the last player standing but not always
 
- 
+
 
             // Let subscribers know this game is finished
             var result = new SessionEndStatistics(Session.Users[0], _timer.Elapsed.TotalSeconds);

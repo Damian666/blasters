@@ -80,7 +80,7 @@ namespace AppServer.Services
                 if (!need)
                     return;
 
-                // Add the user to the routing table
+                // Add the user  to the routing table
                 _routingTable.Add(obj.Sender, result);
 
                 Logger.Instance.Log(Level.Debug, "Session " + result.Session.SessionID + ":" + " A user has succesfully passed their token.");

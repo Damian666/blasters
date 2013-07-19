@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
+using System.Windows.Forms;
 using BlastersGame.Network;
 using BlastersGame.Screens;
 using BlastersShared.Game.Entities;
@@ -12,6 +15,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 #endregion
 
@@ -35,21 +40,71 @@ namespace BlastersGame
             graphics.PreferredBackBufferHeight = 600;
             Window.Title = "Blasters Online";
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            
+
 
             PacketService.RegisterPacket<SessionEndedLobbyPacket>(Instance_ClientDisconnected);
 
             foreach (var launchParameter in Environment.GetCommandLineArgs())
             {
-                Console.Write(launchParameter);   
+                Console.Write(launchParameter);
             }
 
+            // Time to hook the exception reporter if not connected to a debugger
+            if (!Debugger.IsAttached)
+            {
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            }
+
+        }
+
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            // Grab the exception
+            var exception = (Exception)e.ExceptionObject;
+
+            var fromAddress = new MailAddress("dev@blastersonline.com", "Developer Logger Service");
+            var toAddress = new MailAddress("dev@blastersonline.com", "Blasters Development Team");
+            string subject = "Exception Report - " + Environment.MachineName;
+            string body = exception.Message + "\n" + exception.Data + "\n" + exception.StackTrace + "\n" + exception.Source + "\n";
+
+            string systemInfo = Environment.OSVersion + Environment.NewLine + exception.InnerException;
+            body += systemInfo;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Credentials = new NetworkCredential("blastersdeveloperservice@gmail.com", "ru-aBRuc6E*+UJ"),
+                Timeout = 3000
+            };
+
+            smtp.SendCompleted += smtp_SendCompleted;
+            smtp.Timeout = 2;
+
+            var message = new MailMessage(fromAddress, toAddress);
+            message.From = fromAddress;
+            message.Subject = subject;
+            message.Body = body;
+
+            smtp.Send(message);
+
+            MessageBox.Show(
+                "Unfortunately, Blasters Online has encountered a problem and been forced to shutdown. An error report has been sent to help fix this issue.");
+
+
+        }
+
+        void smtp_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            Console.WriteLine(e.Error);
         }
 
         private void Instance_ClientDisconnected(SessionEndedLobbyPacket obj)
         {
             Process.GetCurrentProcess().Kill();
-            
+
         }
 
 
@@ -65,7 +120,7 @@ namespace BlastersGame
             // TODO: Add your initialization logic here
             screenManager = new ScreenManager(this);
             screenManager.Initialize();
-            screenManager.AddScreen(new TitleScreen(),  null);
+            screenManager.AddScreen(new TitleScreen(), null);
 
             //HACK: Defintely don't want this here forever
             Entity._counter = ulong.MaxValue - 10000;
@@ -104,11 +159,11 @@ namespace BlastersGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            screenManager.Update(gameTime);            
+            screenManager.Update(gameTime);
 
 
             NetworkManager.Instance.Update();
-            
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
