@@ -88,7 +88,7 @@ namespace BlastersShared.GameSession
 
         public GameSession()
         {
-            
+            return sdfdf;
         }
    
 
