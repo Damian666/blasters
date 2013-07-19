@@ -67,6 +67,8 @@ namespace BlastersGame.Services
         private void HandleEntityRemove(EntityRemovePacket entityRemovePacket)
         {
 
+            Console.WriteLine("Handling");
+
             var entity = ServiceManager.RetrieveEntityByID(entityRemovePacket.EntityID);
 
 

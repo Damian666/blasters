@@ -78,7 +78,7 @@ namespace BlastersGame.Services
         private List<Entity> _toRemove = new List<Entity>();
 
         /// <summary>
-        /// Removes an entity from the server container, also fires off an event to notify.
+        /// Removes an entity from the server con   tainer, also fires off an event to notify.
         /// </summary>
         /// <param name="entity"></param>
         public void RemoveEntity(Entity entity)
@@ -128,12 +128,11 @@ namespace BlastersGame.Services
 
         public void UpdateService(GameTime gameTime)
         {
+
+
+
             foreach (var service in _services)
                 service.Update(gameTime);
-        }
-
-        public void UpdateInput(InputState inputState)
-        {
 
             foreach (var toRemove in _toRemove)
             {
@@ -141,6 +140,14 @@ namespace BlastersGame.Services
                 OnEntityRemoved(toRemove);
             }
             _toRemove.Clear();
+
+
+        }
+
+        public void UpdateInput(InputState inputState)
+        {
+
+          
 
             foreach (var service in _services)
                 service.HandleInput(inputState);

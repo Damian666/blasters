@@ -42,6 +42,7 @@ namespace BlastersGame
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
 
 
+
             PacketService.RegisterPacket<SessionEndedLobbyPacket>(Instance_ClientDisconnected);
 
             foreach (var launchParameter in Environment.GetCommandLineArgs())
