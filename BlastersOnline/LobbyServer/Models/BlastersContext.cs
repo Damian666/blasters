@@ -9,7 +9,7 @@ namespace LobbyServer.Models
     {
         static BlastersContext()
         {
-            Database.SetInitializer<BlastersContext>(null);
+            Database.SetInitializer(new CreateDatabaseIfNotExists<BlastersContext>());
         }
 
         public BlastersContext()
