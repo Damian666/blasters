@@ -61,7 +61,7 @@ namespace LobbyServer
             var context = new BlastersContext();
 
             // Retrieve that user from the db
-            var member = context.blastersmembers.FirstOrDefault();
+            var member = context.users.FirstOrDefault();
 
             // Create ten default games
             for (int i = 0; i < 1; i++)

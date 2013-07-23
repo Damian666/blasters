@@ -36,6 +36,11 @@ namespace BlastersShared.Models
         public GameSession.GameSession CurrentSession { get; set; }
 
         /// <summary>
+        /// The date in which this user was registered and created for the game
+        /// </summary>
+        public DateTime CreationDate { get; set; }
+
+        /// <summary>
         /// The connection associated with this given user
         /// </summary>
         [DoNotSerialize]

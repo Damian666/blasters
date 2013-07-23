@@ -21,6 +21,7 @@ namespace LobbyServer.Models.Mapping
             this.Property(t => t.Id).HasColumnName("id");
             this.Property(t => t.BlastersMembersID).HasColumnName("blastersmembers_id");
             this.Property(t => t.Name).HasColumnName("name");
+            this.Property(t => t.CreationDate).HasColumnName("CreationDate").IsRequired();
 
             // Relationships
             this.HasRequired(t => t.BlastersMember)

@@ -52,7 +52,7 @@ namespace LobbyServer.Models.Mapping
                 .HasMaxLength(3);
 
             this.Property(t => t.ignored_users)
-                .HasMaxLength(65535);
+                .HasMaxLength(2222);
 
             this.Property(t => t.mgroup_others)
                 .IsRequired()
@@ -67,7 +67,7 @@ namespace LobbyServer.Models.Mapping
                 .HasMaxLength(32);
 
             this.Property(t => t.has_blog)
-                .HasMaxLength(65535);
+                .HasMaxLength(2222);
 
             this.Property(t => t.members_display_name)
                 .IsRequired()
@@ -89,7 +89,7 @@ namespace LobbyServer.Models.Mapping
                 .HasMaxLength(255);
 
             this.Property(t => t.failed_logins)
-                .HasMaxLength(65535);
+                .HasMaxLength(2222);
 
             this.Property(t => t.members_pass_hash)
                 .IsRequired()
@@ -131,13 +131,13 @@ namespace LobbyServer.Models.Mapping
                 .HasMaxLength(200);
 
             this.Property(t => t.fb_token)
-                .HasMaxLength(65535);
+                .HasMaxLength(2222);
 
             this.Property(t => t.ips_mobile_token)
                 .HasMaxLength(64);
 
             this.Property(t => t.ipsconnect_revalidate_url)
-                .HasMaxLength(65535);
+                .HasMaxLength(2222);
 
             // Table & Column Mappings
             this.ToTable("blastersmembers", "blasters");
