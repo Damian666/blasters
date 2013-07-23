@@ -13,7 +13,7 @@ namespace LobbyServer.Models
         }
 
         public BlastersContext()
-            : base("Name=blastersContext")
+            : base("blastersContext")
         {
         }
 
