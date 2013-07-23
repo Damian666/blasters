@@ -307,6 +307,9 @@
     <None Include="Content\Levels\Battle_Royale.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Levels\Battle_Royale_Arena.tmx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Levels\Battle_Royale_Big.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
