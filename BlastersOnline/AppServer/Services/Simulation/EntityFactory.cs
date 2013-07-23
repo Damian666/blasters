@@ -7,6 +7,7 @@ using BlastersShared;
 using BlastersShared.Game.Components;
 using BlastersShared.Game.Components.PowerUp;
 using BlastersShared.Game.Entities;
+using BlastersShared.Models;
 using Microsoft.Xna.Framework;
 
 namespace AppServer.Services.Simulation

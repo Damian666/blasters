@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BlastersShared;
 using BlastersShared.Network.Packets.ClientLobby;
 using Lidgren.Network;
+using LobbyServer.Models;
 using LobbyServer.Network;
 using LobbyServer.Services;
 using LobbyServer.Services.Chat;
@@ -57,6 +58,11 @@ namespace LobbyServer
 
 //            Thread.Sleep(5000);
 
+            var context = new BlastersContext();
+
+            // Retrieve that user from the db
+            var member = context.blastersmembers.FirstOrDefault();
+
             // Create ten default games
             for (int i = 0; i < 1; i++)
                 _gameSessionService.CreateSession();
@@ -67,7 +73,7 @@ namespace LobbyServer
             var done = false;
 
 
-       
+
 
             while (true)
             {
@@ -92,7 +98,7 @@ namespace LobbyServer
                _client.Start();
                 _client.Connect("localhost", 8787);
                 Thread.Sleep(2000);
-                var user = new User(_client.ServerConnection, "Vaughan");
+                var user = new BlastersShared.User(_client.ServerConnection, "Vaughan");
                 _authenticationService.AddUser(user);
 
                 var demoSession = _gameSessionService.CreateSession();

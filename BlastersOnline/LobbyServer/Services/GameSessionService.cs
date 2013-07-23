@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BlastersShared;
 using BlastersShared.Game;
 using BlastersShared.GameSession;
+using BlastersShared.Models;
 using BlastersShared.Network.Packets;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.ClientLobby;

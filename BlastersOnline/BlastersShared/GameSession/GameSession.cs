@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlastersShared.Models;
 
 namespace BlastersShared.GameSession
 {
@@ -96,8 +97,6 @@ namespace BlastersShared.GameSession
         {
 
             return Name;
-
-            return base.ToString();
         }
 
 
