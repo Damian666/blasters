@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace LobbyServer.Migrations
 {
     using System;
@@ -15,18 +17,12 @@ namespace LobbyServer.Migrations
 
         protected override void Seed(LobbyServer.Models.BlastersContext context)
         {
-            //  This method will be called after migrating to the latest version.
+             var baseDir = AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug", string.Empty) + "\\Migrations";
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            // Execute SQL to keep users up to date
+            context.Database.ExecuteSqlCommand(File.ReadAllText(baseDir + "\\seed_users.sql"));
+
+
         }
     }
 }
