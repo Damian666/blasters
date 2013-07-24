@@ -151,11 +151,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Content\LobbyBridge\LoginView\functions.coffee">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\LobbyBridge\LoginView\images\loginscreen.psd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Include="Content\LobbyBridge\LoginView\franklingothicdemi.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -313,110 +310,45 @@
     <Content Include="Content\LobbyBridge\GameReadyView\style.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\bootbox.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\bootbox.js" />
+    <Content Include="Content\LobbyBridge\LoginView\bootstrap.js" />
+    <Content Include="Content\LobbyBridge\LoginView\css\bootstrap-responsive.css" />
+    <Content Include="Content\LobbyBridge\LoginView\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\LobbyBridge\LoginView\css\bootstrap.css" />
+    <Content Include="Content\LobbyBridge\LoginView\css\bootstrap.min.css" />
+    <Content Include="Content\LobbyBridge\LoginView\functions.js" />
+    <Content Include="Content\LobbyBridge\LoginView\images\login_assembled.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\bootstrap.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_close.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\css\bootstrap.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_createaccount.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\functions.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_forgotpassword.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\back.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_forum.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\backarrow.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_homepage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\background.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_login.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\bottombarbg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_news.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\close.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_patchnotes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\createroom.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_btn_reportbug.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\divider.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\eastserver.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\forward.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\gameroom.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\gameroombg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\greenwaiting.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\help.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\lobby.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\login.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\loginscreen.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\menu.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\menubg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\menudivider.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\mypage.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\newsbarbg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\pagenumbers.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\playersonlinebg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\playersonlinetop.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\quests.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\quickplay.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\redwaiting.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\roombg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\shop.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\smileyface.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\LobbyBridge\LoginView\images\statsbg.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\LobbyBridge\LoginView\images\login_core.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\LobbyBridge\LoginView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -424,6 +356,10 @@
     <Content Include="Content\LobbyBridge\LoginView\style.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\LobbyBridge\RoomSelectView\css\bootstrap-responsive.css" />
+    <Content Include="Content\LobbyBridge\RoomSelectView\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\LobbyBridge\RoomSelectView\css\bootstrap.css" />
+    <Content Include="Content\LobbyBridge\RoomSelectView\css\bootstrap.min.css" />
     <Content Include="Content\LobbyBridge\RoomSelectView\functions.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

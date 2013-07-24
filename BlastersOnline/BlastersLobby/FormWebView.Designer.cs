@@ -41,7 +41,7 @@
             this.webControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webControl1.Location = new System.Drawing.Point(0, 0);
             this.webControl1.NavigationInfo = Awesomium.Core.NavigationInfo.Normal;
-            this.webControl1.Size = new System.Drawing.Size(808, 605);
+            this.webControl1.Size = new System.Drawing.Size(800, 600);
             this.webControl1.Source = new System.Uri("http://www.google.ca", System.UriKind.Absolute);
             this.webControl1.TabIndex = 0;
             // 
@@ -60,7 +60,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 605);
+            this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.webControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -38,34 +38,45 @@ namespace BlastersLobby.Views
             JSObject jsobject = FlowController.WebControl.CreateGlobalJavascriptObject("hook");
 
             jsobject.Bind("loginRequest", false, Handler);
+            jsobject.Bind("close", false, Handler);
 
             // Updates the view immediately
             UpdateView();
         }
 
-        private void Handler(object sender, JavascriptMethodEventArgs javascriptMethodEventArgs)
+        private void Handler(object sender, JavascriptMethodEventArgs args)
         {
-
-            var username = FlowController.WebControl.ExecuteJavascriptWithResult("document.getElementById('tusername').value");
-            var password = FlowController.WebControl.ExecuteJavascriptWithResult("document.getElementById('tpassword').value");
-
-            if (username.ToString() == string.Empty)
+            switch (args.MethodName.ToLower())
             {
-                var code = "bootbox.alert('You must specify a valid username and password. The given credentials are incorrect.');";
-                FlowController.WebControl.ExecuteJavascript(code);
-                return;
+                case "close":
+                    {
+                        Application.Exit();
+                    }
+                    break;
+
+                default:
+                    {
+                        var username = FlowController.WebControl.ExecuteJavascriptWithResult("document.getElementById('txt-username').value");
+                        var password = FlowController.WebControl.ExecuteJavascriptWithResult("document.getElementById('txt-password').value");
+
+                        if (username.ToString() == string.Empty || password.ToString() == string.Empty)
+                        {
+                            var code = "bootbox.alert('You must specify a valid username and password. The given credentials are incorrect.');";
+                            FlowController.WebControl.ExecuteJavascript(code);
+                            return;
+                        }
+
+                        var packet = new LoginRequestPacket(username, password);
+                        NetworkManager.Instance.SendPacket(packet);
+
+                        // Wait a moment
+                        //Thread.Sleep(500);
+
+                        // Change the view
+                        FlowController.ChangeView(new RoomSelectView());
+                    }
+                    break;
             }
-
-            var packet = new LoginRequestPacket(username, password);
-            NetworkManager.Instance.SendPacket(packet);
-
-            // Wait a moment
-            //Thread.Sleep(500);
-
-            // Change the view
-            FlowController.ChangeView(new RoomSelectView());
-
-
         }
 
         public override void UpdateView()

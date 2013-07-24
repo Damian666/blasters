@@ -6,6 +6,7 @@ body
 { 
 	font:14px Trebuchet MS, Tahoma, Tw Cen MT, Arial;
 	background-color: #001b3e;
+    overflow: hidden;
 }
 
 A:link {text-decoration: none; color: #FFF;}
@@ -16,7 +17,7 @@ A:hover {text-decoration: none; color: #FFF;}
 .clear {clear:both;}
 
 #mainbody {
-	width: 801px; height: 600px;
+	width: 800px; height: 600px;
 	margin: 0 auto;
 	margin: 0 0 0 0;
 	background: url('images/background.png') no-repeat;

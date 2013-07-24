@@ -9,6 +9,7 @@ body
 	background: url('images/background.png') gray no-repeat center;
 	-webkit-font-smoothing: antialiased;
     user-select: none;
+    overflow: hidden;
 }
 
 A:link {text-decoration: none; color: #000;}
