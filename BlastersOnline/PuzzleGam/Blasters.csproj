@@ -137,7 +137,7 @@
     <Content Include="Content\Sprites\Bomb.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\cursor.png">
+    <Content Include="Content\Sprites\Cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Descriptors\Blocks\BombSprite.xml">
@@ -165,9 +165,10 @@
     <Content Include="Content\Sprites\Descriptors\Modifiers\BombCountUp.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\ExplosiveSprite.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\Sprites\ExplosiveSprite.png" />
+    <Content Include="Content\Sprites\Items\Gas Flask.png" />
+    <Content Include="Content\Sprites\Items\Punching Gloves.png" />
+    <Content Include="Content\Sprites\Items\Spring Boots.png" />
     <Content Include="Content\Sprites\Mods\BombCountMax.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -288,7 +289,6 @@
     <Content Include="Content\UI\style.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Icon.ico" />
     <Content Include="ReferenceDependencies\icudt.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -303,7 +303,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\Levels\Battle_Royale.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
