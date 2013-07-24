@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -70,6 +71,8 @@ namespace LobbyServer.Services
             var user = result;
 
             result.Connection = obj.Sender;
+            result.BlastersMember = null;
+
             ServiceContainer.Users.Add(user.Connection, user);
             return user;
         }
@@ -81,8 +84,10 @@ namespace LobbyServer.Services
                 var user = new User();
                 user.Name = member.members_display_name;
                 user.BlastersMembersID = member.member_id;
+                user.CreationDate = DateTime.UtcNow;
                 context.users.Add(user);
                 context.SaveChanges();
+                ((IObjectContextAdapter)context).ObjectContext.Detach(user);             
                 return user;
             }
         }

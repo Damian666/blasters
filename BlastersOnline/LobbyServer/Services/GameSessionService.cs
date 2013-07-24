@@ -118,7 +118,7 @@ namespace LobbyServer
         private void CheckCompletion(GameSession gameSession)
         {
 
-            if (!gameSession.IsFull)
+            if (!gameSession.IsFull || gameSession.InProgress )
                 return;
 
                 // We wait, and then tell everyone it's OK to enter again
@@ -228,12 +228,18 @@ namespace LobbyServer
 
             // See if we should play again
 
+            gameSession.InProgress = false;
+
             CheckCompletion(gameSession);
         
         }
 
         private void ProcessSessionJoinRequest(SessionJoinRequestPacket obj)
         {
+
+            if (!ServiceContainer.Users.ContainsKey(obj.Sender))
+                return;
+
             // Try and add the user
             var user = ServiceContainer.Users[obj.Sender];
             var session = (from x in Sessions where x.SessionID == obj.SessionID select x);

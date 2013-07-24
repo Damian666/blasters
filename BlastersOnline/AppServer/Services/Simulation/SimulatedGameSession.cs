@@ -365,7 +365,7 @@ namespace AppServer.Services.Simulation
 
             // Check to see if the timer is expired
 #if !DEBUG_MOCK
-            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 999 || (_serviceContainer.PlayersAlive == 1 && _timer.Elapsed.TotalSeconds > 10f))
+            if (_timer.Elapsed.TotalSeconds > Session.Configuration.MaxPlayers * 999 || (_serviceContainer.PlayersAlive <= 1 && _timer.Elapsed.TotalSeconds > 10f))
                 TerminateSession();
 #endif
 

@@ -9,12 +9,14 @@ namespace LobbyServer.Models
     {
         static BlastersContext()
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<BlastersContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<BlastersContext>());          
         }
 
         public BlastersContext()
             : base("blastersContext")
         {
+            Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public DbSet<blastersmember> blastersmembers { get; set; }
