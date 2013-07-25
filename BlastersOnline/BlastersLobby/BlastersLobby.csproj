@@ -154,6 +154,7 @@
     <None Include="Content\Audio\Music\lobby.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Interface\misc\franklingothicdemi.ttf" />
     <None Include="Content\LobbyBridge\LoginView\franklingothicdemi.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -205,6 +206,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Content\Interface\core.html" />
+    <Content Include="Content\Interface\css\core.css" />
+    <Content Include="Content\Interface\css\login.css" />
+    <Content Include="Content\Interface\images\core-background.png" />
+    <Content Include="Content\Interface\images\login-panel.png" />
+    <Content Include="Content\Interface\js\blend.js" />
+    <Content Include="Content\Interface\js\login.js" />
+    <Content Include="Content\Interface\js\pixastic.custom.js" />
     <Content Include="Content\LobbyBridge\GameReadyView\images\a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
