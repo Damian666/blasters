@@ -34,7 +34,7 @@ namespace BlastersLobby
         {
             // Start playing music
             AudioManager audioManager = new AudioManager();
-            audioManager.Play(@"Content/Audio/Music/lobby.mp3");
+            audioManager.Play(@"Content/Audio/Music/lobby.ogg");
 
 
             // Initalize our flow controller

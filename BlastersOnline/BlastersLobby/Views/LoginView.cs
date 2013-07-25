@@ -11,6 +11,7 @@ using BlastersLobby.Controllers;
 using BlastersLobby.Models;
 using BlastersLobby.Network;
 using BlastersShared.Network.Packets.ClientLobby;
+using System.Diagnostics;
 
 namespace BlastersLobby.Views
 {
@@ -39,6 +40,8 @@ namespace BlastersLobby.Views
 
             jsobject.Bind("loginRequest", false, Handler);
             jsobject.Bind("close", false, Handler);
+            jsobject.Bind("openHomepage", false, Handler);
+            jsobject.Bind("openForums", false, Handler);
 
             // Updates the view immediately
             UpdateView();
@@ -51,6 +54,18 @@ namespace BlastersLobby.Views
                 case "close":
                     {
                         Application.Exit();
+                    }
+                    break;
+
+                case "openhomepage":
+                    {
+                        Process.Start("http://blastersonline.com");
+                    }
+                    break;
+
+                case "openforums":
+                    {
+                        Process.Start("http://blasters.skideria.com");
                     }
                     break;
 
