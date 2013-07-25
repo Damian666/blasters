@@ -12,6 +12,7 @@ using LobbyServer.Models;
 using LobbyServer.Network;
 using LobbyServer.Services;
 using LobbyServer.Services.Chat;
+using Newtonsoft.Json;
 
 namespace LobbyServer
 {
@@ -61,7 +62,8 @@ namespace LobbyServer
             var context = new BlastersContext();
 
             // Retrieve that user from the db
-            var member = context.users.FirstOrDefault();
+            var member = context.blastersmembers.FirstOrDefault();
+
 
             // Create ten default games
             for (int i = 0; i < 1; i++)
