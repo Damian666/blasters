@@ -84,7 +84,7 @@ namespace BlastersGame.Services
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, null, null, null, null, ServiceManager.Camera.GetTransformation());
 
             foreach (var entity in ServiceManager.Entities)
             {
@@ -108,11 +108,8 @@ namespace BlastersGame.Services
                         (int)(descriptor.FrameSize.Y * descriptor.Animations[animation].Row), 
                         (int)descriptor.FrameSize.X, (int)descriptor.FrameSize.Y);
 
-                    spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, descriptor.SpriteDepth);
-                    if (entity.HasComponent(typeof(ExplosiveComponent))) {
-                        //spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, descriptor.SpriteDepth);
-                    }
-
+                    spriteBatch.Draw(spriteComponent.Texture, transformComponent.LocalPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, -(ServiceManager.Map.WorldSizePixels.Y * descriptor.SpriteDepth) - transformComponent.LocalPosition.Y);
+                    
                     // If this sprite has a name
                     if (nameComponent != null)
                     {

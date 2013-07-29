@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
   font-family: 'Franklin Gothic Demi';
   src: url('franklingothicdemi.ttf') format("truetype");
 }
@@ -10,13 +10,24 @@
     font-size: 16px;
 }
 
+
 #container {
 	width: 800px;
     height: 600px;
     overflow: hidden;
     background: url('images/login_core.png') no-repeat;
 	margin: 0px 0px;
-}
+}*/
+
+* { margin: 0px; padding: 0px; }
+
+A:link {text-decoration: none; color: #000;}
+A:visited {text-decoration: none; color: #000;}
+A:active {text-decoration: none; color: #000;}
+A:hover {text-decoration: none; color: #000;}
+
+.clear {clear:both;}
+
 
 body
 { 

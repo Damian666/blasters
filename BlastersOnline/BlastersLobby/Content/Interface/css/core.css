@@ -10,143 +10,22 @@
     font-size: 16px;
 }
 
-#container-page {
+#page-container {
 	width: 800px;
     height: 600px;
-    margin: 0px auto;
+    margin: 0px;
     overflow: hidden;
     background: url('../images/core-background.png') no-repeat;
 }
 
-#container-newsbar {
-    position: absolute;
-    width: 779px;
-    height: 35px;
-    top: 0px;
-    left: 12px;
+#page-header {
+
 }
 
-#container-footer {
-    
+#page-body {
+
 }
 
-#btn-news {
-    margin: 2px 4px;
-    width: 73px;
-    height: 28px;
-}
+#page-footer {
 
-#container-bottom {
-    position: absolute;
-    width: 800px;
-    height: 34px;
-    top: 566px;
-    left: 0px;
-}
-
-
-#container-login {
-    background: url('../images/login-panel.png') no-repeat;
-    opacity: 0.74;
-    margin: -3px;
-    padding: 3px;
-    width: auto;
-}
-
-#btn-homepage {
-    position: absolute;
-    top: 4px;
-    left: 10px;
-    margin-top: -3px;
-    margin-left: -3px;
-}
-
-#btn-forum {
-    position: absolute;
-    top: 4px;
-    left: 125px;
-    margin-top: -3px;
-    margin-left: -3px;
-}
-
-#btn-patchnotes {
-    position: absolute;
-    top: 4px;
-    left: 217px;
-    margin-top: -3px;
-    margin-left: -3px;
-}
-
-#btn-reportbug {
-    position: absolute;
-    top: 4px;
-    left: 333px;
-    margin-top: -3px;
-    margin-left: -3px;
-}
-
-#btn-close {
-    position: absolute;
-    top: 4px;
-    left: 750px;
-    margin-top: -3px;
-    margin-left: -3px;
-}
-
-#btn-login {
-    position: absolute;
-    top: 104px;
-    left: 234px;
-    margin-top: -3px;
-    margin-left: -3px;
-}
-
-#btn-createaccount {
-    position: absolute;
-    top: 201px;
-    left: 23px;
-    margin-top: -3px;
-    margin-left: -3px;
-}
-
-#btn-forgotpassword {
-    position: absolute;
-    top: 201px;
-    left: 168px;
-    margin-top: -3px;
-    margin-left: -3px;
-}
-
-#txt-username {
-    position: absolute;
-    top: 101px;
-    left: 6px;
-}
-
-#txt-password {
-    position: absolute;
-    top: 146px;
-    left: 6px;
-}
-
-input, input:hover, input:focus, input:active {
-    font-family: 'Franklin Gothic Demi';
-    font-size: 16px;
-    margin: 3px;
-    padding: 0px 11px;
-    width: 200px;
-    height: 43px;
-    border: 0px;
-    outline: none;
-    outline-offset: 0;
-    background-color: transparent;
-    font-size: 16px;
-    color: #FFFFFF;
-    -webkit-text-stroke: 0.25px #000000;
-    text-shadow: 0px 0px 2px #000000;
-}
-
-::-webkit-input-placeholder {
-    color: #FFFFFF;
-    font-size: 16px;
 }

@@ -18,7 +18,7 @@ namespace BlastersGame.Services
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, ServiceManager.Camera.GetTransformation());
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, ServiceManager.Camera.GetTransformation());
 
             // Draw tiles
             foreach (TmxLayer layer in ServiceManager.Map.Layers)
@@ -36,8 +36,9 @@ namespace BlastersGame.Services
                     var tileset = _tilesets[tile.GID];
                     spriteBatch.Draw(tileset.Texture,
                         new Vector2(tile.X, tile.Y) * tileset.TileSize,
-                        tileset.GetTileRectangle(tile), 
-                        Color.White);
+                        tileset.GetTileRectangle(tile), Color.White,
+                        0f, Vector2.Zero, 0f, SpriteEffects.None,
+                        -(ServiceManager.Map.WorldSizePixels.Y - tile.X));
                 }
             }
 
