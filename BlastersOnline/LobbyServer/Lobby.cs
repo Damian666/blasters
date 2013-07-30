@@ -23,6 +23,8 @@ namespace LobbyServer
         static GameSessionService _gameSessionService = new GameSessionService();
         static AuthenticationService _authenticationService = new AuthenticationService();
         static ChatService _chatService = new ChatService();
+        static UserIntentService _intentService = new UserIntentService();
+
         static BlastersShared.Services.ServiceContainer _serviceContainer = new BlastersShared.Services.ServiceContainer();
 
         static void Main(string[] args)
@@ -45,6 +47,7 @@ namespace LobbyServer
             _serviceContainer.RegisterService(_gameSessionService);
             _serviceContainer.RegisterService(_appServerService);
             _serviceContainer.RegisterService(_chatService);
+            _serviceContainer.RegisterService(_intentService);
 
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
