@@ -73,6 +73,7 @@
     <Compile Include="Packets\ClientLobby\SessionLeaveRequest.cs" />
     <Compile Include="Packets\ClientLobby\SessionListRequestPacket.cs" />
     <Compile Include="Packets\ClientLobby\LoginRequestPacket.cs" />
+    <Compile Include="Packets\ClientLobby\UserIntentChangePacket.cs" />
     <Compile Include="Packets\Client\NotifyLoadedGamePacket.cs" />
     <Compile Include="Packets\Client\NotifyMovementPacket.cs" />
     <Compile Include="Packets\Client\RequestPlaceBombPacket.cs" />

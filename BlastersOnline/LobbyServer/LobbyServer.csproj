@@ -75,6 +75,7 @@
     <Compile Include="Services\AppServerService.cs" />
     <Compile Include="AppServer\AppServer.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\Chat\ChatFilter.cs" />
     <Compile Include="Services\Chat\ChatService.cs" />
     <Compile Include="Services\GameSessionService.cs" />
     <Compile Include="Global.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="MasterAccount.cs" />
     <Compile Include="Services\LobbyRoomService.cs" />
     <Compile Include="Services\MatchmakingService.cs" />
+    <Compile Include="Services\QuestService.cs" />
     <Compile Include="Services\UserIntentService.cs" />
     <Compile Include="TrueObservableCollection.cs" />
   </ItemGroup>
