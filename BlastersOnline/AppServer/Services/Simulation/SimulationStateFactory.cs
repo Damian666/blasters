@@ -44,7 +44,7 @@ namespace AppServer.Services.Simulation
 
         private static Stack<Vector2> GetPlayerSpawnPositions()
         {
-            var currentMap = new TmxMap(string.Format(@"Content\Levels\{0}.tmx", "Battle_Royale"));
+            var currentMap = new TmxMap(string.Format(@"Content\Levels\{0}.tmx", "Battle_Royale_Big"));
             var pos = new List<Vector2>();
 
             foreach (var obj in ((TmxObjectGroup) currentMap.ObjectGroups[0]).Objects )

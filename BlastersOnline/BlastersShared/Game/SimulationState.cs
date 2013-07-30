@@ -34,7 +34,7 @@ namespace BlastersShared.Game
         /// </summary>
         public SimulationState()
         {
-            MapName = "Battle_Royale";
+            MapName = "Battle_Royale_Big";
         }
 
 
