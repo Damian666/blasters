@@ -118,7 +118,6 @@ namespace BlastersGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             screenManager = new ScreenManager(this);
             screenManager.Initialize();
             screenManager.AddScreen(new TitleScreen(), null);
@@ -187,7 +186,6 @@ namespace BlastersGame
 
             screenManager.Draw(gameTime);
 
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

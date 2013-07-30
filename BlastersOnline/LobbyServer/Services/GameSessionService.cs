@@ -11,6 +11,7 @@ using BlastersShared;
 using BlastersShared.Game;
 using BlastersShared.GameSession;
 using BlastersShared.Models;
+using BlastersShared.Models.Enum;
 using BlastersShared.Network.Packets;
 using BlastersShared.Network.Packets.AppServer;
 using BlastersShared.Network.Packets.ClientLobby;
@@ -95,7 +96,7 @@ namespace LobbyServer
         private void SessionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
             // A LINQ where to find all users who are not in a game
-            var idleUsers = ServiceContainer.Users.Values.Where(x => x.CurrentSession == null).ToList();
+            var idleUsers = GetUsersAwaitingSession();
             // Session we're going to kill off
             var session = (GameSession)notifyCollectionChangedEventArgs.NewItems[0];
 
@@ -275,9 +276,8 @@ namespace LobbyServer
         private void UsersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
 
-            // Any user that isn't in a game but in the lobby is probably interested in this change of events
-            // A LINQ where to find all users who are not in a game
-            var idleUsers = ServiceContainer.Users.Values.Where(x => x.CurrentSession == null).ToList();
+            // Finds all users that are interested in this kind of update
+            var idleUsers = GetUsersAwaitingSession();
 
             // Grab the current session
             var user = (User)notifyCollectionChangedEventArgs.NewItems[0];
@@ -297,6 +297,14 @@ namespace LobbyServer
 
             }
 
+        }
+
+        private IEnumerable<User> GetUsersAwaitingSession()
+        {
+            var idleUsers =
+                ServiceContainer.Users.Values.Where(
+                    x => x.CurrentSession == null && x.UserIntents.HasFlag(UserIntents.SessionUpdates)).ToList();
+            return idleUsers;
         }
 
         private void ProcessSessionEnded(SessionEndedLobbyPacket obj)
