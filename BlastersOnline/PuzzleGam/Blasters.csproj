@@ -329,9 +329,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Content\Levels\Battle_Royale.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

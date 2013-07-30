@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BlastersShared;
 using BlastersShared.Models;
 using BlastersShared.Network.Packets.ClientLobby;
+using BlastersShared.Network.Packets.Lobby;
 using BlastersShared.Services;
 using LobbyServer.Models;
 using LobbyServer.Network;
@@ -43,11 +44,25 @@ namespace LobbyServer.Services
 
                 Logger.Instance.Log(Level.Info, user.Name + " has joined the lobby.");
 
+           
+                var packet = new LoginResultPacket(LoginResultPacket.LoginResult.Succesful);
+                ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
+
                 // Send the user a list of sessions going on 
+                //TODO: Send this when they register the intent - it's more generic     
                 var sessionService = (GameSessionService)ServiceContainer.GetService(typeof(GameSessionService));
                 sessionService.SendUserSessions(user);
                 sessionService.SendToUsersOnlineList();
 
+            }
+
+            
+            else
+            {
+                // Reject the user if they aren't able to authenticate
+
+                var packet = new LoginResultPacket(LoginResultPacket.LoginResult.Failed);
+                ClientNetworkManager.Instance.SendPacket(packet, obj.Sender);
             }
         }
 
@@ -104,6 +119,10 @@ namespace LobbyServer.Services
         /// <param name="password">The password to challenge</param>
         bool AreCredentialsValid(string username, string password)
         {
+
+            #if DEBUG
+                        return true;         
+            #endif
 
             var context = new BlastersContext();
 

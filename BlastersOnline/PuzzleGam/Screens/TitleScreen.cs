@@ -76,7 +76,8 @@ namespace BlastersGame.Screens
             string[] info = list[2].Split(Convert.ToChar(":"));
 
 #if DEBUG_MOCK
-            info[0] = "localhost";
+            info[0] = "localhost"+
+"";
             info[1] = "7798";
             _myToken = Guid.Empty;
 

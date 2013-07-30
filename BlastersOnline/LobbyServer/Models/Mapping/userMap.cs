@@ -9,7 +9,7 @@ namespace LobbyServer.Models.Mapping
         public userMap()
         {
             // Primary Key
-            this.HasKey(t => t.Id);
+            this.HasKey(t => t.UserId);
 
             // Properties
             this.Property(t => t.Name)
@@ -18,7 +18,7 @@ namespace LobbyServer.Models.Mapping
 
             // Table & Column Mappings
             this.ToTable("user", "blasters");
-            this.Property(t => t.Id).HasColumnName("id");
+            this.Property(t => t.UserId).HasColumnName("UserId");
             this.Property(t => t.BlastersMembersID).HasColumnName("blastersmembers_id").IsRequired();
             this.Property(t => t.Name).HasColumnName("name").IsRequired();
             this.Property(t => t.CreationDate).HasColumnName("CreationDate").IsRequired();
@@ -27,6 +27,8 @@ namespace LobbyServer.Models.Mapping
             this.HasRequired(t => t.BlastersMember)
                 .WithMany(t => t.users)
                 .HasForeignKey(d => d.BlastersMembersID);
+
+
 
         }
     }

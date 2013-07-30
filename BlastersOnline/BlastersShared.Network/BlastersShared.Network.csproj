@@ -76,7 +76,8 @@
     <Compile Include="Packets\Client\NotifyLoadedGamePacket.cs" />
     <Compile Include="Packets\Client\NotifyMovementPacket.cs" />
     <Compile Include="Packets\Client\RequestPlaceBombPacket.cs" />
-    <Compile Include="Packets\Lobby\LoginRequestResultPacket.cs" />
+    <Compile Include="Packets\Lobby\SessionUpdatePacket.cs" />
+    <Compile Include="Packets\Lobby\LoginResultPacket.cs" />
     <Compile Include="Packets\Lobby\NotifySessionBeginAppServerPacket.cs" />
     <Compile Include="Packets\Lobby\SessionBeginNotificationPacket.cs" />
     <Compile Include="Packets\Lobby\SessionJoinResultPacket.cs" />

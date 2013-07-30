@@ -50,7 +50,8 @@ namespace LobbyServer
                 var appServer = new AppServer.AppServer(obj.Sender, "Ikaros", 0);            
                 ApplicationServers.Add(appServer);
                 Logger.Instance.Log(Level.Info,
-                                    string.Format("The application server {0} has joined the cluster.", appServer.Name));              ;
+                                    string.Format("The application server {0} has joined the cluster.", appServer.Name));              
+
             }
             else
             {
@@ -58,15 +59,6 @@ namespace LobbyServer
             }
       
 
-        }
-
-        /// <summary>
-        /// Proccesses a <see cref="GameSession"/> and sends it to the approtiate application server.
-        /// </summary>
-        public void ProcessGameSessionRequest(GameSession gameSession)
-        {
-
-            
         }
 
 

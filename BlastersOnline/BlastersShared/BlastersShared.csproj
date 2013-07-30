@@ -130,6 +130,8 @@
     <Compile Include="Game\UserSessionConfig.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\blastersmember.cs" />
+    <Compile Include="Models\Enum\UserIntents.cs" />
+    <Compile Include="Models\GameSessionEntry.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomExtensions.cs" />

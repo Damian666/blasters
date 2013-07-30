@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using BlastersShared.Game;
+using BlastersShared.Models.Enum;
 using Lidgren.Network;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,12 +10,14 @@ namespace BlastersShared.Models
 {
     public partial class User
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public int BlastersMembersID { get; set; }
         public string Name { get; set; }
 
         [DoNotSerialize]
         public virtual blastersmember BlastersMember { get; set; }
+
+        //public virtual ICollection<GameSessionEntry> GameSessionEntries { get; set; }
 
         /// <summary>
         /// A secure token is a token a user sends down to an app server upon joining a game so that the app server
@@ -22,6 +26,13 @@ namespace BlastersShared.Models
         /// </summary>
         [NotMapped]
         public Guid SecureToken { get; set; }
+
+        /// <summary>
+        /// The current user intents
+        /// </summary>
+        [NotMapped]
+        [DoNotSerialize]
+        public UserIntents UserIntents { get; set; }
 
         /// <summary>
         /// A session config is a set of properties used for a specific session

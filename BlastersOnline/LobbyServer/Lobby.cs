@@ -65,6 +65,7 @@ namespace LobbyServer
             var member = context.blastersmembers.FirstOrDefault();
 
 
+
             // Create ten default games
             for (int i = 0; i < 1; i++)
                 _gameSessionService.CreateSession();
@@ -100,7 +101,7 @@ namespace LobbyServer
                _client.Start();
                 _client.Connect("localhost", 8787);
                 Thread.Sleep(2000);
-                var user = new BlastersShared.User(_client.ServerConnection, "Vaughan");
+                var user = new BlastersShared.Models.User(_client.ServerConnection, "Vaughan");
                 _authenticationService.AddUser(user);
 
                 var demoSession = _gameSessionService.CreateSession();

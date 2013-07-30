@@ -9,7 +9,7 @@ namespace LobbyServer.Models
     {
         static BlastersContext()
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<BlastersContext>());          
+            Database.SetInitializer(new CreateDatabaseIfNotExists<BlastersContext>());
         }
 
         public BlastersContext()
@@ -21,11 +21,16 @@ namespace LobbyServer.Models
 
         public DbSet<blastersmember> blastersmembers { get; set; }
         public DbSet<User> users { get; set; }
+        public DbSet<GameSessionEntry> GameSessionEntries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new blastersmemberMap());
             modelBuilder.Configurations.Add(new userMap());
+            modelBuilder.Configurations.Add(new GameSessionEntryMap());
+
+
+
         }
     }
 }

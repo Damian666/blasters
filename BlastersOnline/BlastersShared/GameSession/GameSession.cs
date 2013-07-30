@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace BlastersShared.GameSession
         /// <summary>
         /// A list of users wanting to participate in this session
         /// </summary>
-        public List<User> Users { get; set; }
+        public ObservableCollection<User> Users { get; set; }
 
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace BlastersShared.GameSession
         {
             var rUID = new Random().Next(45345435);
             var session = new GameSession(null);
-            session.Configuration = new GameSessionConfig("Deathmatch Game #" + session.SessionID, 4, GameSessionType.Normal);
+            session.Configuration = new GameSessionConfig("Deathmatch Game #" + session.SessionID, 1, GameSessionType.Normal);
             return session;
         }
 
@@ -83,7 +84,7 @@ namespace BlastersShared.GameSession
                 _idCounter++;
             }
 
-            Users = new List<User>();
+            Users = new ObservableCollection<User>();
             InProgress = false;
         }
 

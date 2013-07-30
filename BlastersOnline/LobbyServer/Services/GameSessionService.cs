@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Security.Authentication;
 using System.Text;
@@ -27,7 +29,7 @@ namespace LobbyServer
         /// <summary>
         /// A list of sessions currently in-progress or waiting
         /// </summary>
-        private List<GameSession> Sessions { get; set; }
+        private ObservableCollection<GameSession> Sessions { get; set; }
 
         /// <summary>
         /// Sends a specific user a list of currently active sessions in the lobby.
@@ -35,9 +37,24 @@ namespace LobbyServer
         /// <param name="user">The user to send all the sessions to</param>
         public void SendUserSessions(User user)
         {
-            var packet = new SessionListInformationPacket(Sessions);
+            var packet = new SessionListInformationPacket(Sessions.ToList());
             ClientNetworkManager.Instance.SendPacket(packet, user.Connection);
         }
+
+        /// <summary>
+        /// Sends a specific user a list of currently active sessions in the lobby.
+        /// </summary>
+        /// <param name="user">The user to send all the sessions to</param>
+        public void SendUserUpdatedSession(User user, GameSession session)
+        {
+
+            var stubList = new List<GameSession>();
+            stubList.Add(session);
+
+            var packet = new SessionListInformationPacket(stubList);
+            ClientNetworkManager.Instance.SendPacket(packet, user.Connection);
+        }
+
 
         public void SendUserOnlineList(User user)
         {
@@ -57,6 +74,46 @@ namespace LobbyServer
             foreach (var user in ServiceContainer.Users.Values)
             {
                 SendUserOnlineList(user);
+            }
+        }
+
+
+        public GameSessionService()
+        {
+            Sessions = new ObservableCollection<GameSession>();
+
+            Sessions.CollectionChanged += SessionsOnCollectionChanged;
+
+            // Register network callbacks
+            PacketService.RegisterPacket<SessionJoinRequestPacket>(ProcessSessionJoinRequest);
+            PacketService.RegisterPacket<SessionEndedLobbyPacket>(ProcessSessionEnded);
+            PacketService.RegisterPacket<SessionCreateRequestPacket>(ProcessSessionCreate);
+            PacketService.RegisterPacket<SessionLeaveRequest>(ProcessSessionLeave);
+
+        }
+
+        private void SessionsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            // A LINQ where to find all users who are not in a game
+            var idleUsers = ServiceContainer.Users.Values.Where(x => x.CurrentSession == null).ToList();
+            // Session we're going to kill off
+            var session = (GameSession)notifyCollectionChangedEventArgs.NewItems[0];
+
+            switch (notifyCollectionChangedEventArgs.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (var user in idleUsers)
+                        SendUserUpdatedSession(user, session);
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+
+                    // The client should parse max ID as preparing to remove
+                    session.SessionID = uint.MaxValue;
+
+                    foreach (var user in idleUsers)
+                        SendUserUpdatedSession(user, session);
+                    break;
             }
         }
 
@@ -88,9 +145,16 @@ namespace LobbyServer
             if (gameSession.InProgress)
                 return false;
 
+            //TODO: When room creation logic is in, comment this back in
+            // If noone is in this room, it's being destroyed
+            //   if (gameSession.Users.Count == 0)
+            //       return false;
+
+
             // Add the user if it appears safe
-            gameSession.Users.Add(user);
             user.CurrentSession = gameSession;
+            gameSession.Users.Add(user);
+          
 
 
             //TODO; Don't auto start the game; check for wait flags. This will suffice for now, though
@@ -118,10 +182,10 @@ namespace LobbyServer
         private void CheckCompletion(GameSession gameSession)
         {
 
-            if (!gameSession.IsFull || gameSession.InProgress )
+            if (!gameSession.IsFull || gameSession.InProgress)
                 return;
 
-                // We wait, and then tell everyone it's OK to enter again
+            // We wait, and then tell everyone it's OK to enter again
 
             //Sessions.Remove(gameSession);
 
@@ -141,7 +205,7 @@ namespace LobbyServer
                     cUser.SecureToken = Guid.Empty;
 #endif
 
-            var appServerService = (AppServerService) ServiceContainer.GetService(typeof (AppServerService));
+            var appServerService = (AppServerService)ServiceContainer.GetService(typeof(AppServerService));
             var server = appServerService.GetAvailableServer();
 
             // Notify the app server
@@ -149,7 +213,7 @@ namespace LobbyServer
             ClientNetworkManager.Instance.SendPacket(appServerNotifyPacket, server.Connection);
 
             var endpointInfo = server.Connection.RemoteEndpoint.ToString();
-            
+
             //endpointInfo = "99.235.224.52:7798";
 
             // We generate a secure token for each user
@@ -165,21 +229,22 @@ namespace LobbyServer
             Logger.Instance.Log(Level.Info, "The simulation is being completed on: " + server.Name);
         }
 
-        public GameSessionService()
-        {
-            Sessions = new List<GameSession>();
 
-            // Register network callbacks
-            PacketService.RegisterPacket<SessionJoinRequestPacket>(ProcessSessionJoinRequest);
-            PacketService.RegisterPacket<SessionEndedLobbyPacket>(ProcessSessionEnded);
-            PacketService.RegisterPacket<SessionCreateRequestPacket>(ProcessSessionCreate);
-            PacketService.RegisterPacket<SessionLeaveRequest>(ProcessSessionLeave);
-
-        }
 
         private void ProcessSessionLeave(SessionLeaveRequest obj)
         {
-            throw new NotImplementedException();
+
+            // Retrieve the user
+            var user = ServiceContainer.Users[obj.Sender];
+
+            // Get the users session
+            var session = user.CurrentSession;
+
+            // Remove this user
+            session.Users.Remove(user);
+
+            // If this was the last user, this room is now extinct
+            session.Users.CollectionChanged -= UsersOnCollectionChanged;
         }
 
         private void ProcessSessionCreate(SessionCreateRequestPacket obj)
@@ -187,8 +252,12 @@ namespace LobbyServer
             // Retrieve the user that wants to enter
             var user = ServiceContainer.Users[obj.Sender];
 
-            if(user.CurrentSession != null)
-                throw new AuthenticationException("The user requesting this is not authorized to create a session. They are currently in one.");
+            // If the user is in a session, they shouldn't be able to make one
+            if (user.CurrentSession != null)
+            {
+                Logger.Instance.Log(Level.Warn, user.Name + " has attempted to create a match but was already in one.");
+                return;
+            }
 
             // Generate a new session
             var generatedSession = CreateSession();
@@ -201,6 +270,32 @@ namespace LobbyServer
             // Add the user into the session
             AddToSession(user, generatedSession);
 
+        }
+
+        private void UsersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+
+            // Any user that isn't in a game but in the lobby is probably interested in this change of events
+            // A LINQ where to find all users who are not in a game
+            var idleUsers = ServiceContainer.Users.Values.Where(x => x.CurrentSession == null).ToList();
+
+            // Grab the current session
+            var user = (User)notifyCollectionChangedEventArgs.NewItems[0];
+            var session = user.CurrentSession;
+
+            // Construct a packet with the new user amount
+            var packet = new SessionUpdatePacket((byte) session.Users.Count);
+
+            // Determine the event
+            switch (notifyCollectionChangedEventArgs.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (var idleUser in idleUsers)
+                        ClientNetworkManager.Instance.SendPacket(packet, idleUser.Connection);
+                    break;
+
+            }
 
         }
 
@@ -231,7 +326,7 @@ namespace LobbyServer
             gameSession.InProgress = false;
 
             CheckCompletion(gameSession);
-        
+
         }
 
         private void ProcessSessionJoinRequest(SessionJoinRequestPacket obj)
@@ -277,6 +372,9 @@ namespace LobbyServer
 
             Logger.Instance.Log(Level.Info, "A match was succesfully created with the name " + session.Name + ", ID: " + session.SessionID);
 
+            // Create the event handler
+            session.Users.CollectionChanged += UsersOnCollectionChanged;
+
             return session;
         }
 
@@ -289,7 +387,7 @@ namespace LobbyServer
 
         internal void ActivateSession(GameSession demoSession)
         {
-           CheckCompletion(demoSession);
+            CheckCompletion(demoSession);
         }
     }
 }
