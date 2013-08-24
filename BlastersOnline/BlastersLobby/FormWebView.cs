@@ -43,8 +43,9 @@ namespace BlastersLobby
             webControl1.ConsoleMessage += webControl1_ConsoleMessage;       
 
             // Change the view as needed
-            var roomSelectView = new LoginView();
+            var roomSelectView = new MainView();
             _flowController.ChangeView(roomSelectView);
+
         }
 
         void webControl1_ConsoleMessage(object sender, Awesomium.Core.ConsoleMessageEventArgs e)

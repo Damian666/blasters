@@ -50,5 +50,7 @@ namespace BlastersLobby.Views
             }
         }
 
+        public abstract void OnClose();
+
     }
 }

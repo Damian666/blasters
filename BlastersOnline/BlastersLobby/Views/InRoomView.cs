@@ -136,7 +136,9 @@ namespace BlastersLobby.Views
                 
         }
 
-
-
+        public override void OnClose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

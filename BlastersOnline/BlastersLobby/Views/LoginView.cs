@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AppServer.Network;
 using Awesomium.Core;
+using Awesomium.Windows.Forms;
 using BlastersLobby.Controllers;
 using BlastersLobby.Models;
 using BlastersLobby.Network;
@@ -19,29 +20,37 @@ namespace BlastersLobby.Views
     {
         private const string VIEW_PATH_HTML = @"Content\LobbyBridge\LoginView\index.html";
 
-
+        public override void OnClose()
+        {
+            
+        }
 
         public override void OnViewAppeared()
         {
-            FlowController.WebControl.Source = new Uri(Environment.CurrentDirectory + @"\" + VIEW_PATH_HTML);
-
-            
 
             FlowController.WebControl.DocumentReady += WebControlOnDocumentReady;
 
-        
 
         }
 
         private void WebControlOnDocumentReady(object sender, UrlEventArgs urlEventArgs)
         {
+            GetValue();
+        }
 
+
+
+        private void GetValue()
+        {
             JSObject jsobject = FlowController.WebControl.CreateGlobalJavascriptObject("hook");
 
             jsobject.Bind("loginRequest", false, Handler);
             jsobject.Bind("close", false, Handler);
             jsobject.Bind("openHomepage", false, Handler);
             jsobject.Bind("openForums", false, Handler);
+
+            // Load the approriate HTML view
+            FlowController.WebControl.ExecuteJavascript("viewManager.setView('rooms');");
 
             // Updates the view immediately
             UpdateView();

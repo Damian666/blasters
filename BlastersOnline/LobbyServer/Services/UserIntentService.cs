@@ -51,7 +51,7 @@ namespace LobbyServer.Services
 
         public override void PeformUpdate()
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

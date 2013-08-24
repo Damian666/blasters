@@ -25,6 +25,11 @@ namespace BlastersLobby.Views
         private RoomSelectController _controller;
         private RoomSelectModel _model;
 
+        public override void OnClose()
+        {
+            PacketService.DeRegisterPacket<SessionJoinResultPacket>(ProcessJoinResult);
+        }
+
         public override void OnViewAppeared()
         {
             FlowController.WebControl.Source = new Uri(Environment.CurrentDirectory + @"\" + VIEW_PATH_HTML);
@@ -88,8 +93,6 @@ namespace BlastersLobby.Views
 
         public override void UpdateView()
         {
-
-            return;
 
             ExecuteJavascriptViaString("setPlayerNames", _model.OnlineUsers);
             var list = new List<string>();

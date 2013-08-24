@@ -15,6 +15,13 @@ namespace BlastersLobby.Network
             Handlers[typeof(T)] = packet => handler((T)packet);
         }
 
+        public static void DeRegisterPacket<T>(Action<T> handler)
+    where T : Packet
+        {
+            Action<Packet> result;
+            Handlers.TryRemove(typeof(T), out result);
+        }
+
         public void ProcessReceivedPacket(Packet packet)
         {
             Action<Packet> handler;
